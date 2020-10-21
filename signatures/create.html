@@ -33,7 +33,7 @@
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label" for="signatureCode">Codigo *</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="signatureCode" id="signatureCode" maxlength="64" placeholder="Codigo" required>
+                        <input type="text" class="form-control" name="signatureName" id="signatureCode" maxlength="64" placeholder="Codigo" required>
                       </div>
                     </div>
 
@@ -57,6 +57,14 @@
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.0/dist/bootstrap-validate.js"></script>
+    <script>
+      
+      bootstrapValidate('#signatureName', 'required: Complete este campo')
+      bootstrapValidate('#signatureCode', 'required: Complete este campo')
+      bootstrapValidate('#signatureDepartment', 'required: Complete este campo')
+      
+    </script>
     <script>
       let btnGuardar = document.getElementById('btnGuardar');
       btnGuardar.addEventListener('click', (event) => {
