@@ -32,9 +32,8 @@
 
         <!-- Card body  -->
         <div class="card-body">
-          <form action="" method="get">
-            <div class="form-group row">
 
+            <div class="form-group row">
               <div class="col-md-10">
                 <div class="form-group row d-flex justify-content-center">
                   <label class="col-md-2 col-form-label" for="selecTypeSearch">Buscar por...</label>
@@ -50,37 +49,33 @@
                     <input type="text" class="form-control" name="searchValue" id="searchValue" placeholder="Ingrese el DNI">
                   </div>
                   <div class="col-md-2">
-                    <button class="btn btn-dark" type="submit" name="search">
+                    <button class="btn btn-dark" id="btnBuscar" name="search">
                       Buscar
                     </button>
                   </div>
                 </div>
-
               </div>
             </div>
-          </form>
 
 
           <div class="row">
-            <div class="col-md-5">
-              <div class="careerList d-flex justify-content-center">
-                  <ul class="list-unstyled" id="signatureList">
-                      <li class="mb-2" id="{{$users->id}}" value="{{$users->id}}">
-                        <button class="btn btn-dark btn-block text-left" type="button" name="button" onclick="">
-                        Buscar
-                        </button>
-                      </li>
-                  </ul>
-                </div>
-            </div>
-
-            <div class="col-md-6" id="signatureInfo">
-            </div>
+            <table class="table">
+              <thead>
+                <tr>       
+                  <th scope="col">Lu</th>
+                  <th scope="col">Nombre y Apellido</th>
+                  <th scope="col">Rol</th>
+                </tr>
+              </thead>
+              <tbody id="signatureList">
+              </tbody>
+            </table>
         </div>
       </div>
 
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
       function showUserInfo(user){
         var output = "";
@@ -107,6 +102,40 @@
         }
       }
     });
+
+    function createItem(data){
+      let fila = document.createElement("tr");
+      let celda_lu = document.createElement("td");
+      let celda_nombre = document.createElement("td");
+      let celda_rol = document.createElement("td");
+      celda_lu.appendChild(document.createTextNode(""+data['legajo']));
+      celda_nombre.appendChild(document.createTextNode(""+data['nombre_apellido']));
+      celda_rol.appendChild(document.createTextNode(""+data['type']));
+      fila.appendChild(celda_lu);
+      fila.appendChild(celda_nombre);
+      fila.appendChild(celda_rol);
+      return fila;
+    }
+
+
+    let btnBuscar = document.getElementById('btnBuscar');
+    btnBuscar.addEventListener('click', (event) =>{
+      let list = document.getElementById('signatureList');
+      list.innerHTML="";
+      axios.post('https://pss2020api.herokuapp.com/api/user/search',
+      {
+        "search": document.getElementById('searchValue').value,
+      }
+      ).then(function (response) {
+        console.log(response);
+        if(response.status = 200){
+          response.data.users.forEach( u => {
+            document.getElementById('signatureList').appendChild(createItem(u))
+          });
+        }
+      })
+    });
+
     </script>
   </body>
 </html>
