@@ -146,7 +146,7 @@
 
     let addCarrera = document.getElementById('addCarrera');
     addCarrera.addEventListener('click', (event) => {
-        axios.post('http:/127.0.0.1:8000/api/carrera',
+        axios.post('https://pss2020api.herokuapp.com/api/carrera',
           {   
             "nombre": document.getElementById('careerName').value,
             "identificador": document.getElementById('careerCode').value,
