@@ -21,7 +21,6 @@
 
                 <!-- Card body -->
                 <div class="card-body">
-                  <form class="p-4" method="post" action="/careers">
 
                     <!-- Campo del nombre de la carrera -->
                     <div class="form-group row">
@@ -69,37 +68,108 @@
                       Añadir materias al plan
                     </div>
 
-                    <div class="form-row mb-3">
-                      <div class="col-md-6 ">
-                        <label for="selectCourses" class="col-form-label">Añadir materia</label>
-                        <select class="custom-select" name="selectCourses">
-                          <option>Materia 1</option>
-                          <option>Materia 2</option>
-                          <option>Materia 3</option>
-                          <option>Materia 4</option>
-                          <option>Materia 5</option>
-                        </select>
-                      </div>
-                      <div class="col-md-3">
-                        <label for="courseYear" class="col-form-label">Año</label>
-                        <input type="text" class="form-control" name="courseYear" placeholder="Año">
-                      </div>
-                      <div class="col-md-3">
-                        <label for="selectCuatrimestre" class="col-form-label">Seleccionar cuatrimestre</label>
-                          <select class="custom-select mr-sm-2" name="selectCuatrimestre">
-                            <option value="Primer">1</option>
-                            <option value="Segundo">2</option>
-                          </select>
-                      </div>
-                    </div>
-
+                    <table id ="Materias">
+                        <tr>
+                            <th>Nombre de Materia</th>
+                            <th>Año de la Materia</th>
+                            <th>Cuatrimestre de la Materia</th>
+                        </tr>
+                        <tr>
+                            <td id="col0">
+                              <select id="signaturesSelect" name = "materiaName[]" value = ""/>
+                            </td>
+                            <td id="col1"><input type = "integer" name = "materiaAnio[]" value = ""/></td>
+                            <td id="col2">
+                              <select name="materiaCuatrimestre[]" id="cuatri">
+                                <option value="0">Seleccionar Cuatrimestre</option>
+                                <option value="1">Primer Cuatrimestre</option>
+                                <option value="2">Segundo Cuatrimestre</option>
+                              </select>
+                        </tr>
+                    </table>
+                    <table> 
+		                <tr> 
+			                <td><input class="btn btn-dark" type="button" value="Agregar Materia" onclick="addRows()" /></td> 
+			                <td><input class="btn btn-dark" type="button" value="Eliminar Materia" onclick="deleteRows()" /></td>
+		                </tr>  
+	                </table>
                     <hr>
-                    <button type="submit" class="btn btn-primary float-right">Guardar</button>
-                  </form>
+                    <button id="saveButton" class="btn btn-dark float-right">Guardar</button>
+                  
                 </div>
             </div>
         </div>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      window.onload = function() {
+        let select = document.getElementById('signaturesSelect');
+        axios.post('https://pss2020api.herokuapp.com/api/materia/search',
+        {
+          "search": "",
+        }
+        ).then(function (response) {
+          console.log(response);
+          if(response.status = 200){
+            response.data.materias.forEach( materia => {
+              document.getElementById('signaturesSelect').add(makeOption(materia))
+          });
+        }
+        })
+      }
+               
+
+      function makeOption(materia) {
+        let option = document.createElement("option");
+        option.appendChild(document.createTextNode(""+materia['nombre']));
+        return option;
+      }
+
+      let saveButton = document.getElementById('saveButton');
+      saveButton.addEventListener('click', (event) => {
+        axios.post('https://pss2020api.herokuapp.com/api/carrera',
+          {
+            "nombre": document.getElementById("careerName").value,
+            "identificador": document.getElementById("careerCode").value,
+            "dpto": document.getElementById("careerDepartment").value,
+            "docente": document.getElementById("careerProfessor").value,
+            "duracion": document.getElementById("careerRuntime").value
+          }
+        ).then(function (response) {
+          console.log(response);
+        })
+      });
+
+      function addRows(){ 
+        var table = document.getElementById('Materias');
+        var rowCount = table.rows.length;
+        var cellCount = table.rows[0].cells.length; 
+        var row = table.insertRow(rowCount);
+        for(var i =0; i <= cellCount; i++){
+          var cell = 'cell'+i;
+          cell = row.insertCell(i);
+          var copycel = document.getElementById('col'+i).innerHTML;
+          cell.innerHTML=copycel;
+        }
+      }
+
+      function deleteRows(){
+        var table = document.getElementById('Materias');
+        var rowCount = table.rows.length;
+        if(rowCount > '2'){
+          var row = table.deleteRow(rowCount-1);
+          rowCount--;
+        }
+        else{
+          alert('Se necesita al menos 1 fila');
+        }
+    }
+
+    </script>
+
+    <script type="text/javascript">
+    
+   </script>
   </body>
 </html>

@@ -124,8 +124,7 @@
         "search": document.getElementById('searchValue').value,
       }
       ).then(function (response) {
-        console.log(response);
-        if(response.status = 200){
+        if(response.status == 200){
           response.data.carreras.forEach( u => {
             document.getElementById('signatureList').appendChild(createItem(u))
           });
