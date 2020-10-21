@@ -60,16 +60,36 @@
     <script>
       let btnGuardar = document.getElementById('btnGuardar');
       btnGuardar.addEventListener('click', (event) => {
-        axios.post('https://pss2020api.herokuapp.com/api/materia',
-          {   
-            "nombre": document.getElementById("signatureName").value,
-            "identificador": document.getElementById("signatureCode").value,
-            "dpto": document.getElementById("signatureDepartment").value
-          }
-        ).then(function (response) {
-          console.log(response);
-        })
-      });
+		if(!document.getElementById("signatureName").value ||
+				!document.getElementById("signatureCode").value ||
+				!document.getElementById("signatureDepartment").value)
+			alert("Error: Campo Obligatorio no completado");
+		else {
+			if(document.getElementById("signatureCode").value <= 0)
+				alert("Error: El codigo de la materia no puede ser menor a cero");
+			else {
+				axios.post('https://pss2020api.herokuapp.com/api/materia',
+					{
+					"nombre": document.getElementById("signatureName").value,
+					"identificador": document.getElementById("signatureCode").value,
+					"dpto": document.getElementById("signatureDepartment").value
+					}
+				).then(function (response) {
+					document.getElementById("signatureName").value="";
+					document.getElementById("signatureCode").value="";
+					document.getElementById("signatureDepartment").value="";
+					alert("Datos cargados correctamente");
+				}).catch(function (error) {
+						if(error.response)
+							alert("Error: "+ error.response.data.message);
+						else 
+							alert("Error: No se pudo comunicar con el sistema")
+				});
+			}
+			}
+		});
+
+        
     </script>
   </body>
 </html>
