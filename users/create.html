@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+  <head>
+    <meta charset="utf-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <div class="content">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md mt-4 mb-4">
+              <div class="card">
+                  <!-- Card header -->
+                  <div class="card-header h2">Ingresar usuario</div>
+
+                  <!-- Card body -->
+                  <div class="card-body">
+
+                      <!-- Campo del nombre de usuario -->
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="name">Nombre y apellido *</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" name="name" id="name" maxlength="256" placeholder="Nombre y apellido" required>
+                          </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="birthdate">Fecha de nacimiento *</label>
+                        <div class="col-sm-10">
+                          <input type="date" class="form-control" name="birthdate" id="birthdate" maxlength="256" placeholder="Fecha de nacimiento" required>
+                          </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="birthplace">Lugar de nacimiento *</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" name="birthplace" id="birthplace" maxlength="256" placeholder="Lugar de nacimiento" required>
+                          </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="dni">D.N.I. *</label>
+                        <div class="col-sm-10">
+                          <input type="number" class="form-control" name="dni" id="dni" placeholder="DNI" required>
+                          </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="email">Email *</label>
+                        <div class="col-sm-10">
+                          <input type="email" class="form-control" name="email" id="email" maxlength="256" placeholder="Email" required>
+                          </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="address">Dirección *</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" name="address" id="address" maxlength="256" placeholder="Dirección" required>
+                          </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="phonenumber">Telefono *</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" name="phonenumber" id="phonenumber" maxlength="256" placeholder="Telefono">
+                          </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="address">Tipo de usuario</label>
+                        <div class="col-sm-10">
+                          <select class="custom-select" name="userType" id="userType">
+                            <option value="alumno">Alumno</option>
+                            <option value="docente">Docente</option>
+                            <option value="admin">Administrador</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="lu">L.U. *</label>
+                        <div class="col-sm-10">
+                          <input type="number" class="form-control" name="lu" id="lu" maxlength="256" placeholder="L.U.">
+                          </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="password">Contraseña *</label>
+                        <div class="col-sm-10">
+                          <input type="password" class="form-control" name="password" id="password" maxlength="256" placeholder="Contraseña">
+                          </div>
+                      </div>
+
+                      <div class="form-group row" id="schoolDiv">
+                        <label class="col-sm-2 col-form-label" for="school">Secundaria</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" name="school" id="school" maxlength="256" placeholder="Escuela secundaria">
+                          </div>
+                      </div>
+
+                      <hr>
+                      <button id ="btnGuardar" class="btn btn-primary float-right">Guardar</button>
+
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      const selectElement = document.getElementById('userType');
+      selectElement.addEventListener('change', (event) => {
+        const school = document.getElementById('school');
+        if (event.target.value == "student")
+          school.disabled = false;
+        else {
+          school.disabled = true;
+          school.content = "";
+        }
+      });
+
+      // const axios = require('axios');
+      let btnGuardar = document.getElementById('btnGuardar');
+      console.log(btnGuardar);
+      btnGuardar.addEventListener('click', (event) => {
+        axios.post('https://pss2020api.herokuapp.com/api/register',
+          {   
+            "email": document.getElementById("email").value,
+            "password": document.getElementById("password").value,
+            "password_confirmation": document.getElementById("password").value,
+            "type": document.getElementById("userType").value,
+            "nombre_apellido": document.getElementById("name").value,
+            "fecha_nacimiento": document.getElementById("birthdate").value,
+            "lugar_nacimiento": document.getElementById("birthplace").value,
+            "DNI": document.getElementById("dni").value,
+            "direccion": document.getElementById("address").value,
+            "telefono": document.getElementById("phonenumber").value,
+            "legajo": document.getElementById("lu").value,
+            "escuela": document.getElementById("school").value
+          }
+        ).then(function (response) {
+          console.log(response);
+        })
+      });
+
+    </script>
+  </body>
+</html>
