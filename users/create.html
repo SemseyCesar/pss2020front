@@ -131,7 +131,7 @@
       const selectElement = document.getElementById('userType');
       selectElement.addEventListener('change', (event) => {
         const school = document.getElementById('school');
-        if (event.target.value == "student")
+        if (event.target.value == "alumno")
           school.disabled = false;
         else {
           school.disabled = true;
@@ -142,25 +142,54 @@
       // const axios = require('axios');
       let btnGuardar = document.getElementById('btnGuardar');
       btnGuardar.addEventListener('click', (event) => {
-        axios.post('https://pss2020api.herokuapp.com/api/register',
-          {   
-            "email": document.getElementById("email").value,
-            "password": document.getElementById("password").value,
-            "password_confirmation": document.getElementById("password").value,
-            "type": document.getElementById("userType").value,
-            "nombre_apellido": document.getElementById("name").value,
-            "fecha_nacimiento": document.getElementById("birthdate").value,
-            "lugar_nacimiento": document.getElementById("birthplace").value,
-            "DNI": document.getElementById("dni").value,
-            "direccion": document.getElementById("address").value,
-            "telefono": document.getElementById("phonenumber").value,
-            "legajo": document.getElementById("lu").value,
-            "escuela": document.getElementById("school").value
-          }
-        ).then(function (response) {
-          console.log(response);
-        })
-      });
+		var today = new Date();
+		if(!document.getElementById("email").value ||
+				!document.getElementById("password").value ||
+				!document.getElementById("password").value ||
+				!document.getElementById("userType").value ||
+				!document.getElementById("name").value ||
+				!document.getElementById("birthdate").value ||
+				!document.getElementById("birthplace").value ||
+				!document.getElementById("dni").value ||
+				!document.getElementById("address").value ||
+				!document.getElementById("phonenumber").value ||
+				!document.getElementById("lu").value ||
+				(userType.value=="alumno" && !document.getElementById("school").value))
+			alert("Error: Campo Obligatorio no completado");
+		else{
+			if (document.getElementById("birthdate").value > today)
+				alert("Error: La fecha de nacimiento debe ser menor a la fecha actual");
+			else {
+				if (document.getElementById("dni").value <= 0) 
+					alert("Error: El numero de documento no puede ser menor a cero");
+				else {
+					if (document.getElementById("phonenumber").value <= 0)
+						alert("Error: El numero de Telefono no puede ser menor a cero");
+					else {
+						axios.post('https://pss2020api.herokuapp.com/api/register',
+							{   
+							"email": document.getElementById("email").value,
+							"password": document.getElementById("password").value,
+							"password_confirmation": document.getElementById("password").value,
+							"type": document.getElementById("userType").value,
+							"nombre_apellido": document.getElementById("name").value,
+							"fecha_nacimiento": document.getElementById("birthdate").value,
+							"lugar_nacimiento": document.getElementById("birthplace").value,
+							"DNI": document.getElementById("dni").value,
+							"direccion": document.getElementById("address").value,
+							"telefono": document.getElementById("phonenumber").value,
+							"legajo": document.getElementById("lu").value,
+							"escuela": document.getElementById("school").value
+							}
+						).then(function (response) {
+							console.log(response);
+						});
+					}
+				}
+			}
+		}
+	  });
+        
 
     </script>
   </body>
