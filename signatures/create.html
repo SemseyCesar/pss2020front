@@ -22,8 +22,6 @@
 
                 <!-- Card body -->
                 <div class="card-body">
-                  <form class="p-4" method="post" action="/signatures">
-
                     <!-- Campo del nombre de la carrera -->
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label" for="signatureName">Nombre *</label>
@@ -52,14 +50,27 @@
 
                     Lista de carreras
 
-
                     <hr>
-                    <button type="submit" class="btn btn-primary float-right">Guardar</button>
-                  </form>
+                    <button type="submit" id="btnGuardar" class="btn btn-primary float-right">Guardar</button>
                 </div>
             </div>
         </div>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      let btnGuardar = document.getElementById('btnGuardar');
+      btnGuardar.addEventListener('click', (event) => {
+        axios.post('https://pss2020api.herokuapp.com/api/materia',
+          {   
+            "nombre": document.getElementById("signatureName").value,
+            "identificador": document.getElementById("signatureCode").value,
+            "dpto": document.getElementById("signatureDepartment").value
+          }
+        ).then(function (response) {
+          console.log(response);
+        })
+      });
+    </script>
   </body>
 </html>
