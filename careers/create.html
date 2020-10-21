@@ -87,7 +87,7 @@
                       </div>
                       <div class="col-md-3">
                         <label for="courseYear" class="col-form-label">Año</label>
-                        <input type="text" class="form-control" name="courseYear" placeholder="Año" id="anio">
+                        <input type="number" class="form-control" name="courseYear" placeholder="Año" id="anio">
                       </div>
                       <div class="col-md-3">
                         <label for="selectCuatrimestre" class="col-form-label">Seleccionar cuatrimestre</label>
@@ -122,6 +122,17 @@
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.0/dist/bootstrap-validate.js"></script>
+    <script>
+      
+      bootstrapValidate('#careerName', 'required: Complete este campo')
+      bootstrapValidate('#careerCode', 'required: Complete este campo')
+      bootstrapValidate('#careerDepartment', 'required: Complete este campo')
+      bootstrapValidate('#careerProfessor', 'required: Complete este campo')
+      bootstrapValidate('#careerRuntime', 'integer: La duracion debe ser un numero entero')
+      bootstrapValidate('#anio', 'required: Complete este campo')
+      
+    </script>
     <script>
 
     var materiasSelected = [];
