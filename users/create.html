@@ -193,8 +193,12 @@
 							document.getElementById("password").value = "";
 							document.getElementById("school").value = "";
 							alert("Datos cargados correctamente");
-							console.log(response);
-						});
+						}).catch(function (error) {
+							if(error.response)
+								alert("Error: "+ error.response.data.message);
+							else 
+								alert("Error: No se pudo comunicar con el sistema")
+						  });
 					}
 				}
 			}
