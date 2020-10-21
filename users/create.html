@@ -127,6 +127,21 @@
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.0/dist/bootstrap-validate.js"></script>
+    <script>
+      
+      bootstrapValidate('#name', 'required: Complete este campo')
+      bootstrapValidate('#birthdate', 'max:10: Ingrese una fecha valida')
+      bootstrapValidate('#birthplace', 'required: Complete este campo')
+      bootstrapValidate('#dni', 'min:7: Ingrese un DNI valido')
+      bootstrapValidate('#email', 'required: Complete este campo')
+      bootstrapValidate('#address', 'required: Complete este campo')
+      bootstrapValidate('#phonenumber', 'required: Complete este campo')
+      bootstrapValidate('#lu', 'required: Complete este campo')
+      bootstrapValidate('#password', 'min:8: La contraseña debe tener al menos 8 caracteres')
+      bootstrapValidate('#school', 'required: Complete este campo')
+      
+    </script>
     <script>
       const selectElement = document.getElementById('userType');
       selectElement.addEventListener('change', (event) => {
