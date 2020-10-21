@@ -126,7 +126,9 @@
       ).then(function (response) {
         if(response.status == 200){
           response.data.carreras.forEach( u => {
-            document.getElementById('signatureList').appendChild(createItem(u))
+			if( (selecTypeSearch.value == "name" && u['nombre'].includes(document.getElementById('searchValue').value)) ||
+				(selecTypeSearch.value == "code" && u['identificador'].includes(document.getElementById('searchValue').value)))
+					document.getElementById('signatureList').appendChild(createItem(u))
           });
         }
       })

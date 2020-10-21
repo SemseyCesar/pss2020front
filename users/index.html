@@ -129,7 +129,10 @@
         console.log(response);
         if(response.status == 200){
           response.data.users.forEach( u => {
-            document.getElementById('signatureList').appendChild(createItem(u))
+			if( (selecTypeSearch.value == "dni" && u['DNI'].includes(document.getElementById('searchValue').value)) ||
+				(selecTypeSearch.value == "lu" && u['legajo'].includes(document.getElementById('searchValue').value)) ||
+				(selecTypeSearch.value == "name" && u['nombre_apellido'].includes(document.getElementById('searchValue').value)))
+					document.getElementById('signatureList').appendChild(createItem(u))
           });
         }
       })
