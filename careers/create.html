@@ -167,9 +167,20 @@
             "materias": materiasSelected,
           }
         ).then(function (response) {
-          console.log(response);
-        })
-      });
+			document.getElementById('careerName').value="";
+            document.getElementById('careerCode').value="";
+            document.getElementById('careerDepartment').value="";
+            document.getElementById('careerProfessor').value="";
+            document.getElementById('careerRuntime').value="";
+			document.getElementById('signatureList').innerHTML = '';
+          alert("Datos cargados correctamente");
+		}).catch(function (error) {
+			if(error.response)
+				alert("Error: "+ error.response.data.message);
+			else 
+			alert("Error: No se pudo comunicar con el sistema")
+		 });
+        });
     
 
     axios.post('https://pss2020api.herokuapp.com/api/materia/search',
