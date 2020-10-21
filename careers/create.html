@@ -22,7 +22,6 @@
 
                 <!-- Card body -->
                 <div class="card-body">
-                  <form class="p-4" method="post" action="/careers">
 
                     <!-- Campo del nombre de la carrera -->
                     <div class="form-group row">
@@ -71,36 +70,102 @@
                     </div>
 
                     <div class="form-row mb-3">
-                      <div class="col-md-6 ">
+                      <div class="col-md-4">
                         <label for="selectCourses" class="col-form-label">Añadir materia</label>
-                        <select class="custom-select" name="selectCourses">
-                          <option>Materia 1</option>
-                          <option>Materia 2</option>
-                          <option>Materia 3</option>
-                          <option>Materia 4</option>
-                          <option>Materia 5</option>
+                        <select class="custom-select" name="selectCourses" id="selectMateria">
                         </select>
                       </div>
                       <div class="col-md-3">
                         <label for="courseYear" class="col-form-label">Año</label>
-                        <input type="text" class="form-control" name="courseYear" placeholder="Año">
+                        <input type="text" class="form-control" name="courseYear" placeholder="Año" id="anio">
                       </div>
                       <div class="col-md-3">
                         <label for="selectCuatrimestre" class="col-form-label">Seleccionar cuatrimestre</label>
-                          <select class="custom-select mr-sm-2" name="selectCuatrimestre">
-                            <option value="Primer">1</option>
-                            <option value="Segundo">2</option>
+                          <select class="custom-select mr-sm-2" name="selectCuatrimestre" id="selectCuatrimestre">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
                           </select>
                       </div>
+                      <div class="col-md-2">
+                        <label for="addMateria" class="col-form-label w-100">Acciones</label>
+                        <button class="btn btn-success" id="addMateria">+</button>
+                      </div>
                     </div>
-
+                    <div class="row">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Año</th>
+                            <th scope="col">Cuatrimestre</th>
+                          </tr>
+                        </thead>
+                        <tbody id="signatureList">
+                        </tbody>
+                      </table>
+                  </div>
                     <hr>
                     <button type="submit" class="btn btn-primary float-right">Guardar</button>
-                  </form>
                 </div>
             </div>
         </div>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+
+    var materiasSelected = [];
+
+    function refreshSelected(){
+      document.getElementById('signatureList').innerHTML ="";
+      materiasSelected.forEach(elem =>{
+        let fila = document.createElement("tr");
+        let celda_nombre = document.createElement("td");
+        let celda_anio = document.createElement("td");
+        let celda_cuatrimestre = document.createElement("td");
+        celda_nombre.appendChild(document.createTextNode(""+elem['nombre']));
+        celda_anio.appendChild(document.createTextNode(""+elem['anio']));
+        celda_cuatrimestre.appendChild(document.createTextNode(""+elem['cuatrimestre']));
+        fila.appendChild(celda_nombre);
+        fila.appendChild(celda_anio);
+        fila.appendChild(celda_cuatrimestre);
+        document.getElementById('signatureList').appendChild(fila);
+      })
+
+    };
+
+    axios.post('https://pss2020api.herokuapp.com/api/materia/search',
+      {
+        "search": "",
+      }
+      ).then(function (response) {
+        console.log(response);
+        if(response.status == 200){
+          response.data.materias.forEach( u => {
+            let option = document.createElement("OPTION");
+            option.setAttribute("id", "option-"+u["id"]);
+            option.setAttribute("value", u["id"]);
+            let text = document.createTextNode(u["nombre"]);
+            option.appendChild(text);
+            document.getElementById('selectMateria').appendChild(option);
+          });
+        }
+    });
+
+    let addMateria = document.getElementById('addMateria');
+    addMateria.addEventListener('click', (event) =>{
+      let id = document.getElementById('selectMateria').value;
+
+      if(materiasSelected.filter(e => e.id == id).length > 0)
+        return;
+      materiasSelected.push({
+        "id": id,
+        "nombre": document.getElementById('option-'+id).text,
+        "anio": document.getElementById('anio').value,
+        "cuatrimestre": document.getElementById('selectCuatrimestre').value,
+      });
+      this.refreshSelected();
+    })
+    </script>
   </body>
 </html>
