@@ -182,6 +182,17 @@
 							"escuela": document.getElementById("school").value
 							}
 						).then(function (response) {
+							document.getElementById("name").value = "";
+							document.getElementById("birthdate").value = "";
+							document.getElementById("birthplace").value = "";
+							document.getElementById("dni").value = "";
+							document.getElementById("email").value = "";
+							document.getElementById("address").value = "";
+							document.getElementById("phonenumber").value = "";
+							document.getElementById("lu").value = "";
+							document.getElementById("password").value = "";
+							document.getElementById("school").value = "";
+							alert("Datos cargados correctamente");
 							console.log(response);
 						});
 					}
