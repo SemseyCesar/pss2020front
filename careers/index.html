@@ -5,19 +5,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
+
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-    <style>
-      .careerList {
-        border-right: 1px groove #ccc;
-        color: #636b6f;
-        font-size: 16px;
-      }
-    </style>
+  <style>
+    .usersList {
+      border-right: 1px groove #ccc;
+      color: #636b6f;
+      font-size: 16px;
+    }
+  </style>
 
   </head>
   <body>
@@ -25,14 +27,13 @@
       <div class="card">
         <!-- Card header -->
         <div class="card-header h2">
-          Ingresar carrera
+          Buscar Carrera
         </div>
 
         <!-- Card body  -->
         <div class="card-body">
-          <form action="/careers" method="get">
-            <div class="form-group row">
 
+            <div class="form-group row">
               <div class="col-md-10">
                 <div class="form-group row d-flex justify-content-center">
                   <label class="col-md-2 col-form-label" for="selecTypeSearch">Buscar por...</label>
@@ -43,51 +44,36 @@
                     </select>
                   </div>
 
-                  <div class="col-md-4">
-                    <input type="text" class="form-control" name="searchValue" id="searchValue" placeholder="Ingrese el nombre">
+                  <div class="col-md-5">
+                    <input type="text" class="form-control" name="searchValue" id="searchValue" placeholder="Ingrese el Nombre">
                   </div>
                   <div class="col-md-2">
-                    <button class="btn btn-dark" type="submit" name="search">
+                    <button class="btn btn-dark" id="btnBuscar" name="search">
                       Buscar
                     </button>
                   </div>
                 </div>
-
               </div>
             </div>
-          </form>
 
 
           <div class="row">
-            <div class="col-md-5">
-              <div class="careerList d-flex justify-content-center">
-                  <ul class="list-unstyled" id="careerList">
-                        <li class="mb-2" id="{{$career->id}}" value="{{$career->id}}">
-                          <button class="btn btn-dark btn-block text-left" type="button" name="button" onclick="">
-                            Buscar
-                          </button>
-                        </li>
-                  </ul>
-              </div>
-            </div>
-
-            <div class="col-md-6" id="careerInfo">
-            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Idenficiador</th>
+                </tr>
+              </thead>
+              <tbody id="signatureList">
+              </tbody>
+            </table>
         </div>
       </div>
 
     </div>
 
-    <script>
-      function showCareerInfo(career){
-        var output = "<strong>Nombre</strong> " + career.name + "<br>" +
-          "<strong>Codigo</strong> " + career.code + "<br>" +
-          "<strong>Departamento</strong> " + career.departament + "<br>" +
-          "<strong>Docente</strong> " + career.professor + "<br>" +
-          "<strong>Duracion</strong> " + career.runtime + "<br>";
-        document.getElementById("careerInfo").innerHTML = output;
-      }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
     const selectElement = document.getElementById('selecTypeSearch');
@@ -95,11 +81,56 @@
     selectElement.addEventListener('change', (event) => {
       const searchText = document.getElementById('searchValue');
       searchText.content = "";
-      if (event.target.value == "name")
-        searchText.placeholder = `Ingrese el nombre`;
-      else
-        searchText.placeholder = `Ingrese el código`;
+      if (event.target.value == "name") {
+        searchText.placeholder = `Ingrese el Nombre`;
+      }
+      else {
+        if (event.target.value == "code") {
+          searchText.placeholder = `Ingrese el Identificador`;
+		}
+	  }
     });
+
+    function createItem(data){
+      let fila = document.createElement("tr");
+      let celda_identificador = document.createElement("td");
+      let celda_nombre = document.createElement("td");
+      let celda_departamento = document.createElement("td");
+      let celda_docente = document.createElement("td");
+      let celda_duracion = document.createElement("td");
+      celda_identificador.appendChild(document.createTextNode(""+data['identificador']));
+      celda_nombre.appendChild(document.createTextNode(""+data['nombre']));
+      celda_departamento.appendChild(document.createTextNode(""+data['dpto']));
+      celda_docente.appendChild(document.createTextNode(""+data['docente']));
+      celda_duracion.appendChild(document.createTextNode(""+data['duracion']));
+      fila.appendChild(celda_identificador);
+      fila.appendChild(celda_nombre);
+      fila.appendChild(celda_departamento);
+      fila.appendChild(celda_docente);
+      fila.appendChild(celda_duracion);
+
+      return fila;
+    }
+
+
+    let btnBuscar = document.getElementById('btnBuscar');
+    btnBuscar.addEventListener('click', (event) =>{
+      let list = document.getElementById('signatureList');
+      list.innerHTML="";
+      axios.post('https://pss2020api.herokuapp.com/api/carrera/search',
+      {
+        "search": document.getElementById('searchValue').value,
+      }
+      ).then(function (response) {
+        console.log(response);
+        if(response.status = 200){
+          response.data.carreras.forEach( u => {
+            document.getElementById('signatureList').appendChild(createItem(u))
+          });
+        }
+      })
+    });
+
     </script>
   </body>
 </html>
