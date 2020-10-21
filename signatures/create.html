@@ -50,6 +50,7 @@
                     Lista de carreras
 
                     <hr>
+					<div id = "careerList"></div>
                     <button type="submit" id="btnGuardar" class="btn btn-primary float-right">Guardar</button>
                 </div>
             </div>
@@ -66,6 +67,37 @@
       
     </script>
     <script>
+	  function createCheckItem(data){
+			var myDiv = document.getElementById("careerList"); 
+              
+            var checkbox = document.createElement('input'); 
+              
+            checkbox.type = "checkbox"; 
+            checkbox.name = "name"; 
+            checkbox.value = "value"; 
+            checkbox.id = "id"; 
+              
+            var label = document.createElement('label'); 
+              
+            label.htmlFor = "id"; 
+              
+            label.appendChild(document.createTextNode(""+data['nombre']+" - ")); 
+
+            myDiv.appendChild(checkbox); 
+            myDiv.appendChild(label); 
+	  }
+
+	  axios.post('https://pss2020api.herokuapp.com/api/carrera/search',
+		  {
+			"search": "",
+		  }
+		  ).then(function (response) {
+			if(response.status == 200){
+			  response.data.carreras.forEach( u => {
+					createCheckItem(u)
+			});}})
+
+
       let btnGuardar = document.getElementById('btnGuardar');
       btnGuardar.addEventListener('click', (event) => {
 		if(!document.getElementById("signatureName").value ||
