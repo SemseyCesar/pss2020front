@@ -24,8 +24,9 @@ window.onload = function(){
         table.refreshSelected(materiasSelected);
     })
 
-
-
+    table.setOnEditEvent((id) =>{
+        openModalEdit(materiasSelected.filter(e => e.id==id)[0]);
+    })
 
     let addCarrera = document.getElementById('addCarrera');
     addCarrera.addEventListener('click', (event) => {
@@ -57,7 +58,7 @@ window.onload = function(){
 
     axios.post('https://pss2020api.herokuapp.com/api/materia/search',
         {
-        "search": "",
+            "search": "",
         }
         ).then(function (response) {
             if(response.status == 200){
@@ -71,4 +72,25 @@ window.onload = function(){
                 });
             }
     });
+
+    function openModalEdit(data){
+        let modal = $('#editModal')
+        modal.find('#modal-materia').val(data.nombre);
+        modal.find('#modal-anio').val(data.anio);
+        modal.find('#modal-cuatrimestre').val(data.cuatrimestre);
+        modal.modal('show');
+        modal.find('#btn-modal-success').click( function (event){
+            let index = materiasSelected.findIndex(e => e.id == data.id);
+            materiasSelected[index] = {
+                "id": data.id,
+                "nombre": modal.find('#modal-materia').val(),
+                "anio": modal.find('#modal-anio').val(),
+                "cuatrimestre": modal.find('#modal-cuatrimestre').val(),
+            }
+            modal.modal('hide');
+            table.refreshSelected(materiasSelected);
+            modal.find('#btn-modal-success').off('click');
+        })
+    }
 }
+

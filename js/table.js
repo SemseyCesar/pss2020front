@@ -87,7 +87,7 @@ class Table{
         icon.style.fontSize = "12px";
         deleteButton.appendChild(icon);
         deleteButton.addEventListener('click', (event) =>{
-            if(this.onEditEvent) this.onDeleteEvent(id)
+            if(this.onEditEvent) this.onEditEvent(id)
         });
         return deleteButton;
     }
