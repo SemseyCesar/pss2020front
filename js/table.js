@@ -51,18 +51,52 @@ class Table{
     refreshSelected(data){
         this.tbody.innerHTML="";
         data.forEach(elem =>{
-            console.log(this.cols)
-            console.log(elem);
             let fila = document.createElement("tr");
-            this.cols.forEach( c =>{
+            this.cols.filter(c => c != 'id').forEach( c =>{
                 let celda = document.createElement("td");
                 celda.textContent = elem[c];
                 fila.appendChild(celda);
             });
             let celda_acciones = document.createElement("td");
+            celda_acciones.style.paddingLeft = '3px';
             fila.appendChild(celda_acciones);
-            //agregarButtonCreate(celda, elem);
+            celda_acciones.appendChild(this.createDeleteButton(elem['id']));
+            celda_acciones.appendChild(this.createEditButton(elem['id']));
             this.tbody.appendChild(fila);
         })
     };
+
+    createDeleteButton(id){
+        let deleteButton = document.createElement("button");
+        deleteButton.setAttribute('class','btn btn-danger');
+        let icon = document.createElement('i');
+        icon.setAttribute('class','fa fa-minus');
+        icon.style.fontSize = "12px";
+        deleteButton.appendChild(icon);
+        deleteButton.addEventListener('click', (event) =>{
+            if(this.onDeleteEvent) this.onDeleteEvent(id)
+        });
+        return deleteButton;
+    }
+
+    createEditButton(id){
+        let deleteButton = document.createElement("button");
+        deleteButton.setAttribute('class','btn btn-secondary ml-1');
+        let icon = document.createElement('i');
+        icon.setAttribute('class','fa fa-pencil');
+        icon.style.fontSize = "12px";
+        deleteButton.appendChild(icon);
+        deleteButton.addEventListener('click', (event) =>{
+            if(this.onEditEvent) this.onDeleteEvent(id)
+        });
+        return deleteButton;
+    }
+
+    setOnDeleteEvent(onDeleteEvent){
+        this.onDeleteEvent = onDeleteEvent;
+    }
+
+    setOnEditEvent(onEditEvent){
+        this.onEditEvent = onEditEvent;
+    }
 }
