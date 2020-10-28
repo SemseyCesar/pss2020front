@@ -30,6 +30,7 @@ class Table{
 
     initTHead(cols){
         let thead = document.createElement("thead");
+        thead.setAttribute('class','thead-light');
         let tr = document.createElement("tr");
         thead.appendChild(tr);
         cols.forEach( c =>{
@@ -60,17 +61,17 @@ class Table{
             let celda_acciones = document.createElement("td");
             celda_acciones.style.paddingLeft = '3px';
             fila.appendChild(celda_acciones);
-            celda_acciones.appendChild(this.createDeleteButton(elem['id']));
             celda_acciones.appendChild(this.createEditButton(elem['id']));
+            celda_acciones.appendChild(this.createDeleteButton(elem['id']));
             this.tbody.appendChild(fila);
         })
     };
 
     createDeleteButton(id){
         let deleteButton = document.createElement("button");
-        deleteButton.setAttribute('class','btn btn-danger');
+        deleteButton.setAttribute('class','btn btn-outline-danger ml-1');
         let icon = document.createElement('i');
-        icon.setAttribute('class','fa fa-minus');
+        icon.setAttribute('class','fa fa-trash');
         icon.style.fontSize = "12px";
         deleteButton.appendChild(icon);
         deleteButton.addEventListener('click', (event) =>{
@@ -81,9 +82,9 @@ class Table{
 
     createEditButton(id){
         let deleteButton = document.createElement("button");
-        deleteButton.setAttribute('class','btn btn-secondary ml-1');
+        deleteButton.setAttribute('class','btn btn-outline-warning');
         let icon = document.createElement('i');
-        icon.setAttribute('class','fa fa-pencil');
+        icon.setAttribute('class','fa fa-edit');
         icon.style.fontSize = "12px";
         deleteButton.appendChild(icon);
         deleteButton.addEventListener('click', (event) =>{

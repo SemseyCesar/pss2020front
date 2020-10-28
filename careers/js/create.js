@@ -39,21 +39,24 @@ window.onload = function(){
                 "duracion": document.getElementById('careerRuntime').value,
                 "materias": materiasSelected,
             }
-        ).then(function (response) {
-            document.getElementById('careerName').value="";
-            document.getElementById('careerCode').value="";
-            document.getElementById('careerDepartment').value="";
-            document.getElementById('careerProfessor').value="";
-            document.getElementById('careerRuntime').value="";
-            document.getElementById('signatureList').innerHTML = '';
-            alert("Datos cargados correctamente");
+        ).then(function (response){
+            if(response.status == 200){
+                document.getElementById('careerName').value="";
+                document.getElementById('careerCode').value="";
+                document.getElementById('careerDepartment').value="";
+                document.getElementById('careerProfessor').value="";
+                document.getElementById('careerRuntime').value="";
+                materiasSelected = [];
+                table.refreshSelected(materiasSelected);
+                alert("Datos cargados correctamente");
+            }
         }).catch(function (error) {
             if(error.response)
                 alert("Error: "+ error.response.data.message);
             else 
-            alert("Error: No se pudo comunicar con el sistema")
-            });
+                alert("Error: No se pudo comunicar con el sistema")
         });
+    });
 
 
     axios.post('https://pss2020api.herokuapp.com/api/materia/search',
