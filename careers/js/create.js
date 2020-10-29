@@ -1,5 +1,12 @@
 window.onload = function(){
+
+    const searchParams = new URLSearchParams(window.location.search);
+    var edit = (searchParams.has('id') && searchParams.get('id')) ? true : false;
+    var _id = edit ? searchParams.get('id') : null; 
+    console.log(edit, _id);
+
     var materiasSelected = [];
+
     let table = new Table('materias',['Nombre','Año','Cuatrimestre',''],
         ['id','nombre','anio','cuatrimestre'], null);
     table.setWidths(['33%','25%','25%','16%']);
