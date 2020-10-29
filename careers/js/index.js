@@ -1,14 +1,24 @@
 window.onload = function() {
+	
+	var careersRows = [];
+
 	let table = new Table('carrerList',['Codigo','Nombre','Departamento','Docente','Duración',''],
         ['identificador','nombre','dpto','docente','duracion'], null);
     table.setWidths(['18%','20%','20%','20%','10%']);
 
     table.setOnDeleteEvent((id)=>{
-        console.log("Borrando " + id);
+		axios.delete('https://pss2020api.herokuapp.com/api/carrera/'+id)
+			.then(function (response) {
+				console.log(response)
+				if(response.status == 200){
+					careersRows = careersRows.filter( c => c.id != id)
+					table.refreshSelected(careersRows);
+				}
+			});
     })
 
     table.setOnEditEvent((id) =>{
-        console.log("Modificando " + id);
+        window.location.href = './create.html?id=' + id;
     })
 
 	const selectElement = document.getElementById('selecTypeSearch');
@@ -55,15 +65,16 @@ window.onload = function() {
 
 	function filterBy(data, type) {
 		let searchValue = document.getElementById('searchValue').value;
-		var counter = 0;
-		var filteredCareers = [];
+		let counter = 0;
+		let filteredCareers = [];
 		data.forEach( item => {
 			if (item[type].includes(searchValue)) {
 				filteredCareers.push(item);
 				counter++;
 			}
 		})
-		table.refreshSelected(filteredCareers);
+		careersRows = filteredCareers;
+		table.refreshSelected(careersRows);
 		return counter;
 	}
 

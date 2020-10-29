@@ -5,6 +5,8 @@ window.onload = function(){
     var _id = edit ? searchParams.get('id') : null; 
     console.log(edit, _id);
 
+    if(edit){loadInput(_id)}
+
     var materiasSelected = [];
 
     let table = new Table('materias',['Nombre','Año','Cuatrimestre',''],
@@ -37,32 +39,10 @@ window.onload = function(){
 
     let addCarrera = document.getElementById('addCarrera');
     addCarrera.addEventListener('click', (event) => {
-        axios.post('https://pss2020api.herokuapp.com/api/carrera',
-            {   
-                "nombre": document.getElementById('careerName').value,
-                "identificador": document.getElementById('careerCode').value,
-                "dpto": document.getElementById('careerDepartment').value,
-                "docente": document.getElementById('careerProfessor').value,
-                "duracion": document.getElementById('careerRuntime').value,
-                "materias": materiasSelected,
-            }
-        ).then(function (response){
-            if(response.status == 200){
-                document.getElementById('careerName').value="";
-                document.getElementById('careerCode').value="";
-                document.getElementById('careerDepartment').value="";
-                document.getElementById('careerProfessor').value="";
-                document.getElementById('careerRuntime').value="";
-                materiasSelected = [];
-                table.refreshSelected(materiasSelected);
-                alert("Datos cargados correctamente");
-            }
-        }).catch(function (error) {
-            if(error.response)
-                alert("Error: "+ error.response.data.message);
-            else 
-                alert("Error: No se pudo comunicar con el sistema")
-        });
+        if(!edit)
+            apiCreate();
+        else
+            apiEdit();
     });
 
 
@@ -101,6 +81,86 @@ window.onload = function(){
             table.refreshSelected(materiasSelected);
             modal.find('#btn-modal-success').off('click');
         })
+    }
+
+    function loadInput(id){
+        axios.get('https://pss2020api.herokuapp.com/api/carrera/'+id,)
+        .then(function (response){
+            if(response.status == 200){
+                data = response.data.carrera;
+                document.getElementById('careerName').value = data.nombre;
+                document.getElementById('careerCode').value = data.identificador;
+                document.getElementById('careerDepartment').value = data.dpto,
+                document.getElementById('careerProfessor').value = response.docente;
+                document.getElementById('careerRuntime').value = data.duracion;
+                materiasSelected = data.materias.map( m => {
+                    return {
+                        "id": m.id,
+                        "nombre": m.nombre,
+                        "anio": m.pivot.anio,
+                        "cuatrimestre": m.pivot.cuatrimestre,
+                    }
+                });
+                table.refreshSelected(materiasSelected);
+            }
+        })
+        .catch(function (error) {
+            if(error.response)
+                alert("Error: "+ error.response.data.message);
+            else 
+                alert("Error: No se pudo comunicar con el sistema")
+        });
+    }
+    function refreshInputs(){
+        document.getElementById('careerName').value="";
+        document.getElementById('careerCode').value="";
+        document.getElementById('careerDepartment').value="";
+        document.getElementById('careerProfessor').value="";
+        document.getElementById('careerRuntime').value="";
+        materiasSelected = [];
+        table.refreshSelected(materiasSelected);
+        alert("Datos cargados correctamente");
+    }
+
+    function getDataToSend(){
+        return {   
+            "nombre": document.getElementById('careerName').value,
+            "identificador": document.getElementById('careerCode').value,
+            "dpto": document.getElementById('careerDepartment').value,
+            "docente": document.getElementById('careerProfessor').value,
+            "duracion": document.getElementById('careerRuntime').value,
+            "materias": materiasSelected,
+        }
+    }
+
+    function apiCreate(){
+        axios.post('https://pss2020api.herokuapp.com/api/carrera',
+            getDataToSend()
+        ).then(function (response){
+            if(response.status == 200){
+                refreshInputs();
+            }
+        }).catch(function (error) {
+            if(error.response)
+                alert("Error: "+ error.response.data.message);
+            else 
+                alert("Error: No se pudo comunicar con el sistema")
+        });
+    }
+
+    function apiEdit(){
+        axios.put('https://pss2020api.herokuapp.com/api/carrera/'+_id,
+            getDataToSend()
+        ).then(function (response){
+            if(response.status == 200){
+                refreshInputs();
+            }
+        }).catch(function (error) {
+            if(error.response)
+                alert("Error: "+ error.response.data.message);
+            else 
+                alert("Error: No se pudo comunicar con el sistema")
+        });
     }
 }
 
