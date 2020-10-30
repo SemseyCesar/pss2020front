@@ -55,7 +55,7 @@ window.onload = function() {
 				if(response.status == 200){
 					let data = response.data.carreras;
 					filterBy(data, select.getValue(), searchValue.getInput());
-					updateCardFooter(careersRows.length);
+                    document.getElementById("footer").innerHTML = cardFooter(careersRows.length);
 				}
 			});
 		}
@@ -64,18 +64,5 @@ window.onload = function() {
 	function filterBy(data, type, filterInput) {
 		careersRows = data.filter(item => item[type].includes(filterInput));
 		table.refreshSelected(careersRows);
-	}
-
-	function updateCardFooter(counter) {
-		const footer = document.getElementById("footer");
-		var footerText;
-		if (counter==0)
-			footerText = "No hay resultados";
-		else
-			if (counter==1)
-				footerText = "Se encontró " + counter + " resultado";
-			else
-				footerText = "Se encontraron " + counter + " resultados";
-		footer.innerHTML = footerText;
 	}
 }

@@ -48,7 +48,7 @@ window.onload = function() {
 				if(response.status == 200){
 					let data = response.data.materias;
 					filterBy(data, select.getValue(), searchValue.getInput());
-					updateCardFooter(signaturesRows.length);
+                    document.getElementById("footer").innerHTML = cardFooter(signaturesRows.length);
 				}
 			})
 		}
@@ -57,18 +57,5 @@ window.onload = function() {
 	function filterBy(data, type, filterInput) {
 		signaturesRows = data.filter(item => item[type].includes(filterInput));
 		table.refreshSelected(signaturesRows);
-	}
-
-	function updateCardFooter(counter) {
-		const footer = document.getElementById("footer");
-		var footerText;
-		if (counter==0)
-			footerText = "No hay resultados";
-		else
-			if (counter==1)
-				footerText = "Se encontró " + counter + " resultado";
-			else
-				footerText = "Se encontraron " + counter + " resultados";
-		footer.innerHTML = footerText;
 	}
 }
