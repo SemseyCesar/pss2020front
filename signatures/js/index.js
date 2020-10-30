@@ -1,4 +1,6 @@
 window.onload = function() {
+	var signaturesRows = [];
+
 	let table = new Table('signatureList',['Codigo','Nombre','Departamento',''],
 		['identificador','nombre','dpto'], null);
 	table.setWidths(['25%','25%','25%']);
@@ -11,62 +13,50 @@ window.onload = function() {
 		console.log("Modificando " + id);
 	})
 
+    let searchValue = new SearchBar(
+        'searchValueSection',
+        ['text','text','text'], 
+        ['Seleccione una opción','Ingrese el Nombre','Ingrese el Código'],
+        ['','','',''],
+        null
+    );
 
-	const selectElement = document.getElementById('selecTypeSearch');
-	selectElement.addEventListener('change', (event) => {
-		const searchText = document.getElementById('searchValue');
-		document.getElementById("selecTypeSearch").setAttribute("class", "custom-select");
-		if (event.target.value == "name") {
-			searchText.placeholder = "Ingrese el Nombre";
-		}
-		else {
-			if (event.target.value == "code") {
-				searchText.placeholder = "Ingrese el Codigo";
-			} else {
-				searchText.placeholder = "Seleccione una opción";
-				document.getElementById("selecTypeSearch").setAttribute("class", "custom-select is-invalid");
-			}
-		}
-	});
+    let select = new Select(
+        'selectSection',
+        ['', 'nombre', 'identificador'],
+        ['Buscar por...', 'Nombre', 'Código'],
+        'Seleccione una opción.',
+        searchValue,
+        null
+    );
+
+    select.setOnChange(() => {
+        select.validity();
+        searchValue.setAttributes(select.getSelectedIndex());
+        searchValue.validity();
+    })
 
 	let btnBuscar = document.getElementById('btnBuscar');
 	btnBuscar.addEventListener('click', (event) =>{
-		if (document.getElementById("selecTypeSearch").checkValidity()){
-			document.getElementById("selecTypeSearch").setAttribute("class", "custom-select");
+		if (select.validity() && searchValue.validity()){
 			axios.post('https://pss2020api.herokuapp.com/api/materia/search',
 			{
-				"search": document.getElementById('searchValue').value,
+				"search": searchValue.getInput(),
 			}
 			).then(function (response) {
 				console.log(response);
 				if(response.status == 200){
 					let data = response.data.materias;
-					var filter;
-					if (selecTypeSearch.value == "name")
-						filter = 'nombre';
-					else
-						filter = 'identificador';
-					let counter = filterBy(data, filter);
-					updateCardFooter(counter);
+					filterBy(data, select.getValue(), searchValue.getInput());
+					updateCardFooter(signaturesRows.length);
 				}
 			})
-		} else {
-			document.getElementById("selecTypeSearch").setAttribute("class", "custom-select is-invalid");
 		}
 	});
 
-	function filterBy(data, type) {
-		let searchValue = document.getElementById('searchValue').value;
-		var counter = 0;
-		var filteredSignatures = []
-		data.forEach( item => {
-			if (item[type].includes(searchValue)) {
-				filteredSignatures.push(item);
-				counter++;
-			}
-		})
-		table.refreshSelected(filteredSignatures);
-		return counter;
+	function filterBy(data, type, filterInput) {
+		signaturesRows = data.filter(item => item[type].includes(filterInput));
+		table.refreshSelected(signaturesRows);
 	}
 
 	function updateCardFooter(counter) {

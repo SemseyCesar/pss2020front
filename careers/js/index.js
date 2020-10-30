@@ -21,61 +21,49 @@ window.onload = function() {
         window.location.href = './create.html?id=' + id;
     })
 
-	const selectElement = document.getElementById('selecTypeSearch');
-	selectElement.addEventListener('change', (event) => {
-		const searchText = document.getElementById('searchValue');
-		document.getElementById("selecTypeSearch").setAttribute("class", "custom-select");
-		if (event.target.value == "name") {
-			searchText.placeholder = "Ingrese el Nombre";
-		}
-		else {
-			if (event.target.value == "code") {
-				searchText.placeholder = "Ingrese el Codigo";
-			} else {
-				searchText.placeholder = "Seleccione una opción";
-				document.getElementById("selecTypeSearch").setAttribute("class", "custom-select is-invalid");
-			}
-		}
-	});
+    let searchValue = new SearchBar(
+        'searchValueSection',
+        ['text','text','text'], 
+        ['Seleccione una opción','Ingrese el Nombre','Ingrese el Código'],
+        ['','','',''],
+        null
+    );
+
+    let select = new Select(
+        'selectSection',
+        ['', 'nombre', 'identificador'],
+        ['Buscar por...', 'Nombre', 'Código'],
+        'Seleccione una opción.',
+        searchValue,
+        null
+    );
+
+    select.setOnChange(() => {
+        select.validity();
+        searchValue.setAttributes(select.getSelectedIndex());
+        searchValue.validity();
+    })
 
 	let btnBuscar = document.getElementById('btnBuscar');
 	btnBuscar.addEventListener('click', (event) => {
-		if (document.getElementById("selecTypeSearch").checkValidity()){
-			document.getElementById("selecTypeSearch").setAttribute("class", "custom-select");
+		if (select.validity() && searchValue.validity()){
 			axios.post('https://pss2020api.herokuapp.com/api/carrera/search',
 			{
-				"search": document.getElementById('searchValue').value,
+				"search": searchValue.getInput(),
 			}
 			).then(function (response) {
 				if(response.status == 200){
 					let data = response.data.carreras;
-					var filter;
-					if (selecTypeSearch.value == "name")
-						filter = 'nombre';
-					else
-						filter = 'identificador';
-					let counter = filterBy(data, filter);
-					updateCardFooter(counter);
+					filterBy(data, select.getValue(), searchValue.getInput());
+					updateCardFooter(careersRows.length);
 				}
 			});
-		} else {
-			document.getElementById("selecTypeSearch").setAttribute("class", "custom-select is-invalid");
 		}
 	})
 
-	function filterBy(data, type) {
-		let searchValue = document.getElementById('searchValue').value;
-		let counter = 0;
-		let filteredCareers = [];
-		data.forEach( item => {
-			if (item[type].includes(searchValue)) {
-				filteredCareers.push(item);
-				counter++;
-			}
-		})
-		careersRows = filteredCareers;
+	function filterBy(data, type, filterInput) {
+		careersRows = data.filter(item => item[type].includes(filterInput));
 		table.refreshSelected(careersRows);
-		return counter;
 	}
 
 	function updateCardFooter(counter) {

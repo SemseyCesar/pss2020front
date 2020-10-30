@@ -40,7 +40,7 @@
 
         <div class="row mb-4 justify-content-center">
 
-          <div class="col">
+          <div class="col" id="selectSection"><!--
             <select class="custom-select" name="selecTypeSearch" id="selecTypeSearch" required>
               <option value="">Buscar por...</option>
               <option value="dni">DNI</option>
@@ -49,14 +49,14 @@
             </select>
             <div class="invalid-feedback">
               Seleccione una opción.
-            </div>
+            </div>-->
           </div>
 
-          <div class="col-md">
+          <div class="col-md" id="searchValueSection"><!--
             <input class="form-control" type="text" name="searchValue" id="searchValue" placeholder="Seleccione una opción">
             <div class="invalid-feedback">
               Las opciones DNI/LU requieren un valor numérico.
-            </div>
+            </div>-->
           </div>
 
           <div class="col">
@@ -87,6 +87,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../js/table.js"></script>
+    <script src="../js/searchBar.js"></script>
+    <script src="../js/select.js"></script>
     <script src="./js/index.js"></script>
 </body>
 </html>
