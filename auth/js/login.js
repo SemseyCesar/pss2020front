@@ -2,11 +2,13 @@ window.onload = function(){
 
     let btnIngresar = document.getElementById('btn-ingresar');
     btnIngresar.addEventListener('click',(e) =>{
-        axois.post(api.auth.login,{
+        axios.post(api.auth.login,{
             username: document.getElementById('username').value,
             password: document.getElementById('password').value
         }).then(response => {
-            console.log(response);
+            if(response.status == 200){
+                localStorage.setItem('access_token', response.data.access_token);
+            }
         })
     })
 
