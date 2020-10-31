@@ -82,6 +82,24 @@ window.onload = function(){
             modal.find('#btn-modal-success').off('click');
         })
     }
+/*
+    function getProfessors() {
+        axios.post('https://pss2020api.herokuapp.com/api/user/search',
+            {
+                "search": "",
+            }).then(function (response) {
+                if(response.status == 200) {
+                    professors = response.data.users.filter(item => item['type'] == "docente");
+                    let select = document.getElementById("careerProfessor");
+                    professors.forEach(p => {
+                        let option = document.createElement("option");
+                        option.setAttribute("value", ""+p['id']);
+                        option.textContent = p['nombre_apellido'];
+                        select.appendChild(option);
+                    })
+                }
+            })
+    } */
 
     function loadInput(id){
         axios.get('https://pss2020api.herokuapp.com/api/carrera/'+id,)
