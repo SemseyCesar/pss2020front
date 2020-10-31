@@ -7,7 +7,7 @@ window.onload = function() {
     table.setWidths(['18%','20%','20%','20%','10%']);
 
     table.setOnDeleteEvent((id)=>{
-		axios.delete('https://pss2020api.herokuapp.com/api/carrera/'+id)
+		axios.delete(api.carrera.carrera+id)
 			.then(function (response) {
 				console.log(response)
 				if(response.status == 200){
@@ -47,7 +47,7 @@ window.onload = function() {
 	let btnBuscar = document.getElementById('btnBuscar');
 	btnBuscar.addEventListener('click', (event) => {
 		if (select.validity() && searchValue.validity()){
-			axios.post('https://pss2020api.herokuapp.com/api/carrera/search',
+			axios.post(api.carrera.search,
 			{
 				"search": searchValue.getInput(),
 			}

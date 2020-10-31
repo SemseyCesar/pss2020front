@@ -142,7 +142,9 @@
       bootstrapValidate('#school', 'required: Complete este campo')
       
     </script>
+    <script src="../js/api.js"></script>
     <script>
+      window.onload=  function (){
       const selectElement = document.getElementById('userType');
       selectElement.addEventListener('change', (event) => {
         const school = document.getElementById('school');
@@ -181,7 +183,7 @@
 					if (document.getElementById("phonenumber").value <= 0)
 						alert("Error: El numero de Telefono no puede ser menor a cero");
 					else {
-						axios.post('https://pss2020api.herokuapp.com/api/register',
+						axios.post(api.user.register,
 							{   
 							"email": document.getElementById("email").value,
 							"password": document.getElementById("password").value,
@@ -219,7 +221,7 @@
 			}
 		}
 	  });
-        
+        }
 
     </script>
   </body>

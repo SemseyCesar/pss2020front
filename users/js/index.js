@@ -39,7 +39,7 @@ window.onload = function() {
 	let btnBuscar = document.getElementById('btnBuscar');
 	btnBuscar.addEventListener('click', (event) => {
         if (select.validity() && searchValue.validity()) {
-            axios.post('https://pss2020api.herokuapp.com/api/user/search',
+            axios.post(api.user.search,
             {
                 "search": searchValue.getInput(),
             }).then(function (response) {

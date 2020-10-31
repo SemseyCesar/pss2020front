@@ -54,6 +54,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.0/dist/bootstrap-validate.js"></script>
+    <script src="../js/api.js"></script>
     <script>
       
       bootstrapValidate('#signatureName', 'required: Complete este campo')
@@ -73,7 +74,7 @@
 			if(document.getElementById("signatureCode").value <= 0)
 				alert("Error: El codigo de la materia no puede ser menor a cero");
 			else {
-				axios.post('https://pss2020api.herokuapp.com/api/materia',
+				axios.post(api.materia.materia,
 					{
 					"nombre": document.getElementById("signatureName").value,
 					"identificador": document.getElementById("signatureCode").value,

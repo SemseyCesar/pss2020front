@@ -46,7 +46,7 @@ window.onload = function(){
     });
 
 
-    axios.post('https://pss2020api.herokuapp.com/api/materia/search',
+    axios.post(api.materia.search,
         {
             "search": "",
         }
@@ -102,7 +102,7 @@ window.onload = function(){
     } */
 
     function loadInput(id){
-        axios.get('https://pss2020api.herokuapp.com/api/carrera/'+id,)
+        axios.get(api.carrera.carrera+id,)
         .then(function (response){
             if(response.status == 200){
                 data = response.data.carrera;
@@ -152,7 +152,7 @@ window.onload = function(){
     }
 
     function apiCreate(){
-        axios.post('https://pss2020api.herokuapp.com/api/carrera',
+        axios.post(api.carrera.carrera,
             getDataToSend()
         ).then(function (response){
             if(response.status == 200){
@@ -167,7 +167,7 @@ window.onload = function(){
     }
 
     function apiEdit(){
-        axios.put('https://pss2020api.herokuapp.com/api/carrera/'+_id,
+        axios.put(api.carrera.carrera+_id,
             getDataToSend()
         ).then(function (response){
             if(response.status == 200){
