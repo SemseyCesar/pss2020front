@@ -9,7 +9,7 @@ window.onload = function() {
 		axios.post('https://pss2020api.herokuapp.com/api/materia/search',
 		{
 			"search": "",
-		}
+		}, getHeader()
 		).then(function (response) {
 			if(response.status == 200){
 				signatures = response.data.materias;
@@ -51,7 +51,7 @@ window.onload = function() {
 				"": document.getElementById("examTime").value,
 				// AULA
 				"": document.getElementById("examClassroom").value,
-			}
+			}, getHeader()
 			).then(function(response) {
 				if (response.status == 200) {
 					

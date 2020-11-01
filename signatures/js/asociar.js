@@ -1,11 +1,14 @@
 window.onload = function(){
+    checkToken(['admin'], start);
+}
 
+function start(){
     var materias = [];
     var materiaSelected = null;
     let selectMateria = document.getElementById('selectMateria');
 
     function loadMaterias(){
-        axios.get(api.materia.materia)
+        axios.get(api.materia.materia, getHeader())
         .then(function (response) {
             let previuosId = materiaSelected ? materiaSelected.id : null;
             if(response.status == 200){
@@ -60,7 +63,7 @@ window.onload = function(){
                 materia_id: materiaSelected.id,
                 asistente_id: asistente_id == -1? null : asistente_id,
                 profesor_id: profesor_id == -1? null : profesor_id,
-            }).then( function(response){
+            }, getHeader()).then( function(response){
                 if(response.status == 200){
                     loadMaterias();
                     modal.modal('hide');
@@ -72,7 +75,7 @@ window.onload = function(){
         })
     }
 
-    axios.get(api.user.docentes)
+    axios.get(api.user.docentes, getHeader())
     .then(function (response) {
         if(response.status == 200){
             let docentes = [{id: -1 , nombre_apellido:"Ninguno"}].concat(response.data.docentes);

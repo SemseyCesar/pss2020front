@@ -20,3 +20,27 @@ var api = {
         carrera: BASE_URL + "/carrera"
     }
 }
+
+function getHeader(){
+    return {
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('access_token')
+        }
+    };
+}
+
+function checkToken(roles, start){
+    
+    let previousBody = document.body;
+
+    document.body = document.createElement("body");
+
+    axios.post(api.auth.check, {roles:roles}, getHeader()).then(
+        (response) => {
+            if(response.status == 200){
+                document.body = previousBody
+                start();
+            }
+        }
+    )
+}

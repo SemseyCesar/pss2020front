@@ -197,7 +197,7 @@
 							"telefono": document.getElementById("phonenumber").value,
 							"legajo": document.getElementById("lu").value,
 							"escuela": document.getElementById("school").value
-							}
+							}, getHeader()
 						).then(function (response) {
 							document.getElementById("name").value = "";
 							document.getElementById("birthdate").value = "";

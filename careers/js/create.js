@@ -49,7 +49,7 @@ window.onload = function(){
     axios.post(api.materia.search,
         {
             "search": "",
-        }
+        },getHeader()
         ).then(function (response) {
             if(response.status == 200){
                 response.data.materias.forEach( u => {
@@ -102,7 +102,7 @@ window.onload = function(){
     } */
 
     function loadInput(id){
-        axios.get(api.carrera.carrera+id,)
+        axios.get(api.carrera.carrera+id, getHeader())
         .then(function (response){
             if(response.status == 200){
                 data = response.data.carrera;
@@ -153,7 +153,7 @@ window.onload = function(){
 
     function apiCreate(){
         axios.post(api.carrera.carrera,
-            getDataToSend()
+            getDataToSend(), getHeader()
         ).then(function (response){
             if(response.status == 200){
                 refreshInputs();
@@ -168,7 +168,7 @@ window.onload = function(){
 
     function apiEdit(){
         axios.put(api.carrera.carrera+_id,
-            getDataToSend()
+            getDataToSend() , getHeader()
         ).then(function (response){
             if(response.status == 200){
                 refreshInputs();

@@ -7,7 +7,7 @@ window.onload = function() {
     table.setWidths(['18%','20%','20%','20%','10%']);
 
     table.setOnDeleteEvent((id)=>{
-		axios.delete(api.carrera.carrera+id)
+		axios.delete(api.carrera.carrera+id, {}, getHeader())
 			.then(function (response) {
 				console.log(response)
 				if(response.status == 200){
@@ -50,7 +50,7 @@ window.onload = function() {
 			axios.post(api.carrera.search,
 			{
 				"search": searchValue.getInput(),
-			}
+			}, getHeader()
 			).then(function (response) {
 				if(response.status == 200){
 					let data = response.data.carreras;

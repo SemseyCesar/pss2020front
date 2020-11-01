@@ -42,7 +42,7 @@ window.onload = function() {
             axios.post(api.user.search,
             {
                 "search": searchValue.getInput(),
-            }).then(function (response) {
+            }, getHeader()).then(function (response) {
                 console.log(response);
                 if(response.status == 200){
                     let data = response.data.users;

@@ -42,7 +42,7 @@ window.onload = function() {
 			axios.post(api.materia.search,
 			{
 				"search": searchValue.getInput(),
-			}
+			}, getHeader()
 			).then(function (response) {
 				console.log(response);
 				if(response.status == 200){
