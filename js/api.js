@@ -8,10 +8,12 @@ var api = {
     user:{
         register: BASE_URL + "/register",
         search: BASE_URL + "/user/search",
+        docentes: BASE_URL + "/user/docentes",
     },
     materia:{
         search: BASE_URL + "/materia/search",
-        materia: BASE_URL + "/materia"
+        materia: BASE_URL + "/materia",
+        asociar: BASE_URL + "/materia/asociar"
     },
     carrera:{
         search: BASE_URL + "/carrera/search",
