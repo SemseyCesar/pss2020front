@@ -1,7 +1,3 @@
-window.onload = function(){
-    checkToken(['admin'], start);
-}
-
 function start(){
     var materias = [];
     var materiaSelected = null;
@@ -90,4 +86,8 @@ function start(){
             });
         }
     });
+}
+
+window.onload = function(){
+    checkToken(['admin'], start);
 }
