@@ -39,9 +39,10 @@ function checkToken(roles, start){
     document.body = document.createElement("body");
     axios.post(api.auth.check, {roles:roles}, getHeader()).then(
         (response) => {
+            // response.data.auth  te dueve 'admin', 'docente' o 'alumno'
             if(response.status == 200){
                 document.body = previousBody;
-                start();
+                start(response.data.auth);
             }
         }
     ).catch(
