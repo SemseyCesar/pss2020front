@@ -2,7 +2,7 @@ window.onload = function(){
 
     const searchParams = new URLSearchParams(window.location.search);
     var edit = (searchParams.has('id') && searchParams.get('id')) ? true : false;
-    var _id = edit ? searchParams.get('id') : null; 
+    var _id = edit ? searchParams.get('id') : null;
     console.log(edit, _id);
 
     if(edit){loadInput(_id)}
@@ -27,7 +27,7 @@ window.onload = function(){
         });
         table.refreshSelected(materiasSelected);
     })
-    
+
     table.setOnDeleteEvent((id)=>{
         materiasSelected  = materiasSelected.filter(e => e.id != id);
         table.refreshSelected(materiasSelected);
@@ -125,7 +125,7 @@ window.onload = function(){
         .catch(function (error) {
             if(error.response)
                 alert("Error: "+ error.response.data.message);
-            else 
+            else
                 alert("Error: No se pudo comunicar con el sistema")
         });
     }
@@ -141,7 +141,7 @@ window.onload = function(){
     }
 
     function getDataToSend(){
-        return {   
+        return {
             "nombre": document.getElementById('careerName').value,
             "identificador": document.getElementById('careerCode').value,
             "dpto": document.getElementById('careerDepartment').value,
@@ -161,7 +161,7 @@ window.onload = function(){
         }).catch(function (error) {
             if(error.response)
                 alert("Error: "+ error.response.data.message);
-            else 
+            else
                 alert("Error: No se pudo comunicar con el sistema")
         });
     }
@@ -176,9 +176,8 @@ window.onload = function(){
         }).catch(function (error) {
             if(error.response)
                 alert("Error: "+ error.response.data.message);
-            else 
+            else
                 alert("Error: No se pudo comunicar con el sistema")
         });
     }
 }
-

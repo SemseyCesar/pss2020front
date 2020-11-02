@@ -26,40 +26,40 @@
 						<select class="custom-select" id="examSignatures" required>
 							<option value="">Seleccione una materia</option>
 						</select>
+						<div class="invalid-feedback" id="examSignatureFeedback"></div>
 					</div>
-					<div class="invalid-feedback" id="examSignatureFeedback"></div>
 				</div>
 
 				<div class="form-group form-row">
 					<label class="col-sm-2 col-form-label" for="examCode">Código*</label>
 					<div class="col-sm-10">
-						<input class="form-control" type="text" id="examCode">
+						<input class="form-control" type="text" id="examCode" required>
+						<div class="invalid-feedback" id="examCodeFeedback"></div>
 					</div>
-					<div class="invalid-feedback" id="examCodeFeedback"></div>
 				</div>
 
 				<div class="form-group form-row">
 					<label class="col-sm-2 col-form-label" for="examDate">Fecha*</label>
 					<div class="col-sm-10">
-						<input class="form-control" type="date" id="examDate">
+						<input class="form-control" type="date" id="examDate" required>
+						<div class="invalid-feedback" id="examDateFeedback"></div>
 					</div>
-					<div class="invalid-feedback" id="examDateFeedback"></div>
 				</div>
 
 				<div class="form-group form-row">
 					<label class="col-sm-2 col-form-label" for="examTime">Hora*</label>
 					<div class="col-sm-10">
-						<input class="form-control" type="time" id="examTime">
+						<input class="form-control" type="time" id="examTime" required>
+						<div class="invalid-feedback" id="examTimeFeedback"></div>
 					</div>
-					<div class="invalid-feedback" id="examTimeFeedback"></div>
 				</div>
 
 				<div class="form-group form-row">
-					<label class="col-sm-2 col-form-label" for="examClassroom">Aula</label>
+					<label class="col-sm-2 col-form-label" for="examClassroom">Aula*</label>
 					<div class="col-sm-10">
-						<input class="form-control" type="text" id="examClassroom" maxlength="64">
+						<input class="form-control" type="text" id="examClassroom" maxlength="64" required>
+						<div class="invalid-feedback" id="examClassroomFeedback"></div>
 					</div>
-					<div class="invalid-feedback" id="examClassroomFeedback"></div>
 				</div>
 
 				<button class="btn btn-primary float-right" id="btnGuardar">Guardar</button>
@@ -68,6 +68,9 @@
 	</div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.0/dist/bootstrap-validate.js"></script>
+	<script src="../js/inputValidator.js"></script>
+	<script src="../js/api.js"></script>
 	<script src="./js/create.js"></script>
 </body>
 </html>

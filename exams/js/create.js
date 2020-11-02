@@ -1,15 +1,24 @@
 window.onload = function() {
 	var signatures = [];
-	loadSignatures();
+	//loadSignatures();
+	let fields = [
+		new InputValidator('examSignatures', "custom-select",
+		'examSignatureFeedback', ['valueMissing'], ['Seleccione una opción']),
+		new InputValidator('examCode', "form-control",
+		'examCodeFeedback', ['valueMissing'], ['Ingrese un código']),
+		new InputValidator('examDate',  "form-control",
+		'examDateFeedback', ['valueMissing'], ['Ingrese una fecha']),
+		new InputValidator('examTime',  "form-control",
+		'examTimeFeedback', ['valueMissing'], ['Ingrese un horario']),
+		new InputValidator('examClassroom',  "form-control",
+		'examClassroomFeedback', ['valueMissing'], ['Ingrese un aula'])
+	]
 
 /*
 	TODO: Buscar únicamente las materias en base al docente
 	*/
 	function loadSignatures() {
-		axios.post('https://pss2020api.herokuapp.com/api/materia/search',
-		{
-			"search": "",
-		}, getHeader()
+		axios.post(api.materia.search, getHeader()
 		).then(function (response) {
 			if(response.status == 200){
 				signatures = response.data.materias;
@@ -29,37 +38,43 @@ window.onload = function() {
 		return option
 	}
 
-	document.getElementById("btnGuardar").addEventListener("click", save());
+	document.getElementById("btnGuardar").addEventListener("click", (event) => save());
 
 	function save() {
-		if (validate()) {
-			/*
-			 * COMPLETAR URL
-			 */
-			axios.post('https://pss2020api.herokuapp.com/api/',
-			{
-				/*
-				 * COMPLETAR NOMBRE DE LOS CAMPOS
-				 */
-				// MATERIA
-				"": document.getElementById("examSignatures").value,
-				// CODIGO
-				"": document.getElementById("examCode").value,
-				// FECHA
-				"": document.getElementById("examDate").value,
-				// HORA
-				"": document.getElementById("examTime").value,
-				// AULA
-				"": document.getElementById("examClassroom").value,
-			}, getHeader()
+		apiCreate();
+	}
+
+	function apiCreate() {
+		if (localValidate()) {/*
+			axios.post(api.examen.examen, getData(), getHeader()
 			).then(function(response) {
 				if (response.status == 200) {
-					
+
 				}
 
 			}).catch(function(error) {
 
-			})
+			})*/
 		}
+	}
+
+	function getData() {
+		return {
+			"identificador": document.getElementById("examCode").value,
+			"materia_id": document.getElementById("examSignatures").value,
+			"fecha": document.getElementById("examDate").value,
+			"hora": document.getElementById("examTime").value,
+			"aula": document.getElementById("examClassroom").value,
+		}
+	}
+
+	function localValidate() {
+		var isValid = true;
+		var i = 0;
+		while (isValid && i<fields.length) {
+			isValid = fields[i].validate();
+			i++;
+		}
+		return isValid;
 	}
 }
