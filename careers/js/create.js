@@ -1,5 +1,4 @@
 window.onload = function(){
-
     const searchParams = new URLSearchParams(window.location.search);
     var edit = (searchParams.has('id') && searchParams.get('id')) ? true : false;
     var _id = edit ? searchParams.get('id') : null;
@@ -8,26 +7,6 @@ window.onload = function(){
     if(edit){loadInput(_id)}
 
     var materiasSelected = [];
-    let runtimeValidator = new InputValidator('careerRuntime', "form-control",
-    'careerRuntimeFeedback', ['valueMissing', 'badInput'], ['Ingrese la duración', 'Debe ser un número'])
-    let fields = [
-		new InputValidator('careerName', "form-control",
-		'careerNameFeedback', ['valueMissing'], ['Ingrese un nombre']),
-		new InputValidator('careerCode', "form-control",
-		'careerCodeFeedback', ['valueMissing'], ['Ingrese un código']),
-		new InputValidator('careerDepartment', "form-control",
-		'careerDepartmentFeedback', ['valueMissing'], ['Ingrese un departamento']),
-		new InputValidator('careerProfessor', "form-control",
-		'careerProfessorFeedback', ['valueMissing'], ['Ingrese un docente']),
-		runtimeValidator
-	];
-
-    let signatureFields = [
-        new InputValidator('selectMateria', "custom-select",
-		'selectMateriaFeedback', ['customError'], ['La materia ya ha sido cargada']),
-        new InputValidator('anio', "form-control",
-		'courseYearFeedback', ['valueMissing', 'badInput', 'customError'], ['Ingrese un año', 'Debe ser un número', 'Debe ser menor a la duración'])
-    ]
 
     let table = new Table('materias',['Nombre','Año','Cuatrimestre',''],
         ['id','nombre','anio','cuatrimestre'], null);
@@ -39,14 +18,14 @@ window.onload = function(){
     addMateria.addEventListener('click', (event) =>{
         let id = document.getElementById('selectMateria').value;
 
-        if (localValidateSignature()) {/*
+        if (localValidateSignature(materiasSelected)) {
             materiasSelected.push({
                 "id": id,
                 "nombre": document.getElementById('option-'+id).text,
                 "anio": document.getElementById('anio').value,
                 "cuatrimestre": document.getElementById('selectCuatrimestre').value,
             });
-            table.refreshSelected(materiasSelected);*/
+            table.refreshSelected(materiasSelected);
         }
     })
 
@@ -67,7 +46,7 @@ window.onload = function(){
             apiEdit();
     });
 
-/*
+
     axios.post(api.materia.search,
         {
             "search": "",
@@ -83,7 +62,7 @@ window.onload = function(){
                     document.getElementById('selectMateria').appendChild(option);
                 });
             }
-    });*/
+    });
 
     function openModalEdit(data){
         let modal = $('#editModal')
@@ -104,7 +83,7 @@ window.onload = function(){
             modal.find('#btn-modal-success').off('click');
         })
     }
-/*
+
     function getProfessors() {
         axios.post('https://pss2020api.herokuapp.com/api/user/search',
             {
@@ -121,7 +100,7 @@ window.onload = function(){
                     })
                 }
             })
-    } */
+    }
 
     function loadInput(id){
         axios.get(api.carrera.carrera+id, getHeader())
@@ -206,27 +185,6 @@ window.onload = function(){
                     alert("Error: No se pudo comunicar con el sistema")
             });
         }
-    }
-
-	function localValidate() {
-		return fields.every(field => field.validate());
-	}
-
-    function localValidateSignature() {
-        let selectMateria = document.getElementById("selectMateria");
-        let courseYear = document.getElementById("anio");
-        if(materiasSelected.filter(e => e.id == id).length > 0)
-            selectMateria.setCustomValidity('La materia ya ha sido cargada');
-        else
-            selectMateria.setCustomValidity("");
-
-        // Si la duración de carrera no se ingresó/era un valor válido ó el año ingresado es mayor a la duración
-        if (!runtimeValidator.validate() || courseYear.value > document.getElementById("careerRuntime").value)
-            courseYear.setCustomValidity("No puede ser mayor a la duración");
-        else
-            // Todo ok
-            courseYear.setCustomValidity("");
-        return signatureFields.every(field => field.validate())
     }
 
     function selectMateriaChange(event) {
