@@ -69,12 +69,6 @@ window.onload = function() {
 	}
 
 	function localValidate() {
-		var isValid = true;
-		var i = 0;
-		while (isValid && i<fields.length) {
-			isValid = fields[i].validate();
-			i++;
-		}
-		return isValid;
+		return fields.every(field => field.validate());
 	}
 }

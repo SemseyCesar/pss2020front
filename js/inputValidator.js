@@ -13,20 +13,18 @@ class InputValidator {
         return document.getElementById(id);
     }
 
-    // NO MUESTRA EL MENSAJE AUXILIAR PERO NI IDEA PORQUE
     validate() {
         var isValid = true;
         var newClass = this.defaultClass;
         var i = 0;
         let validityState = this.field.validity;
+        console.log(validityState);
         while (isValid && i<this.rules.length) {
             let rule = this.rules[i];
             if (validityState[rule]) {
                 isValid = false;
                 this.setErrorState();
                 this.setErrorMessage(this.rulesFeedbacks[i]);
-//                this.field.setCustomValidity(this.rulesFeedbacks[i]);
-//                this.field.reportValidity();
             }
             i++;
         }

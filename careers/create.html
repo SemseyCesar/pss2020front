@@ -38,6 +38,7 @@
                       <label class="col-sm-2 col-form-label" for="careerName">Nombre *</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control" name="careerName" id="careerName" maxlength="256" placeholder="Nombre" required>
+                        <div class="invalid-feedback" id="careerNameFeedback"></div>
                       </div>
                     </div>
 
@@ -46,6 +47,7 @@
                       <label class="col-sm-2 col-form-label" for="careerCode">Codigo *</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control" name="careerCode" id="careerCode" maxlength="64" placeholder="Codigo" required>
+                        <div class="invalid-feedback" id="careerCodeFeedback"></div>
                       </div>
                     </div>
 
@@ -54,6 +56,7 @@
                       <label class="col-sm-2 col-form-label" for="careerDepartment">Departamento *</label>
                       <div class="col">
                         <input type="text" class="form-control" name="careerDepartment" id="careerDepartment" maxlength="256" placeholder="Departamento" required>
+                        <div class="invalid-feedback" id="careerDepartmentFeedback"></div>
                       </div>
                     </div>
 
@@ -62,6 +65,7 @@
                       <label class="col-sm-2 col-form-label" for="careerProfessor">Docente a cargo *</label>
                       <div class="col">
                         <input type="text" class="form-control" name="careerProfessor" id="careerProfessor" maxlength="256" placeholder="Docente" required>
+                        <div class="invalid-feedback" id="careerProfessorFeedback"></div>
                       </div>
                     </div>
 
@@ -70,6 +74,7 @@
                       <label class="col-sm-2 col-form-label" for="careerRuntime">Duración *</label>
                       <div class="col">
                         <input type="number" class="form-control" name="careerRuntime" id="careerRuntime" maxlength="256" placeholder="Duración" required>
+                        <div class="invalid-feedback" id="careerRuntimeFeedback"></div>
                       </div>
                     </div>
 
@@ -82,12 +87,13 @@
                     <div class="form-row mb-3">
                       <div class="col-md-4">
                         <label for="selectCourses" class="col-form-label">Añadir materia</label>
-                        <select class="custom-select" name="selectCourses" id="selectMateria">
-                        </select>
+                        <select class="custom-select" name="selectCourses" id="selectMateria"></select>
+                        <div class="invalid-feedback" id="selectMateriaFeedback"></div>
                       </div>
                       <div class="col-md-3">
                         <label for="courseYear" class="col-form-label">Año</label>
-                        <input type="number" class="form-control" name="courseYear" placeholder="Año" id="anio">
+                        <input type="number" class="form-control" name="anio" placeholder="Año" id="anio" required>
+                        <div class="invalid-feedback" id="courseYearFeedback"></div>
                       </div>
                       <div class="col-md-3">
                         <label for="selectCuatrimestre" class="col-form-label">Seleccionar cuatrimestre</label>
@@ -123,7 +129,7 @@
             </button>
           </div>
           <div class="modal-body">
-            
+
             <div class="form-group row">
               <label class="col-sm-3 col-form-label" for="modal-materia">Materia</label>
               <div class="col-sm-9">
@@ -147,7 +153,7 @@
                 </select>
              </div>
             </div>
-            
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-success" data-dismiss="modal" id="btn-modal-success">Guardar</button>
@@ -160,17 +166,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.0/dist/bootstrap-validate.js"></script>
-    <script>
-      
-      bootstrapValidate('#careerName', 'required: Complete este campo')
-      bootstrapValidate('#careerCode', 'required: Complete este campo')
-      bootstrapValidate('#careerDepartment', 'required: Complete este campo')
-      bootstrapValidate('#careerProfessor', 'required: Complete este campo')
-      bootstrapValidate('#careerRuntime', 'integer: La duracion debe ser un numero entero')
-      bootstrapValidate('#anio', 'required: Complete este campo')
-    </script>
     <script src="../js/api.js"></script>
     <script src="../js/table.js"></script>
+    <script src="../js/inputValidator.js"></script>
     <script src="./js/create.js"></script>
   </body>
 </html>

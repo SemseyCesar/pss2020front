@@ -8,24 +8,46 @@ window.onload = function(){
     if(edit){loadInput(_id)}
 
     var materiasSelected = [];
+    let runtimeValidator = new InputValidator('careerRuntime', "form-control",
+    'careerRuntimeFeedback', ['valueMissing', 'badInput'], ['Ingrese la duración', 'Debe ser un número'])
+    let fields = [
+		new InputValidator('careerName', "form-control",
+		'careerNameFeedback', ['valueMissing'], ['Ingrese un nombre']),
+		new InputValidator('careerCode', "form-control",
+		'careerCodeFeedback', ['valueMissing'], ['Ingrese un código']),
+		new InputValidator('careerDepartment', "form-control",
+		'careerDepartmentFeedback', ['valueMissing'], ['Ingrese un departamento']),
+		new InputValidator('careerProfessor', "form-control",
+		'careerProfessorFeedback', ['valueMissing'], ['Ingrese un docente']),
+		runtimeValidator
+	];
+
+    let signatureFields = [
+        new InputValidator('selectMateria', "custom-select",
+		'selectMateriaFeedback', ['customError'], ['La materia ya ha sido cargada']),
+        new InputValidator('anio', "form-control",
+		'courseYearFeedback', ['valueMissing', 'badInput', 'customError'], ['Ingrese un año', 'Debe ser un número', 'Debe ser menor a la duración'])
+    ]
 
     let table = new Table('materias',['Nombre','Año','Cuatrimestre',''],
         ['id','nombre','anio','cuatrimestre'], null);
     table.setWidths(['33%','25%','25%','16%']);
 
+    document.getElementById('selectMateria').addEventListener('change', (event) => selectMateriaChange());
+
     let addMateria = document.getElementById('addMateria');
     addMateria.addEventListener('click', (event) =>{
         let id = document.getElementById('selectMateria').value;
 
-        if(materiasSelected.filter(e => e.id == id).length > 0)
-        return;
-        materiasSelected.push({
-            "id": id,
-            "nombre": document.getElementById('option-'+id).text,
-            "anio": document.getElementById('anio').value,
-            "cuatrimestre": document.getElementById('selectCuatrimestre').value,
-        });
-        table.refreshSelected(materiasSelected);
+        if (localValidateSignature()) {/*
+            materiasSelected.push({
+                "id": id,
+                "nombre": document.getElementById('option-'+id).text,
+                "anio": document.getElementById('anio').value,
+                "cuatrimestre": document.getElementById('selectCuatrimestre').value,
+            });
+            table.refreshSelected(materiasSelected);*/
+        }
     })
 
     table.setOnDeleteEvent((id)=>{
@@ -45,7 +67,7 @@ window.onload = function(){
             apiEdit();
     });
 
-
+/*
     axios.post(api.materia.search,
         {
             "search": "",
@@ -61,7 +83,7 @@ window.onload = function(){
                     document.getElementById('selectMateria').appendChild(option);
                 });
             }
-    });
+    });*/
 
     function openModalEdit(data){
         let modal = $('#editModal')
@@ -129,6 +151,7 @@ window.onload = function(){
                 alert("Error: No se pudo comunicar con el sistema")
         });
     }
+
     function refreshInputs(){
         document.getElementById('careerName').value="";
         document.getElementById('careerCode').value="";
@@ -152,32 +175,61 @@ window.onload = function(){
     }
 
     function apiCreate(){
-        axios.post(api.carrera.carrera,
-            getDataToSend(), getHeader()
-        ).then(function (response){
-            if(response.status == 200){
-                refreshInputs();
-            }
-        }).catch(function (error) {
-            if(error.response)
-                alert("Error: "+ error.response.data.message);
-            else
-                alert("Error: No se pudo comunicar con el sistema")
-        });
+        if (localValidate()) {
+            axios.post(api.carrera.carrera,
+                getDataToSend(), getHeader()
+            ).then(function (response){
+                if(response.status == 200){
+                    refreshInputs();
+                }
+            }).catch(function (error) {
+                if(error.response)
+                    alert("Error: "+ error.response.data.message);
+                else
+                    alert("Error: No se pudo comunicar con el sistema")
+            });
+        }
     }
 
     function apiEdit(){
-        axios.put(api.carrera.carrera+_id,
-            getDataToSend() , getHeader()
-        ).then(function (response){
-            if(response.status == 200){
-                refreshInputs();
-            }
-        }).catch(function (error) {
-            if(error.response)
-                alert("Error: "+ error.response.data.message);
-            else
-                alert("Error: No se pudo comunicar con el sistema")
-        });
+        if (localValidate()){
+            axios.put(api.carrera.carrera+_id,
+                getDataToSend() , getHeader()
+            ).then(function (response){
+                if(response.status == 200){
+                    refreshInputs();
+                }
+            }).catch(function (error) {
+                if(error.response)
+                    alert("Error: "+ error.response.data.message);
+                else
+                    alert("Error: No se pudo comunicar con el sistema")
+            });
+        }
+    }
+
+	function localValidate() {
+		return fields.every(field => field.validate());
+	}
+
+    function localValidateSignature() {
+        let selectMateria = document.getElementById("selectMateria");
+        let courseYear = document.getElementById("anio");
+        if(materiasSelected.filter(e => e.id == id).length > 0)
+            selectMateria.setCustomValidity('La materia ya ha sido cargada');
+        else
+            selectMateria.setCustomValidity("");
+
+        // Si la duración de carrera no se ingresó/era un valor válido ó el año ingresado es mayor a la duración
+        if (!runtimeValidator.validate() || courseYear.value > document.getElementById("careerRuntime").value)
+            courseYear.setCustomValidity("No puede ser mayor a la duración");
+        else
+            // Todo ok
+            courseYear.setCustomValidity("");
+        return signatureFields.every(field => field.validate())
+    }
+
+    function selectMateriaChange(event) {
+        event.target.setAttribute("class", "custom-select");
     }
 }
