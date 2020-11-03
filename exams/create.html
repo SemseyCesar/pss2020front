@@ -20,9 +20,9 @@
 
 			<!-- Card body -->
 			<div class="card-body">
-				<div class="form-group form-row">
-					<label class="col-sm-2 col-form-label" for="examSignatures">Materia*</label>
-					<div class="col-sm-10">
+				<div class="form-group row">
+					<label class="col-sm-3 col-form-label text-right" for="examSignatures">Materia*</label>
+					<div class="col-sm-8">
 						<select class="custom-select" id="examSignatures" required>
 							<option value="">Seleccione una materia</option>
 						</select>
@@ -30,45 +30,45 @@
 					</div>
 				</div>
 
-				<div class="form-group form-row">
-					<label class="col-sm-2 col-form-label" for="examCode">Código*</label>
-					<div class="col-sm-10">
+				<div class="form-group row">
+					<label class="col-sm-3 col-form-label text-right" for="examCode">Código*</label>
+					<div class="col-sm-8">
 						<input class="form-control" type="text" id="examCode" required>
 						<div class="invalid-feedback" id="examCodeFeedback"></div>
 					</div>
 				</div>
 
-				<div class="form-group form-row">
-					<label class="col-sm-2 col-form-label" for="examDate">Fecha*</label>
-					<div class="col-sm-10">
+				<div class="form-group row">
+					<label class="col-sm-3 col-form-label text-right" for="examDate">Fecha*</label>
+					<div class="col-sm-8">
 						<input class="form-control" type="date" id="examDate" required>
 						<div class="invalid-feedback" id="examDateFeedback"></div>
 					</div>
 				</div>
 
-				<div class="form-group form-row">
-					<label class="col-sm-2 col-form-label" for="examTime">Hora*</label>
-					<div class="col-sm-10">
+				<div class="form-group row">
+					<label class="col-sm-3 col-form-label text-right" for="examTime">Hora*</label>
+					<div class="col-sm-8">
 						<input class="form-control" type="time" id="examTime" required>
 						<div class="invalid-feedback" id="examTimeFeedback"></div>
 					</div>
 				</div>
 
-				<div class="form-group form-row">
-					<label class="col-sm-2 col-form-label" for="examClassroom">Aula*</label>
-					<div class="col-sm-10">
+				<div class="form-group row">
+					<label class="col-sm-3 col-form-label text-right" for="examClassroom">Aula*</label>
+					<div class="col-sm-8">
 						<input class="form-control" type="text" id="examClassroom" maxlength="64" required>
 						<div class="invalid-feedback" id="examClassroomFeedback"></div>
 					</div>
 				</div>
 
+				<hr>
 				<button class="btn btn-primary float-right" id="btnGuardar">Guardar</button>
 			</div>
 		</div>
 	</div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	<script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.0/dist/bootstrap-validate.js"></script>
 	<script src="../js/inputValidator.js"></script>
 	<script src="../js/api.js"></script>
 	<script src="./js/create.js"></script>
