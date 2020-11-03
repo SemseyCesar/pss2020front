@@ -46,6 +46,20 @@ function start(){
             apiEdit();
     });
 
+    axios.get(api.user.docentes,getHeader()
+        ).then(function (response) {
+            if(response.status == 200){
+                response.data.docentes.forEach( u => {
+                    console.log(u);
+                    let option = document.createElement("OPTION");
+                    option.setAttribute("id", "option-"+u["id"]);
+                    option.setAttribute("value", u["nombre_apellido"]);
+                    let text = document.createTextNode(u["nombre_apellido"]);
+                    option.appendChild(text);
+                    document.getElementById('selectProfessor').appendChild(option);
+                });
+            }
+    });
 
     axios.post(api.materia.search,
         {
@@ -82,24 +96,6 @@ function start(){
             table.refreshSelected(materiasSelected);
             modal.find('#btn-modal-success').off('click');
         })
-    }
-
-    function getProfessors() {
-        axios.post('https://pss2020api.herokuapp.com/api/user/search',
-            {
-                "search": "",
-            }).then(function (response) {
-                if(response.status == 200) {
-                    professors = response.data.users.filter(item => item['type'] == "docente");
-                    let select = document.getElementById("careerProfessor");
-                    professors.forEach(p => {
-                        let option = document.createElement("option");
-                        option.setAttribute("value", ""+p['id']);
-                        option.textContent = p['nombre_apellido'];
-                        select.appendChild(option);
-                    })
-                }
-            })
     }
 
     function loadInput(id){
