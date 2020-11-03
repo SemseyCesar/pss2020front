@@ -67,7 +67,7 @@ function createBody(errorCode) {
     let img = document.createElement('img');
 
     container.setAttribute("class", "d-flex justify-content-center align-items-center w-100");
-    container.setAttribute("style", "min-height: 100vh; background-color: #ebebec");
+    container.setAttribute("style", "min-height: 100vh; background-color: #ebebec;");
     img.setAttribute("src", "../404.png");
 
     container.appendChild(img);

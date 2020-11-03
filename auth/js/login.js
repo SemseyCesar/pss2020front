@@ -1,7 +1,7 @@
 function start(auth) {
     switch (auth) {
         case 'admin':
-            window.location.href = '../signatures/asociar.html';
+            window.location.href = '../homeAdmin.html';
             break;
         case 'docente':
             window.location.href = '../docente/notas/notas.html';
