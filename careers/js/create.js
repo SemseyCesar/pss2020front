@@ -154,8 +154,7 @@ function start(){
     }
 
     function apiCreate(){
-        if(true){
-        // if (localValidate()) {
+        if (localValidate()) {
             axios.post(api.carrera.carrera,
                 getDataToSend(), getHeader()
             ).then(function (response){
