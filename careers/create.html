@@ -52,38 +52,35 @@
                         </div>
 
                         <!-- Campo del departamento responsable de la carrera -->
-                        <div class ="form-group row">
-                                <label class="col-sm-3 col-form-label text-right" for="careerDepartment">Departamento *</label>
-                                <div class="col-sm-7">
-                                    <select class="custom-select" name="careerDepartment" id="careerDepartment" required>
-                                        <option value="">Seleccione un departamento</option>
-                                        <option value="agronomia">Departamento de Agronomia</option>
-                                        <option value="bio">Departamento de Biologia, Bioquimica y Farmacia</option>
-                                        <option value="csad">Departamento de Ciencias de la Administracion</option>
-                                        <option value="cssa">Departamento de Ciencias de la Saludo</option>
-                                        <option value="csingcmp">Departamento de Ciencias e Ingeniera de Computacion</option>
-                                        <option value="derecho">Departamento de Derecho</option>
-                                        <option value="economa">Departamento de Economia</option>
-                                        <option value="fisica">Departamento de Fisica</option>
-                                        <option value="geogytur">Departamento de Geografia y Turismo</option>
-                                        <option value="geologia">Departamento de Geologia</option>
-                                        <option value="humanidades">Departamento de Humanidades</option>
-                                        <option value="ingenieria">Departamento de Ingenieria</option>
-                                        <option value="ingeleydec">Departamento de Ingenieria Electrica y de Computadoras</option>
-                                        <option value="ingqui">Departamento de Quimica</option>
-                                        <option value="matematica">Departamento de Matematica</option>
-                                        <option value="quimica">Departamento de Quimica</option>
-                                    </select>
-                                    <div class="invalid-feedback" id="careerDepartmentFeedback"></div>
-                                </div>
+                        <div class ="form-row mb-2">
+                            <label class="col-sm-3 control-label text-right" for="careerDepartment">Departamento *</label>
+                            <div class="col-sm-7">
+                                <select class="custom-select dept" name="selectDepartamento" id="selectDepartamento">
+                                <option value="agronomia">Departamento de Agronomia</option>
+                                <option value="bio">Departamento de Biologia, Bioquimica y Farmacia</option>
+                                <option value="csad">Departamento de Ciencias de la Administracion</option>
+                                <option value="cssa">Departamento de Ciencias de la Saludo</option>
+                                <option value="csingcmp">Departamento de Ciencias e Ingeniera de Computacion</option>
+                                <option value="derecho">Departamento de Derecho</option>
+                                <option value="economa">Departamento de Economia</option>
+                                <option value="fisica">Departamento de Fisica</option>
+                                <option value="geogytur">Departamento de Geografia y Turismo</option>
+                                <option value="geologia">Departamento de Geologia</option>
+                                <option value="humanidades">Departamento de Humanidades</option>
+                                <option value="ingenieria">Departamento de Ingenieria</option>
+                                <option value="ingeleydec">Departamento de Ingenieria Electrica y de Computadoras</option>
+                                <option value="ingqui">Departamento de Quimica</option>
+                                <option value="matematica">Departamento de Matematica</option>
+                                <option value="quimica">Departamento de Quimica</option>
+                                </select>
+                            </div>
                         </div>
 
                         <!-- Campo de docente a cargo -->
-                        <div class="form-group row">
+                        <div class ="form-row mb-2">
                             <label class="col-sm-3 col-form-label text-right" for="careerProfessor">Docente a cargo *</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="careerProfessor" id="careerProfessor" maxlength="256" placeholder="Docente" required>
-                                <div class="invalid-feedback" id="careerProfessorFeedback"></div>
+                                <select class="custom-select" name="selectProfessor" id="selectProfessor"></select>
                             </div>
                         </div>
 
