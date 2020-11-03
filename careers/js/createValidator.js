@@ -38,6 +38,7 @@ function localValidateSignature(materiasSelected) {
 }
 
 function checkExistingSignature(materiasSelected) {
+    let id = signatureFields.selectMateriaValidator.getField().value;
     if(materiasSelected.filter(e => e.id == id).length > 0)
         signatureFields.selectMateriaValidator.setCustomValidity('La materia ya ha sido cargada');
     else
@@ -54,4 +55,11 @@ function checkRuntimeWithSignatureYear() {
         else
             signatureFields.anioValidator.setCustomValidity();
     }
+}
+
+document.getElementById('selectMateria').addEventListener('change', (event) => selectMateriaChange());
+
+function selectMateriaChange() {
+    signatureFields.selectMateriaValidator.setCustomValidity();
+    signatureFields.selectMateriaValidator.validate();
 }

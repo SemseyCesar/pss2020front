@@ -23,7 +23,7 @@ var api = {
     },
     alumno:{
         carrera: BASE_URL + "/alumno/carrera",
-    },    
+    },
     profesor:{
         materia: BASE_URL + "/profesor/materia",
         nota: BASE_URL + "/profesor/materia/nota",
@@ -68,7 +68,7 @@ function createBody(errorCode) {
 
     container.setAttribute("class", "d-flex justify-content-center align-items-center w-100");
     container.setAttribute("style", "min-height: 100vh; background-color: #ebebec");
-    img.setAttribute("src", "../404.jpg");
+    img.setAttribute("src", "../404.png");
 
     container.appendChild(img);
 

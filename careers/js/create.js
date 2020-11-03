@@ -12,8 +12,6 @@ function start(){
         ['id','nombre','anio','cuatrimestre'], null);
     table.setWidths(['33%','25%','25%','16%']);
 
-    document.getElementById('selectMateria').addEventListener('change', (event) => selectMateriaChange());
-
     let addMateria = document.getElementById('addMateria');
     addMateria.addEventListener('click', (event) =>{
         let id = document.getElementById('selectMateria').value;
@@ -181,10 +179,6 @@ function start(){
                     alert("Error: No se pudo comunicar con el sistema")
             });
         }
-    }
-
-    function selectMateriaChange(event) {
-        event.target.setAttribute("class", "custom-select");
     }
 }
 
