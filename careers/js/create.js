@@ -109,7 +109,7 @@ function start(){
                 data = response.data.carrera;
                 document.getElementById('careerName').value = data.nombre;
                 document.getElementById('careerCode').value = data.identificador;
-                document.getElementById('careerDepartment').value = data.dpto,
+                document.getElementById('selectDepartamento').value = data.dpto,
                 document.getElementById('careerProfessor').value = response.docente;
                 document.getElementById('careerRuntime').value = data.duracion;
                 materiasSelected = data.materias.map( m => {
@@ -134,7 +134,7 @@ function start(){
     function refreshInputs(){
         document.getElementById('careerName').value="";
         document.getElementById('careerCode').value="";
-        document.getElementById('careerDepartment').value="";
+        //document.getElementById('selectDepartamento').value="";
         document.getElementById('careerProfessor').value="";
         document.getElementById('careerRuntime').value="";
         materiasSelected = [];
@@ -146,7 +146,7 @@ function start(){
         return {
             "nombre": document.getElementById('careerName').value,
             "identificador": document.getElementById('careerCode').value,
-            "dpto": document.getElementById('careerDepartment').value,
+            "dpto": document.getElementById('selectDepartamento').value,
             "docente": document.getElementById('careerProfessor').value,
             "duracion": document.getElementById('careerRuntime').value,
             "materias": materiasSelected,
@@ -154,7 +154,8 @@ function start(){
     }
 
     function apiCreate(){
-        if (localValidate()) {
+        if(true){
+        // if (localValidate()) {
             axios.post(api.carrera.carrera,
                 getDataToSend(), getHeader()
             ).then(function (response){
