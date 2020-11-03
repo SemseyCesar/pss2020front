@@ -126,8 +126,7 @@ function start(){
     function refreshInputs(){
         document.getElementById('careerName').value="";
         document.getElementById('careerCode').value="";
-        //document.getElementById('selectDepartamento').value="";
-        //document.getElementById('selectDepartamento').value="";
+        document.getElementById('selectDepartamento').value="";
         document.getElementById('careerRuntime').value="";
         materiasSelected = [];
         table.refreshSelected(materiasSelected);
