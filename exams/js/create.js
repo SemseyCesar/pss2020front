@@ -1,18 +1,18 @@
 window.onload = function() {
 	var signatures = [];
 	//loadSignatures();
-	let fields = [
-		new InputValidator('examSignatures', "custom-select",
-		'examSignatureFeedback', ['valueMissing'], ['Seleccione una opción']),
-		new InputValidator('examCode', "form-control",
-		'examCodeFeedback', ['valueMissing'], ['Ingrese un código']),
-		new InputValidator('examDate',  "form-control",
-		'examDateFeedback', ['valueMissing'], ['Ingrese una fecha']),
-		new InputValidator('examTime',  "form-control",
-		'examTimeFeedback', ['valueMissing'], ['Ingrese un horario']),
-		new InputValidator('examClassroom',  "form-control",
-		'examClassroomFeedback', ['valueMissing'], ['Ingrese un aula'])
-	]
+	let fields = {
+		examSignatures: new InputValidator('examSignatures', document.getElementById('examSignatures').className,
+		'examSignatureFeedback', {valueMissing: 'Seleccione una opción'}),
+		examCode: new InputValidator('examCode', document.getElementById('examCode').className,
+		'examCodeFeedback', {valueMissing: 'Ingrese un código'}),
+		examDate: new InputValidator('examDate', document.getElementById('examDate').className,
+		'examDateFeedback', {valueMissing: 'Ingrese una fecha'}),
+		examTime: new InputValidator('examTime', document.getElementById('examTime').className,
+		'examTimeFeedback', {valueMissing: 'Ingrese un horario'}),
+		examClassroom: new InputValidator('examClassroom', document.getElementById('examClassroom').className,
+		'examClassroomFeedback', {valueMissing: 'Ingrese un aula'})
+	};
 
 /*
 	TODO: Buscar únicamente las materias en base al docente
@@ -69,6 +69,10 @@ window.onload = function() {
 	}
 
 	function localValidate() {
-		return fields.every(field => field.validate());
+	    let validValues = Object.values(fields).map(field => field.validate());
+	    let firstNoValid = validValues.findIndex(value => !value);
+	    if (firstNoValid != -1)
+	        Object.values(fields)[firstNoValid].getField().focus();
+	    return firstNoValid==-1;
 	}
 }

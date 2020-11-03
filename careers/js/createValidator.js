@@ -19,14 +19,22 @@ let signatureFields = {
 }
 
 function localValidate() {
-    return Object.values(fields).every(field => field.validate());
+    let validValues = Object.values(fields).map(field => field.validate());
+    let firstNoValid = validValues.findIndex(value => !value);
+    if (firstNoValid != -1)
+        Object.values(fields)[firstNoValid].getField().focus();
+    return firstNoValid==-1;
 }
 
 function localValidateSignature(materiasSelected) {
     checkExistingSignature(materiasSelected);
     checkRuntimeWithSignatureYear();
 
-    return Object.values(signatureFields).every(field => field.validate())
+    let validValues = Object.values(signatureFields).map(field => field.validate());
+    let firstNoValid = validValues.findIndex(value => !value);
+    if (firstNoValid != -1)
+        Object.values(signatureFields)[firstNoValid].getField().focus();
+    return firstNoValid==-1;
 }
 
 function checkExistingSignature(materiasSelected) {

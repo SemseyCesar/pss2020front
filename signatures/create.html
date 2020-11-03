@@ -26,6 +26,7 @@
                       <label class="col-sm-2 col-form-label" for="signatureName">Nombre *</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control" name="signatureName" id="signatureName" maxlength="256" placeholder="Nombre" required>
+                        <div class="invalid-feedback" id="signatureNameFeedback"></div>
                       </div>
                     </div>
 
@@ -33,7 +34,8 @@
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label" for="signatureCode">Codigo *</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="signatureName" id="signatureCode" maxlength="64" placeholder="Codigo" required>
+                        <input type="text" class="form-control" name="signatureCode" id="signatureCode" maxlength="64" placeholder="Codigo" required>
+                        <div class="invalid-feedback" id="signatureCodeFeedback"></div>
                       </div>
                     </div>
 
@@ -42,6 +44,7 @@
                       <label class="col-sm-2 col-form-label" for="signatureDepartment">Departamento *</label>
                       <div class="col">
                         <input type="text" class="form-control" name="signatureDepartment" id="signatureDepartment" maxlength="256" placeholder="Departamento" required>
+                        <div class="invalid-feedback" id="signatureDepartmentFeedback"></div>
                       </div>
                     </div>
 
@@ -53,49 +56,8 @@
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.0/dist/bootstrap-validate.js"></script>
     <script src="../js/api.js"></script>
-    <script>
-      
-      bootstrapValidate('#signatureName', 'required: Complete este campo')
-      bootstrapValidate('#signatureCode', 'required: Complete este campo')
-      bootstrapValidate('#signatureDepartment', 'required: Complete este campo')
-      
-    </script>
-    <script>
-
-      let btnGuardar = document.getElementById('btnGuardar');
-      btnGuardar.addEventListener('click', (event) => {
-		if(!document.getElementById("signatureName").value ||
-				!document.getElementById("signatureCode").value ||
-				!document.getElementById("signatureDepartment").value)
-			alert("Error: Campo Obligatorio no completado");
-		else {
-			if(document.getElementById("signatureCode").value <= 0)
-				alert("Error: El codigo de la materia no puede ser menor a cero");
-			else {
-				axios.post(api.materia.materia,
-					{
-					"nombre": document.getElementById("signatureName").value,
-					"identificador": document.getElementById("signatureCode").value,
-					"dpto": document.getElementById("signatureDepartment").value
-					}
-				).then(function (response) {
-					document.getElementById("signatureName").value="";
-					document.getElementById("signatureCode").value="";
-					document.getElementById("signatureDepartment").value="";
-					alert("Datos cargados correctamente");
-				}).catch(function (error) {
-						if(error.response)
-							alert("Error: "+ error.response.data.message);
-						else 
-							alert("Error: No se pudo comunicar con el sistema")
-				});
-			}
-			}
-		});
-
-        
-    </script>
+    <script src="../js/inputValidator.js"></script>
+    <script src="./js/create.js"></script>
   </body>
 </html>
