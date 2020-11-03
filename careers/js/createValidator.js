@@ -3,10 +3,10 @@ let fields = {
               'careerNameFeedback', {valueMissing: 'Ingrese un nombre'}),
     careerCode: new InputValidator('careerCode', document.getElementById('careerCode').className,
               'careerCodeFeedback', {valueMissing: 'Ingrese un código'}),
-    careerDepartment: new InputValidator('careerDepartment', document.getElementById('careerDepartment').className,
-         'careerDepartmentFeedback', {valueMissing: 'Seleccione un departamento'}),
-    careerProfessor: new InputValidator('careerProfessor', document.getElementById('careerProfessor').className,
-              'careerProfessorFeedback', {valueMissing: 'Ingrese un docente'}),
+    //careerDepartment: new InputValidator('careerDepartment', document.getElementById('careerDepartment').className,
+    //     'careerDepartmentFeedback', {valueMissing: 'Seleccione un departamento'}),
+    //careerProfessor: new InputValidator('careerProfessor', document.getElementById('careerProfessor').className,
+    //          'careerProfessorFeedback', {valueMissing: 'Ingrese un docente'}),
     careerRuntime: new InputValidator('careerRuntime', document.getElementById('careerRuntime').className,
               'careerRuntimeFeedback', {valueMissing: 'Ingrese la duración', badInput: 'Debe ser un número'})
 };

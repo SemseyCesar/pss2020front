@@ -2,7 +2,6 @@ function start(){
     const searchParams = new URLSearchParams(window.location.search);
     var edit = (searchParams.has('id') && searchParams.get('id')) ? true : false;
     var _id = edit ? searchParams.get('id') : null;
-    console.log(edit, _id);
 
     if(edit){loadInput(_id)}
 
@@ -48,7 +47,6 @@ function start(){
         ).then(function (response) {
             if(response.status == 200){
                 response.data.docentes.forEach( u => {
-                    console.log(u);
                     let option = document.createElement("OPTION");
                     option.setAttribute("id", "option-"+u["id"]);
                     option.setAttribute("value", u["nombre_apellido"]);
@@ -104,7 +102,7 @@ function start(){
                 document.getElementById('careerName').value = data.nombre;
                 document.getElementById('careerCode').value = data.identificador;
                 document.getElementById('selectDepartamento').value = data.dpto,
-                document.getElementById('careerProfessor').value = response.docente;
+                document.getElementById('selectProfessor').value = data.docente;
                 document.getElementById('careerRuntime').value = data.duracion;
                 materiasSelected = data.materias.map( m => {
                     return {
@@ -129,7 +127,7 @@ function start(){
         document.getElementById('careerName').value="";
         document.getElementById('careerCode').value="";
         //document.getElementById('selectDepartamento').value="";
-        document.getElementById('careerProfessor').value="";
+        //document.getElementById('selectDepartamento').value="";
         document.getElementById('careerRuntime').value="";
         materiasSelected = [];
         table.refreshSelected(materiasSelected);
@@ -141,7 +139,7 @@ function start(){
             "nombre": document.getElementById('careerName').value,
             "identificador": document.getElementById('careerCode').value,
             "dpto": document.getElementById('selectDepartamento').value,
-            "docente": document.getElementById('careerProfessor').value,
+            "docente": document.getElementById('selectProfessor').value,
             "duracion": document.getElementById('careerRuntime').value,
             "materias": materiasSelected,
         }
