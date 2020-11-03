@@ -58,7 +58,7 @@ function checkRuntimeWithSignatureYear() {
 }
 
 document.getElementById('selectDepartamento').addEventListener('change', (event) => selectChange(fields.careerDepartment));
-document.getElementById('selectProfessor').addEventListener('change', (event) => selectChange(fields.careerProfessor));
+//document.getElementById('selectProfessor').addEventListener('change', (event) => selectChange(fields.careerProfessor));
 document.getElementById('selectMateria').addEventListener('change', (event) => selectChange(signatureFields.selectMateriaValidator));
 
 function selectChange(validator) {
