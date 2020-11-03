@@ -18,7 +18,7 @@ function start(){
         if (localValidateSignature(materiasSelected)) {
             materiasSelected.push({
                 "id": id,
-                "nombre": document.getElementById('option-'+id).text,
+                "nombre": document.getElementById('option-materia-'+id).text,
                 "anio": document.getElementById('anio').value,
                 "cuatrimestre": document.getElementById('selectCuatrimestre').value,
             });
@@ -48,7 +48,7 @@ function start(){
             if(response.status == 200){
                 response.data.docentes.forEach( u => {
                     let option = document.createElement("OPTION");
-                    option.setAttribute("id", "option-"+u["id"]);
+                    option.setAttribute("id", "option-docente-"+u["id"]);
                     option.setAttribute("value", u["nombre_apellido"]);
                     let text = document.createTextNode(u["nombre_apellido"]);
                     option.appendChild(text);
@@ -65,7 +65,7 @@ function start(){
             if(response.status == 200){
                 response.data.materias.forEach( u => {
                     let option = document.createElement("OPTION");
-                    option.setAttribute("id", "option-"+u["id"]);
+                    option.setAttribute("id", "option-materia-"+u["id"]);
                     option.setAttribute("value", u["id"]);
                     let text = document.createTextNode(u["nombre"]);
                     option.appendChild(text);
