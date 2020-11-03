@@ -19,15 +19,16 @@ function start(){
                         option.setAttribute("value", u["id"]);
                         let text = document.createTextNode(u["nombre"]);
                         option.appendChild(text);
-                        selectMateria.appendChild(option);       
+                        selectMateria.appendChild(option);
                     });
-                    onChangeMateriaSelected(selectMateria.value);
+                    if (materias.length > 0)
+                        onChangeMateriaSelected(selectMateria.value);
                 }
         });
     }
 
-    loadMaterias();   
-    
+    loadMaterias();
+
     function onChangeMateriaSelected(id){
         let materiaSelected = materias.filter(c => c.id ==id)[0];
         selectAlumno.innerHTML = "";
@@ -57,7 +58,7 @@ function start(){
         document.getElementById('notaCursado').value = nota_cursado ? nota_cursado : "Sin Calificar";
         document.getElementById('notaFinal').value = nota_final ? nota_final : "Sin Calificar";
     }
-        
+
     selectMateria.addEventListener('change', (e) =>{
         onChangeMateriaSelected(selectMateria.value);
     });
@@ -108,7 +109,7 @@ function start(){
                     modal.modal('hide');
                 }
             });
-            
+
         })
     }
 }
