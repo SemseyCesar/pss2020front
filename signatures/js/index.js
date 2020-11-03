@@ -6,12 +6,19 @@ window.onload = function() {
 	table.setWidths(['25%','25%','25%']);
 
 	table.setOnDeleteEvent((id)=>{
-		console.log("Borrando " + id);
-	})
+		axios.delete(api.materia.materia+"/"+id, getHeader())
+			.then(function (response) {
+				console.log(response)
+				if(response.status == 200){
+					signaturesRows = signaturesRows.filter( s => s.id != id)
+					table.refreshSelected(signaturesRows);
+				}
+			});
+    })
 
-	table.setOnEditEvent((id) =>{
-		console.log("Modificando " + id);
-	})
+    table.setOnEditEvent((id) =>{
+        window.location.href = './create.html?id=' + id;
+    })
 
     let searchValue = new SearchBar(
         'searchValueSection',

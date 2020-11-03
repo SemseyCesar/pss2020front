@@ -103,7 +103,7 @@ window.onload = function(){
     }
 
     function loadInput(id){
-        axios.get(api.carrera.carrera+id, getHeader())
+        axios.get(api.carrera.carrera+"/"+id, getHeader())
         .then(function (response){
             if(response.status == 200){
                 data = response.data.carrera;
@@ -172,7 +172,7 @@ window.onload = function(){
 
     function apiEdit(){
         if (localValidate()){
-            axios.put(api.carrera.carrera+_id,
+            axios.put(api.carrera.carrera+"/"+_id,
                 getDataToSend() , getHeader()
             ).then(function (response){
                 if(response.status == 200){

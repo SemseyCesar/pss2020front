@@ -7,7 +7,8 @@ window.onload = function() {
     table.setWidths(['18%','20%','20%','20%','10%']);
 
     table.setOnDeleteEvent((id)=>{
-		axios.delete(api.carrera.carrera+id, {}, getHeader())
+		console.log(getHeader());
+		axios.delete(api.carrera.carrera+"/"+id, getHeader())
 			.then(function (response) {
 				console.log(response)
 				if(response.status == 200){
