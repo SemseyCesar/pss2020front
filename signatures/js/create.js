@@ -1,26 +1,27 @@
-let fields = {
-    signatureName: new InputValidator('signatureName', document.getElementById('signatureName').className,
-    'signatureNameFeedback', {valueMissing: 'Ingrese un nombre'}),
-    signatureCode: new InputValidator('signatureCode', document.getElementById('signatureCode').className,
-    'signatureCodeFeedback', {valueMissing: 'Ingrese un código'}),
-    signatureDepartment: new InputValidator('signatureDepartment', document.getElementById('signatureDepartment').className,
-    'signatureDepartmentFeedback', {valueMissing: 'Ingrese un código'})
+function start(){
+    let fields = {
+        signatureName: new InputValidator('signatureName', document.getElementById('signatureName').className,
+        'signatureNameFeedback', {valueMissing: 'Ingrese un nombre'}),
+        signatureCode: new InputValidator('signatureCode', document.getElementById('signatureCode').className,
+        'signatureCodeFeedback', {valueMissing: 'Ingrese un código'}),
+        signatureDepartment: new InputValidator('signatureDepartment', document.getElementById('signatureDepartment').className,
+        'signatureDepartmentFeedback', {valueMissing: 'Ingrese un código'})
+    }
+
+    let btnGuardar = document.getElementById('btnGuardar');
+    btnGuardar.addEventListener('click', (event) => {
+        if(!edit)
+                apiCreate();
+            else
+                apiEdit();
+    });
+
+    const searchParams = new URLSearchParams(window.location.search);
+    var edit = (searchParams.has('id') && searchParams.get('id')) ? true : false;
+    var _id = edit ? searchParams.get('id') : null;
+
+    if(edit){loadInput(_id)}
 }
-
-let btnGuardar = document.getElementById('btnGuardar');
-btnGuardar.addEventListener('click', (event) => {
-    if(!edit)
-            apiCreate();
-        else
-            apiEdit();
-});
-
-const searchParams = new URLSearchParams(window.location.search);
-var edit = (searchParams.has('id') && searchParams.get('id')) ? true : false;
-var _id = edit ? searchParams.get('id') : null;
-
-if(edit){loadInput(_id)}
-
 function localValidate() {
     let validValues = Object.values(fields).map(field => field.validate());
     let firstNoValid = validValues.findIndex(value => !value);
@@ -93,4 +94,8 @@ function apiEdit(){
                 alert("Error: No se pudo comunicar con el sistema")
         });
     }
+}
+
+window.onload = function(){
+    checkToken(['admin'], start);
 }

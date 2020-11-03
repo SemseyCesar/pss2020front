@@ -1,5 +1,4 @@
-window.onload = function() {
-	
+function start(){
 	var careersRows = [];
 
 	let table = new Table('carrerList',['Codigo','Nombre','Departamento','Docente','Duración',''],
@@ -66,4 +65,9 @@ window.onload = function() {
 		careersRows = data.filter(item => item[type].includes(filterInput));
 		table.refreshSelected(careersRows);
 	}
+}
+
+
+window.onload = function(){
+    checkToken(['admin'], start);
 }

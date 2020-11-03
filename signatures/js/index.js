@@ -1,4 +1,4 @@
-window.onload = function() {
+function start(){
 	var signaturesRows = [];
 
 	let table = new Table('signatureList',['Codigo','Nombre','Departamento',''],
@@ -65,4 +65,8 @@ window.onload = function() {
 		signaturesRows = data.filter(item => item[type].includes(filterInput));
 		table.refreshSelected(signaturesRows);
 	}
+}
+
+window.onload = function(){
+    checkToken(['admin', 'docente'], start);
 }

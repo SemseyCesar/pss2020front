@@ -1,4 +1,4 @@
-window.onload = function() {
+function start(){
     var usersRows = [];
 
 	let table = new Table('usersList',['LU','DNI','Nombre y Apellido','Rol',''],
@@ -57,4 +57,8 @@ window.onload = function() {
 		usersRows = data.filter(item => item[type].includes(filterInput));
 		table.refreshSelected(usersRows);
 	}
+}
+
+window.onload = function(){
+    checkToken(['admin'], start);
 }

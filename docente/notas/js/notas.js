@@ -113,4 +113,6 @@ function start(){
     }
 }
 
-window.onload = start
+window.onload = function(){
+    checkToken(['admin','docente'], start);
+}

@@ -1,4 +1,4 @@
-window.onload = function() {
+function start(){
 	var signatures = [];
 	//loadSignatures();
 	let fields = {
@@ -142,4 +142,8 @@ window.onload = function() {
 		document.getElementById('examClassroom').value = "";
 		document.getElementById('examSignatures').setAttribute("disabled", "false");
 	}
+}
+
+window.onload = function(){
+    checkToken(['admin','docente'], start);
 }
