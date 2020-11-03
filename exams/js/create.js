@@ -1,6 +1,6 @@
 function start(){
 	var signatures = [];
-	//loadSignatures();
+	loadSignatures();
 	let fields = {
 		examSignatures: new InputValidator('examSignatures', document.getElementById('examSignatures').className,
 		'examSignatureFeedback', {valueMissing: 'Seleccione una opción'}),
@@ -17,7 +17,6 @@ function start(){
 	const searchParams = new URLSearchParams(window.location.search);
     var edit = (searchParams.has('id') && searchParams.get('id')) ? true : false;
     var _id = edit ? searchParams.get('id') : null;
-    console.log(edit, _id);
 
     if(edit){loadInput(_id)}
 
@@ -79,7 +78,7 @@ function start(){
 
     function apiEdit(){
         if (localValidate()){
-            axios.put(api.examen.examen+_id,
+            axios.put(api.examen.examen+"/"+_id,
                 getDataToSend() , getHeader()
             ).then(function (response){
                 if(response.status == 200){
@@ -105,7 +104,7 @@ function start(){
 	}
 
 	function loadInput(id){
-        axios.get(api.carrera.carrera+id, getHeader())
+        axios.get(api.examen.examen+"/"+id, getHeader())
         .then(function (response){
             if(response.status == 200){
                 data = response.data.examen;
@@ -141,6 +140,7 @@ function start(){
 		document.getElementById('examTime').value = "";
 		document.getElementById('examClassroom').value = "";
 		document.getElementById('examSignatures').setAttribute("disabled", "false");
+		alert("Datos cargados correctamente");
 	}
 }
 
