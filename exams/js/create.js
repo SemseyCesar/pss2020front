@@ -25,11 +25,11 @@ window.onload = function() {
 -----------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------
+@// TODO: Buscar únicamente las materias en base al docente
 -----------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------
 	*/
-	@// TODO: Buscar únicamente las materias en base al docente
 
 	function loadSignatures() {
 		axios.post(api.materia.search, getHeader()
@@ -115,6 +115,7 @@ window.onload = function() {
                 document.getElementById('examDate').value = data.fecha,
                 document.getElementById('examTime').value = response.hora;
                 document.getElementById('examClassroom').value = data.aula;
+				document.getElementById('examSignatures').setAttribute("disabled", "true");
             }
         })
         .catch(function (error) {
@@ -139,5 +140,6 @@ window.onload = function() {
 		document.getElementById('examDate').value = "",
 		document.getElementById('examTime').value = "";
 		document.getElementById('examClassroom').value = "";
+		document.getElementById('examSignatures').setAttribute("disabled", "false");
 	}
 }

@@ -54,8 +54,6 @@ class InputValidator {
         if (!isValid) {
             this.setErrorState();
         }
-        console.log(this.id);
-        console.log(validityState);
 
         return isValid;
     }
@@ -65,46 +63,62 @@ class InputValidator {
      */
     resetState() {
         this.setValidState();
-        this.feedback.innerHTML = "";
+        if (this.check(this.feedback, this.feedbackId))
+            this.feedback.innerHTML = "";
     }
 
     /*
      * Setea el input en estado de validez
      */
     setValidState() {
-        this.field.setAttribute("class", this.defaultClass);
+        if (this.check(this.field, this.id))
+            this.field.setAttribute("class", this.defaultClass);
     }
 
     /*
      * Setea el input en estado de invalidez
      */
     setErrorState() {
-        this.field.setAttribute("class", this.defaultClass + " is-invalid");
+        if (this.check(this.field, this.id))
+            this.field.setAttribute("class", this.defaultClass + " is-invalid");
     }
 
     /*
      * Agrega un nuevo mensaje de error
      */
     addErrorMessage(invalidFeedback) {
-        if (this.feedback.innerHTML == "")
-            this.feedback.innerHTML = invalidFeedback;
-        else
-            this.feedback.innerHTML = this.feedback.innerHTML + "<br>" + invalidFeedback;
+        if (this.check(this.feedback, this.feedbackId)) {
+            if (this.feedback.innerHTML == "")
+                this.feedback.innerHTML = invalidFeedback;
+            else
+                this.feedback.innerHTML = this.feedback.innerHTML + "<br>" + invalidFeedback;
+        }
     }
 
     /*
      * Setea un error customizado
      */
     setCustomValidity(customFeedback) {
-        if (customFeedback) {
-            this.field.setCustomValidity("Error");
-            this.rules['customError'] = customFeedback;
-        } else {
-            this.field.setCustomValidity("");
+        if (this.check(this.field, this.id)) {
+            if (customFeedback) {
+                this.field.setCustomValidity("Error");
+                this.rules['customError'] = customFeedback;
+            } else {
+                this.field.setCustomValidity("");
+            }
         }
     }
 
     getField() {
         return this.field;
+    }
+
+    check(toCheck, id) {
+        if (toCheck != null) {
+            return true;
+        } else {
+            console.log("No existe el campo con id <" + id + ">");
+            return false;
+        }
     }
 }
