@@ -40,7 +40,16 @@ function start(){
     btnSuccess.addEventListener('click', (e) => {
         axios.post(api.materia.inscripcion,{
             "materia_id": document.getElementById('selectMateria').value
-        }, getHeader())
+        }, getHeader()).then(function(response) {
+            if(response.status == 200){
+                alert("Inscripcion Exitosa");
+            }
+        }).catch(function (error) {
+            if(error.response)
+                alert("Error: "+ error.response.data.message);
+            else
+                alert("Error: No se pudo comunicar con el sistema")
+        })
     });
 }
 
