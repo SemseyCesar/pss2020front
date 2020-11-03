@@ -1,4 +1,4 @@
-window.onload =  function () {
+function start(){
     let fields = {
         name: new InputValidator('name', document.getElementById('name').className, 'nameFeedback',
                 {valueMissing: 'Ingrese un nombre y apellido', customError: ''}),
@@ -121,4 +121,8 @@ window.onload =  function () {
         else
             inputValidator.setCustomValidity();
     }
+}
+
+window.onload = function(){
+    checkToken(['admin'], start);
 }

@@ -21,4 +21,6 @@ function start(){
     });
 }
 
-window.onload = start
+window.onload = function(){
+    checkToken(['admin','docente','alumno'], start);
+}
