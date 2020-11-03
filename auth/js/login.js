@@ -1,16 +1,14 @@
 function start(auth) {
     switch (auth) {
         case 'admin':
-            window.location.href = '../signatures/asociar.hmtl';
+            window.location.href = '../signatures/asociar.html';
             break;
         case 'docente':
-            window.location.href = '../docente/notas/notas.hmtl';
+            window.location.href = '../docente/notas/notas.html';
             break;
         case 'alumno':
-            window.location.href = '../alumno/inscripcion/career.hmtl';
+            window.location.href = '../alumno/inscripcion/career.html';
             break;
-        default:
-
     }
 }
 
@@ -34,4 +32,5 @@ window.onload = function(){
             }
         )
     })
+
 }
