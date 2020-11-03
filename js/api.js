@@ -26,6 +26,7 @@ var api = {
     },    
     profesor:{
         materia: BASE_URL + "/profesor/materia",
+        nota: BASE_URL + "/profesor/materia/nota"
     },
     examen:{
         examen: BASE_URL + "/examen",
