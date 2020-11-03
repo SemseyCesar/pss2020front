@@ -23,6 +23,9 @@ var api = {
     },
     alumno:{
         carrera: BASE_URL + "/alumno/carrera",
+    },    
+    profesor:{
+        materia: BASE_URL + "/profesor/materia",
     },
     examen:{
         examen: BASE_URL + "/examen",
