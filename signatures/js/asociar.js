@@ -89,5 +89,5 @@ function start(){
 }
 
 window.onload = function(){
-    checkToken(['admin'], start);
+    checkToken(['admin','docente'], start);
 }

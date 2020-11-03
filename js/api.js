@@ -1,5 +1,5 @@
-//var BASE_URL = "http://127.0.0.1:8000/api";
-var BASE_URL = "https://pss2020api.herokuapp.com/api";
+var BASE_URL = "http://127.0.0.1:8000/api";
+// var BASE_URL = "https://pss2020api.herokuapp.com/api";
 var api = {
     auth:{
         login: BASE_URL + "/login",
@@ -26,7 +26,8 @@ var api = {
     },    
     profesor:{
         materia: BASE_URL + "/profesor/materia",
-        nota: BASE_URL + "/profesor/materia/nota"
+        nota: BASE_URL + "/profesor/materia/nota",
+        examen: BASE_URL + "/profesor/examen"
     },
     examen:{
         examen: BASE_URL + "/examen",
