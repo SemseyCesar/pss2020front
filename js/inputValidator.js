@@ -1,7 +1,6 @@
 class InputValidator {
     /*
      * id -> id del input a validar
-     * defaultClass -> estado por defecto del atributo class del input (para resetear cuando sea válido)
      * feedbackId -> id de la sección donde se muestra el mensaje de error
      * rules -> reglas a controlar en formato
             {
@@ -23,14 +22,14 @@ class InputValidator {
             -----------------TODO------------------
             COMPLETAR
     */
-    constructor(id, defaultClass, feedbackId, rules) {
+    constructor(id, feedbackId, rules) {
         this.id = id;
-        this.defaultClass = defaultClass;
         this.feedbackId = feedbackId;
         this.rules = rules;
 
         this.field = this.searchField(id);
         this.feedback = this.searchField(feedbackId);
+        this.defaultClass = this.field.className;
     }
 
     searchField(id) {

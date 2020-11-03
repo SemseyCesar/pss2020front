@@ -1,21 +1,21 @@
 let fields = {
-    careerName: new InputValidator('careerName', document.getElementById('careerName').className,
-              'careerNameFeedback', {valueMissing: 'Ingrese un nombre'}),
-    careerCode: new InputValidator('careerCode', document.getElementById('careerCode').className,
+    careerName: new InputValidator('careerName', 'careerNameFeedback',
+        {valueMissing: 'Ingrese un nombre'}),
+    careerCode: new InputValidator('careerCode',
               'careerCodeFeedback', {valueMissing: 'Ingrese un código'}),
-    careerDepartment: new InputValidator('selectDepartamento', document.getElementById('selectDepartamento').className,
-         'selectDepartamentoFeedback', {valueMissing: 'Seleccione un departamento'}),
-    //careerProfessor: new InputValidator('selectProfessor', document.getElementById('selectProfessor').className,
+    careerDepartment: new InputValidator('selectDepartamento', 'selectDepartamentoFeedback',
+         {valueMissing: 'Seleccione un departamento'}),
+    //careerProfessor: new InputValidator('selectProfessor',
     //          'selectProfessorFeedback', {valueMissing: 'Ingrese un docente'}),
-    careerRuntime: new InputValidator('careerRuntime', document.getElementById('careerRuntime').className,
-              'careerRuntimeFeedback', {valueMissing: 'Ingrese la duración', badInput: 'Debe ser un número'})
+    careerRuntime: new InputValidator('careerRuntime', 'careerRuntimeFeedback',
+        {valueMissing: 'Ingrese la duración', badInput: 'Debe ser un número'})
 };
 
 let signatureFields = {
-    selectMateriaValidator: new InputValidator('selectMateria', document.getElementById('selectMateria').className,
-    'selectMateriaFeedback', {customError: 'La materia ya ha sido cargada'}),
-    anioValidator: new InputValidator('anio', document.getElementById('anio').className,
-    'courseYearFeedback', {valueMissing: 'Ingrese un año', badInput: 'Debe ser un número', customError: 'Incorrecto'})
+    selectMateriaValidator: new InputValidator('selectMateria', 'selectMateriaFeedback',
+        {customError: 'La materia ya ha sido cargada'}),
+    anioValidator: new InputValidator('anio', 'courseYearFeedback',
+        {valueMissing: 'Ingrese un año', badInput: 'Debe ser un número', customError: 'Incorrecto'})
 }
 
 function localValidate() {

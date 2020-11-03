@@ -2,16 +2,16 @@ function start(){
 	var signatures = [];
 	loadSignatures();
 	let fields = {
-		examSignatures: new InputValidator('examSignatures', document.getElementById('examSignatures').className,
-		'examSignatureFeedback', {valueMissing: 'Seleccione una opción'}),
-		examCode: new InputValidator('examCode', document.getElementById('examCode').className,
-		'examCodeFeedback', {valueMissing: 'Ingrese un código'}),
-		examDate: new InputValidator('examDate', document.getElementById('examDate').className,
-		'examDateFeedback', {valueMissing: 'Ingrese una fecha'}),
-		examTime: new InputValidator('examTime', document.getElementById('examTime').className,
-		'examTimeFeedback', {valueMissing: 'Ingrese un horario'}),
-		examClassroom: new InputValidator('examClassroom', document.getElementById('examClassroom').className,
-		'examClassroomFeedback', {valueMissing: 'Ingrese un aula'})
+		examSignatures: new InputValidator('examSignatures', 'examSignatureFeedback',
+			{valueMissing: 'Seleccione una opción'}),
+		examCode: new InputValidator('examCode', 'examCodeFeedback',
+			{valueMissing: 'Ingrese un código'}),
+		examDate: new InputValidator('examDate', 'examDateFeedback',
+			{valueMissing: 'Ingrese una fecha'}),
+		examTime: new InputValidator('examTime', 'examTimeFeedback',
+			{valueMissing: 'Ingrese un horario'}),
+		examClassroom: new InputValidator('examClassroom', 'examClassroomFeedback',
+			{valueMissing: 'Ingrese un aula'})
 	};
 
 	const searchParams = new URLSearchParams(window.location.search);

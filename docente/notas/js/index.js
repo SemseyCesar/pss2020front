@@ -1,5 +1,5 @@
-function start(){
-	var careersRows = [];
+function start(auth){
+/*	var careersRows = [];
 
 	let table = new Table('carrerList',['Codigo','Nombre','Departamento','Docente','Duración',''],
         ['identificador','nombre','dpto','docente','duracion'], null);
@@ -19,33 +19,12 @@ function start(){
 
     table.setOnEditEvent((id) =>{
         window.location.href = './create.html?id=' + id;
-    })
-
-    let searchValue = new SearchBar(
-        'searchValueSection',
-        ['text','text','text'], 
-        ['Seleccione una opción','Ingrese el Nombre','Ingrese el Código'],
-        ['','','',''],
-        null
-    );
-
-    let select = new Select(
-        'selectSection',
-        ['', 'nombre', 'identificador'],
-        ['Buscar por...', 'Nombre', 'Código'],
-        'Seleccione una opción.',
-        searchValue,
-        null
-    );
-
-    select.setOnChange(() => {
-        select.validity();
-        searchValue.setAttributes(select.getSelectedIndex());
-        searchValue.validity();
-    })
+    });*/
 
 	let btnBuscar = document.getElementById('btnBuscar');
-	btnBuscar.addEventListener('click', (event) => {
+	btnBuscar.addEventListener('click', (event) => search())
+
+	function search() {
 		if (select.validity() && searchValue.validity()){
 			axios.post(api.carrera.search,
 			{
@@ -59,7 +38,8 @@ function start(){
 				}
 			});
 		}
-	})
+	}
+
 
 	function filterBy(data, type, filterInput) {
 		careersRows = data.filter(item => item[type].includes(filterInput));
