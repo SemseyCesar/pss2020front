@@ -48,7 +48,7 @@ function start(){
                 getData(),
                 getHeader()
             ).then(function (response) {
-                if (response.statue == 200 || 204) {
+                if (response.status == 200) {
                     Object.values(fields).forEach(fieldValidator => {
                         fieldValidator.getField().value = "";
                     })
