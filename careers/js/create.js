@@ -1,4 +1,4 @@
-window.onload = function(){
+function start(){
     const searchParams = new URLSearchParams(window.location.search);
     var edit = (searchParams.has('id') && searchParams.get('id')) ? true : false;
     var _id = edit ? searchParams.get('id') : null;
@@ -191,3 +191,5 @@ window.onload = function(){
         event.target.setAttribute("class", "custom-select");
     }
 }
+
+window.onload = start;

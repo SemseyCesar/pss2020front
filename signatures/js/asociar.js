@@ -67,7 +67,7 @@ function start(){
                     modal.modal('hide');
                 }
             });
-            
+
         })
     }
 
