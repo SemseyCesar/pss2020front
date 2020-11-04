@@ -77,6 +77,7 @@ function start(){
 	}
 
     function apiEdit(){
+		console.log("EAS");
         if (localValidate()){
             axios.put(api.examen.examen+"/"+_id,
                 getDataToSend() , getHeader()
@@ -93,27 +94,33 @@ function start(){
         }
     }
 
+	function getTime(){
+		var time = document.getElementById("examTime").value;
+		const splittedString = time.split(":");
+		return splittedString[0]+":"+splittedString[1];
+	}
+
 	function getDataToSend() {
 		return {
 			"identificador": document.getElementById("examCode").value,
 			"materia_id": document.getElementById("examSignatures").value,
 			"fecha": document.getElementById("examDate").value,
-			"hora": document.getElementById("examTime").value,
+			"hora": getTime(),
 			"aula": document.getElementById("examClassroom").value,
 		}
 	}
 
 	function loadInput(id){
-        axios.get(api.examen.examen+"/"+id, getHeader())
+        axios.get(api.profesor.examen, getHeader())
         .then(function (response){
             if(response.status == 200){
-                data = response.data.examen;
+                data = response.data.examenes;
 				loadSignatures();
-                document.getElementById('examCode').value = data.identificador;
-                document.getElementById('examSignatures').value = data.materia_id;
-                document.getElementById('examDate').value = data.fecha,
-                document.getElementById('examTime').value = response.hora;
-                document.getElementById('examClassroom').value = data.aula;
+                document.getElementById('examCode').value = data[id].identificador;
+                document.getElementById('examSignatures').value = data[id].materia_id;
+                document.getElementById('examDate').value = data[id].fecha,
+                document.getElementById('examTime').value = data[id].hora;
+                document.getElementById('examClassroom').value = data[id].aula;
 				document.getElementById('examSignatures').setAttribute("disabled", "true");
             }
         })
