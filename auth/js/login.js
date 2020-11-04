@@ -1,4 +1,17 @@
+let fields = {
+    username: new InputValidator('username', 'usernameFeedback',
+        {customError: 'Incorrecto'}),
+    password: new InputValidator('password', 'passwordFeedback',
+        {customError: 'Incorrecto'})
+}
+
 function start(auth) {
+    fields.username.setCustomValidity();
+    fields.password.setCustomValidity();
+    Object.values(fields).forEach((item) => {
+        item.validate();
+    });
+
     switch (auth) {
         case 'admin':
             window.location.href = '../admin/home.html';
@@ -10,6 +23,14 @@ function start(auth) {
             window.location.href = '../alumno/home.html';
             break;
     }
+}
+
+function errorLogin() {
+    fields.username.setCustomValidity("Nombre de usuario no existente");
+    fields.password.setCustomValidity("Contraseña incorrecta");
+    Object.values(fields).forEach((item) => {
+        item.validate();
+    });
 }
 
 window.onload = function(){
@@ -28,7 +49,7 @@ window.onload = function(){
             }
         }).catch(
             (e) => {
-                alert("Error al loguearse");
+                errorLogin();
             }
         )
     })
