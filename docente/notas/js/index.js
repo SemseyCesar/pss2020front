@@ -108,7 +108,7 @@ function start(auth) {
 				console.log(signatures);
 			}
 		});*/
-//		document.getElementById('searchLu').style.display = 'none';
+		document.getElementById('searchLu').style.display = 'none';
 		signatures = [
 			{id: 1, name: 'nombre alumno 1'},
 			{id: 2, name: 'nombre alumno 2'},
@@ -176,8 +176,6 @@ function start(auth) {
 			Object.values(fields)[firstNoValid].getField().focus();
 		return firstNoValid==-1;
 	}*/
-
-	console.log(document.getElementById('searchLu'));
 }
 
 
