@@ -6,7 +6,6 @@ function start(){
         ).then(function (response) {
             if(response.status == 200){
                 carreras = response.data.carreras;
-                console.log(carreras);
                 response.data.carreras.forEach( u => {
                     let option = document.createElement("OPTION");
                     option.setAttribute("id", "option-"+u["id"]);
