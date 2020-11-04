@@ -50,19 +50,11 @@ function start(auth) {
 				customizeForAlumno();
 				break;
 		}
-		loadSignatures();
 	}
 
 	function customizeForAdmin() {
 		document.getElementById('searchLu').setAttribute("required", "");
-		signatures = [
-			{id: 1, name: 'nombre admin 1'},
-			{id: 2, name: 'nombre admin 2'},
-			{id: 3, name: 'nombre admin 3'},
-			{id: 4, name: 'nombre admin 4'},
-			{id: 5, name: 'nombre admin 5'}
-		];
-/*		axios.post(
+		axios.post(
 			api.materia.search,
 			{
 				"search": "",
@@ -70,15 +62,15 @@ function start(auth) {
 			getHeader()
 		).then(function (response) {
 			if (response.status == 200 || response.status == 204) {
-
+				signatures = response.data.materias;
+				loadSignatures();
 			}
-		});*/
+		});
 		addTable();
-//		setLuValidations();
+		setLuValidations();
 	}
 
 	function customizeForDocente() {
-		/*
 		axios.get(
 			api.profesor.materia,
 			getHeader()
@@ -86,8 +78,9 @@ function start(auth) {
 			if (response.status == 200 || response.status == 204){
 				signatures = response.data.materias;
 				console.log(signatures);
+				loadSignatures();
 			}
-		});*/
+		});
 		signatures = [
 			{id: 1, name: 'nombre docente 1'},
 			{id: 2, name: 'nombre docente 2'},
@@ -96,7 +89,7 @@ function start(auth) {
 			{id: 5, name: 'nombre docente 5'}
 		];
 		addTable();
-//		setLuValidations();
+		setLuValidations();
 	}
 
 	function customizeForAlumno() {/*
@@ -106,6 +99,7 @@ function start(auth) {
 			if (response.status == 200 || response.status == 204) {
 				signatures = response.data.materias;
 				console.log(signatures);
+				loadSignatures();
 			}
 		});*/
 		document.getElementById('searchLu').style.display = 'none';
@@ -121,7 +115,7 @@ function start(auth) {
 
 	function loadSignatures() {
 		addSignature("", "Seleccione una materia");
-		signatures.forEach( (s) => addSignature(s.id, s.name));
+		signatures.forEach( (s) => addSignature(s.id, s.nombre));
 	}
 
 	function addSignature(id, name) {
@@ -145,8 +139,7 @@ function start(auth) {
 	    table.setWidths(['20%','25%','25%','20%']);
 	}
 
-/*
-	// PARA VALIDAR DATOS LOCALES DESPUÉS
+
 
 	let fields = {
 		selectSignature: new InputValidator('selectSignature',
@@ -175,11 +168,10 @@ function start(auth) {
 		if (firstNoValid != -1)
 			Object.values(fields)[firstNoValid].getField().focus();
 		return firstNoValid==-1;
-	}*/
+	}
 }
 
 
-window.onload = start('docente'); /*{
-
-    checkToken(['admin'], start);
-}*/
+window.onload = function() {
+    checkToken(['admin', 'docente'], start);
+}
