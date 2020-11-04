@@ -13,6 +13,16 @@
     <!-- Button icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <style>
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-4 mb-4">
@@ -35,7 +45,8 @@
 
                     <!-- Texto de filtrado -->
                     <div class="col-md">
-                        <input type="number" class="form-control" name="searchLu" value="searchLu">
+                        <input type="number" class="form-control" name="searchLu" id="searchLu" placeholder="Ingrese el lu" style="display: none;">
+                        <div class="invalid-feedback" id="searchLuFeedback"></div>
                     </div>
 
                     <!-- Botón de búsqueda -->
@@ -48,7 +59,7 @@
 
                     <!-- Botón para cargar una nota -->
                     <div class="col">
-                        <a class="btn btn-success" href="./create.html">
+                        <a class="btn btn-success" href="#">
                             <i class="fa fa-plus"></i>
                             Cargar Nota
                         </a>
@@ -57,7 +68,7 @@
                 </div>
 
                 <!-- Sección para la tabla con los resultados de la búsqueda -->
-                <div class="row" id="carrerList">
+                <div class="row" id="notasInfo">
                 </div>
             </div>
 
@@ -69,11 +80,9 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../js/api.js"></script>
-    <script src="../js/cardFooter.js"></script>
-    <script src="../js/table.js"></script>
-    <script src="../js/searchBar.js"></script>
-    <script src="../js/select.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/cardFooter.js"></script>
+    <script src="../../js/table.js"></script>
     <script src="./js/index.js"></script>
 </body>
 </html>
