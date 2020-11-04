@@ -116,12 +116,18 @@ function start(){
             if(response.status == 200){
                 data = response.data.examenes;
 				loadSignatures();
-                document.getElementById('examCode').value = data[id].identificador;
-                document.getElementById('examSignatures').value = data[id].materia_id;
-                document.getElementById('examDate').value = data[id].fecha,
-                document.getElementById('examTime').value = data[id].hora;
-                document.getElementById('examClassroom').value = data[id].aula;
-				document.getElementById('examSignatures').setAttribute("disabled", "true");
+				let examen = data.filter(d => d.id == id)[0];
+				console.log(examen);
+				if (examen) {
+	                document.getElementById('examCode').value = examen.identificador;
+	                document.getElementById('examSignatures').value = examen.materia_id;
+					document.getElementById('examDate').value = examen.fecha,
+	                document.getElementById('examTime').value = examen.hora;
+	                document.getElementById('examClassroom').value = examen.aula;
+					document.getElementById('examSignatures').setAttribute("disabled", "true");
+				} else {
+					alerte("Error, no existe el exámen buscado");
+				}
             }
         })
         .catch(function (error) {
