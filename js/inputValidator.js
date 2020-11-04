@@ -1,27 +1,4 @@
 class InputValidator {
-    /*
-     * id -> id del input a validar
-     * feedbackId -> id de la sección donde se muestra el mensaje de error
-     * rules -> reglas a controlar en formato
-            {
-                ruleName1: 'Texto en caso de error',
-                ruleName2: 'Texto en caso de error',
-                ...
-            }
-            Las reglas válidas son:
-            badInput -> Cuando se ingresa un string en un campo numerico por ej
-            valueMissing -> Cuando el campo está vacío
-            customError -> Un error personalizado (debe indicarse el mensaje si cambia a través de setCustomValidity(feedback))
-            typeMistmatch -> Para tipos email ó URL.
-            patterMismatch
-            rangeOverflow
-            rangeUnderflow
-            ...
-            GOOGLEAR "ValidityState" para ver las posibles reglas y su descripción.
-
-            -----------------TODO------------------
-            COMPLETAR
-    */
     constructor(id, feedbackId, rules) {
         this.id = id;
         this.feedbackId = feedbackId;

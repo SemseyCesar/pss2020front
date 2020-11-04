@@ -1,13 +1,13 @@
 function start(auth) {
     switch (auth) {
         case 'admin':
-            window.location.href = '../homeAdmin.html';
+            window.location.href = '../admin/home.html';
             break;
         case 'docente':
-            window.location.href = '../docente/notas/notas.html';
+            window.location.href = '../docente/home.html';
             break;
         case 'alumno':
-            window.location.href = '../alumno/inscripcion/career.html';
+            window.location.href = '../alumno/home.html';
             break;
     }
 }

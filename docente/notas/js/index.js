@@ -1,5 +1,4 @@
 function start(auth) {
-	console.log(auth);
 	var notasRows = [];
 	var signatures = [];
 	var table;
