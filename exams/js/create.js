@@ -117,7 +117,6 @@ function start(){
                 data = response.data.examenes;
 				loadSignatures();
 				let examen = data.filter(d => d.id == id)[0];
-				console.log(examen);
 				if (examen) {
 	                document.getElementById('examCode').value = examen.identificador;
 	                document.getElementById('examSignatures').value = examen.materia_id;
@@ -147,13 +146,17 @@ function start(){
 	}
 
 	function refreshInputs() {
-		document.getElementById('examCode').value = "";
-		document.getElementById('examSignatures').value = ";"
-		document.getElementById('examDate').value = "",
-		document.getElementById('examTime').value = "";
-		document.getElementById('examClassroom').value = "";
-		document.getElementById('examSignatures').setAttribute("disabled", "false");
-		alert("Datos cargados correctamente");
+		if (edit) {
+			alert("Datos actualizados correctamente");
+		} else {
+			document.getElementById('examCode').value = "";
+			document.getElementById('examSignatures').value = ";"
+			document.getElementById('examDate').value = "",
+			document.getElementById('examTime').value = "";
+			document.getElementById('examClassroom').value = "";
+			document.getElementById('examSignatures').setAttribute("disabled", "false");
+			alert("Datos cargados correctamente");
+		}
 	}
 }
 
