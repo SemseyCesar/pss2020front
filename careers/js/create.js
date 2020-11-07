@@ -167,7 +167,7 @@ function start(){
                 getDataToSend() , getHeader()
             ).then(function (response){
                 if(response.status == 200){
-                    refreshInputs();
+                    window.location.href = "./index.html"
                 }
             }).catch(function (error) {
                 if(error.response)

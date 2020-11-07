@@ -82,10 +82,8 @@ function start(){
             getData() , getHeader()
         ).then(function (response){
             if(response.status == 200){
-                document.getElementById("signatureName").value="";
-                document.getElementById("signatureCode").value="";
-                document.getElementById("signatureDepartment").value="";
                 alert("Datos cargados correctamente");
+                window.location.href = "./index.html";
             }
         }).catch(function (error) {
             if(error.response)
