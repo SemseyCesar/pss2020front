@@ -44,7 +44,7 @@ function start(){
     btnGuardar.addEventListener('click', (event) => {
         if(localValidate()) {
             axios.post(
-                api.user.register,
+                api.user.user,
                 getData(),
                 getHeader()
             ).then(function (response) {

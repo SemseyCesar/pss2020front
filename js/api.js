@@ -6,9 +6,9 @@ var api = {
         check: BASE_URL + "/check"
     },
     user:{
-        register: BASE_URL + "/register",
         search: BASE_URL + "/user/search",
         docentes: BASE_URL + "/user/docentes",
+        user: BASE_URL + "/user"
     },
     materia:{
         search: BASE_URL + "/materia/search",
