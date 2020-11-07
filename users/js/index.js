@@ -6,11 +6,14 @@ function start(){
 	table.setWidths(['20%','20%','20%','20%']);
 
 	table.setOnDeleteEvent((id)=>{
-		console.log("Borrando " + id);
+        axios.delete(api.user.user+"/"+id, getHeader())
+            .then((response)=>{
+                console.log(response);
+            })
 	})
 
 	table.setOnEditEvent((id) =>{
-		console.log("Modificando " + id);
+        window.location.href = './create.html?id=' + id;
 	})
 
     let searchValue = new SearchBar(

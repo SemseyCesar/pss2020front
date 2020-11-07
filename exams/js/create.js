@@ -77,13 +77,12 @@ function start(){
 	}
 
     function apiEdit(){
-		console.log("EAS");
         if (localValidate()){
             axios.put(api.examen.examen+"/"+_id,
                 getDataToSend() , getHeader()
             ).then(function (response){
                 if(response.status == 200){
-                    refreshInputs();
+                    window.location.href = "./index.html"
                 }
             }).catch(function (error) {
                 if(error.response)

@@ -26,6 +26,19 @@ function start(){
                 {valueMissing: 'Ingrese una escuela', customError: ''})
     }
 
+
+    let btnGuardar = document.getElementById('btnGuardar');
+    btnGuardar.addEventListener('click', (event) => {
+        if(!edit)
+            apiCreate();
+        else
+            apiEdit();
+    });
+
+    const searchParams = new URLSearchParams(window.location.search);
+    var edit = (searchParams.has('id') && searchParams.get('id')) ? true : false;
+    var _id = edit ? searchParams.get('id') : null;
+    if(edit){loadInput(_id)}
     const selectElement = document.getElementById('userType');
     selectElement.addEventListener('change', (event) => {
         const school = document.getElementById('school');
@@ -39,9 +52,30 @@ function start(){
         fields.school.validate();
     });
 
-    // const axios = require('axios');
-    let btnGuardar = document.getElementById('btnGuardar');
-    btnGuardar.addEventListener('click', (event) => {
+
+    function apiEdit(){
+        if(localValidate()) {
+            axios.put(
+                api.user.user+"/"+_id,
+                getData(),
+                getHeader()
+            ).then(function (response) {
+                if (response.status == 200) {
+                    Object.values(fields).forEach(fieldValidator => {
+                        fieldValidator.getField().value = "";
+                    })
+                    alert("Datos cargados correctamente");
+                }
+            }).catch(function (error) {
+                if(error.response)
+                    alert("Error: "+ error.response.data.message);
+                else
+                    alert("Error: No se pudo comunicar con el sistema")
+            })
+        }
+    }
+
+    function apiCreate(){
         if(localValidate()) {
             axios.post(
                 api.user.user,
@@ -61,7 +95,7 @@ function start(){
                     alert("Error: No se pudo comunicar con el sistema")
             })
         }
-    })
+    }
 
     function getData() {
         return {
@@ -72,6 +106,7 @@ function start(){
             "nombre_apellido": document.getElementById("name").value,
             "fecha_nacimiento": document.getElementById("birthdate").value,
             "lugar_nacimiento": document.getElementById("birthplace").value,
+            "tipo_documento": document.getElementById("documentType").value,
             "DNI": document.getElementById("dni").value,
             "direccion": document.getElementById("address").value,
             "telefono": document.getElementById("phonenumber").value,
@@ -120,6 +155,38 @@ function start(){
             inputValidator.setCustomValidity("El " + extraText + " no puede ser menor a 0");
         else
             inputValidator.setCustomValidity();
+    }
+
+    function loadInput(id){
+        axios.get(api.user.user+"/"+id, getHeader())
+        .then(function (response){
+            if(response.status == 200){
+                let data = response.data.user;
+                document.getElementById("email").value = data.email;
+                document.getElementById("email").disable = true;
+                document.getElementById("password").disable = true;
+                document.getElementById("password").value = "HACKMASTER";
+                document.getElementById("userType").value = data.type;
+                document.getElementById("name").value = data.nombre_apellido;
+                document.getElementById("birthdate").value = data.fecha_nacimiento;
+                document.getElementById("birthplace").value = data.lugar_nacimiento;
+                document.getElementById("documentType").value = data.tipo_documento;
+                document.getElementById("dni").value = data.DNI;
+                document.getElementById("address").value = data.direccion;
+                document.getElementById("phonenumber").value = data.telefono;
+                document.getElementById("lu").value = data.legajo;
+                if(data.type=="alumno")
+                    document.getElementById("school").value = data.escuela;
+                else
+                    document.getElementById("school").disabled = true;
+            }
+        })
+        .catch(function (error) {
+            if(error.response)
+            alert("Error: "+ error.response.data.message);
+            else
+            alert("Error: No se pudo comunicar con el sistema")
+        });
     }
 }
 

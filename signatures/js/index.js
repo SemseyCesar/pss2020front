@@ -8,10 +8,8 @@ function start(){
 	table.setOnDeleteEvent((id)=>{
 		axios.delete(api.materia.materia+"/"+id, getHeader())
 			.then(function (response) {
-				console.log(response)
 				if(response.status == 200){
-					signaturesRows = signaturesRows.filter( s => s.id != id)
-					table.refreshSelected(signaturesRows);
+					searchApi();
 				}
 			});
     })
@@ -44,14 +42,20 @@ function start(){
     })
 
 	let btnBuscar = document.getElementById('btnBuscar');
-	btnBuscar.addEventListener('click', (event) =>{
+	btnBuscar.addEventListener('click', searchApi);
+
+	function filterBy(data, type, filterInput) {
+		signaturesRows = data.filter(item => item[type].includes(filterInput));
+		table.refreshSelected(signaturesRows);
+	}
+
+	function searchApi(){
 		if (select.validity() && searchValue.validity()){
 			axios.post(api.materia.search,
 			{
 				"search": searchValue.getInput(),
 			}, getHeader()
 			).then(function (response) {
-				console.log(response);
 				if(response.status == 200){
 					let data = response.data.materias;
 					filterBy(data, select.getValue(), searchValue.getInput());
@@ -59,11 +63,6 @@ function start(){
 				}
 			})
 		}
-	});
-
-	function filterBy(data, type, filterInput) {
-		signaturesRows = data.filter(item => item[type].includes(filterInput));
-		table.refreshSelected(signaturesRows);
 	}
 }
 
