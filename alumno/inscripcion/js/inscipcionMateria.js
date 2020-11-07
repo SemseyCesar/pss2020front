@@ -7,9 +7,9 @@ function table(){
     table.setWidths(['25%','25%','25%']);
 
     table.setOnDeleteEvent((id)=>{
-        axios.delete(api.materia.materia+"/"+id, getHeader())
+        axios.delete(api.materia.inscripcion+"/"+id, getHeader())
             .then((response) => {if(response.status == 200){
-                    console.log(reponse)
+                loadMaterias();
                 }}
             );
     })
@@ -17,14 +17,35 @@ function table(){
     table.setOnEditEvent((id) =>{
     })
 
-    axios.get(api.materia.materia, getHeader())
-    .then((response) => {
-        if(response.status == 200){
-            materiasInscripto = response.data.materias;
-            table.refreshSelected(materiasInscripto);
-            $( ".btn.btn-outline-warning").addClass("d-none");
-        }
+    function loadMaterias(){
+        axios.get(api.materia.materia, getHeader())
+        .then((response) => {
+            if(response.status == 200){
+                materiasInscripto = response.data.materias;
+                table.refreshSelected(materiasInscripto);
+                $( ".btn.btn-outline-warning").addClass("d-none");
+            }
+        });
+    }
+
+    let btnSuccess = document.getElementById('btn-inscribir');
+    btnSuccess.addEventListener('click', (e) => {
+        axios.post(api.materia.inscripcion,{
+            "materia_id": document.getElementById('selectMateria').value
+        }, getHeader()).then(function(response) {
+            if(response.status == 200){
+                alert("Inscripcion Exitosa");
+                loadMaterias();
+            }
+        }).catch(function (error) {
+            if(error.response)
+                alert("Error: "+ error.response.data.message);
+            else
+                alert("Error: No se pudo comunicar con el sistema")
+        })
     });
+
+    loadMaterias();
 }
 
 function start(){
@@ -64,22 +85,6 @@ function start(){
 
     selectCarrera.addEventListener('change', (e) =>{
         onChangeCarreraSelected(selectCarrera.value);
-    });
-
-    let btnSuccess = document.getElementById('btn-inscribir');
-    btnSuccess.addEventListener('click', (e) => {
-        axios.post(api.materia.inscripcion,{
-            "materia_id": document.getElementById('selectMateria').value
-        }, getHeader()).then(function(response) {
-            if(response.status == 200){
-                alert("Inscripcion Exitosa");
-            }
-        }).catch(function (error) {
-            if(error.response)
-                alert("Error: "+ error.response.data.message);
-            else
-                alert("Error: No se pudo comunicar con el sistema")
-        })
     });
 }
 
