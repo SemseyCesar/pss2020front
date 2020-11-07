@@ -55,7 +55,15 @@ class Table{
             let fila = document.createElement("tr");
             this.cols.filter(c => c != 'id').forEach( c =>{
                 let celda = document.createElement("td");
-                celda.textContent = elem[c];
+                if(c.split('.').length > 1){
+                    let keys = c.split('.');
+                    let value = elem[keys.shift()];
+                    while(keys.length>0){
+                        value = value[keys.shift()];
+                    }
+                    celda.textContent = value;
+                }else
+                    celda.textContent = elem[c];
                 fila.appendChild(celda);
             });
             let celda_acciones = document.createElement("td");

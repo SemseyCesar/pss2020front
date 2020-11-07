@@ -1,21 +1,18 @@
 function start(){
 	var examenRows = [];
 
-	let table = new Table('examenList',['Codigo','Codigo','Profesor','fecha','Duración',''],
-        ['identificador','nombre','dpto','docente','duracion'], null);
+	let table = new Table('examenList',['Codigo','Materia','fecha','hora',''],
+        ['identificador','materia.nombre','fecha','hora'], null);
     table.setWidths(['18%','20%','20%','20%','10%']);
 
-    // table.setOnDeleteEvent((id)=>{
-	// 	console.log(getHeader());
-	// 	axios.delete(api.carrera.carrera+"/"+id, getHeader())
-	// 		.then(function (response) {
-	// 			console.log(response)
-	// 			if(response.status == 200){
-	// 				careersRows = careersRows.filter( c => c.id != id)
-	// 				table.refreshSelected(careersRows);
-	// 			}
-	// 		});
-    // })
+    table.setOnDeleteEvent((id)=>{
+		console.log(getHeader());
+		axios.delete(api.examen.examen+"/"+id, getHeader())
+			.then(function (response) {
+                if(response.status == 200)
+                    searchApi();
+			});
+    })
 
     table.setOnEditEvent((id) =>{
         window.location.href = './create.html?id=' + id;
@@ -47,24 +44,29 @@ function start(){
 	let btnBuscar = document.getElementById('btnBuscar');
 	btnBuscar.addEventListener('click', (event) => {
 		if (select.validity() && searchValue.validity()){
-			axios.get(api.examen.examen, getHeader()
-			).then(function (response) {
-				if(response.status == 200){
-					let data = response.data.carreras;
-					filterBy(data, select.getValue(), searchValue.getInput());
-                    document.getElementById("footer").innerHTML = cardFooter(careersRows.length);
-				}
-			});
+            searchApi();
 		}
 	})
 
 	function filterBy(data, type, filterInput) {
 		careersRows = data.filter(item => item[type].includes(filterInput));
 		table.refreshSelected(careersRows);
-	}
+    }
+    
+    function searchApi(){
+        axios.get(api.examen.examen, getHeader()
+        ).then(function (response) {
+            if(response.status == 200){
+                let data = response.data.examenes;
+                careersRows = data;
+                table.refreshSelected(careersRows);
+                document.getElementById("footer").innerHTML = cardFooter(careersRows.length);
+            }
+        });
+    }
 }
 
 
 window.onload = function(){
-    checkToken(['admin'], start);
+    checkToken(['admin','docente'], start);
 }

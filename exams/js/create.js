@@ -1,6 +1,5 @@
 function start(){
 	var signatures = [];
-	loadSignatures();
 	let fields = {
 		examSignatures: new InputValidator('examSignatures', 'examSignatureFeedback',
 			{valueMissing: 'Seleccione una opción'}),
@@ -18,20 +17,14 @@ function start(){
     var edit = (searchParams.has('id') && searchParams.get('id')) ? true : false;
     var _id = edit ? searchParams.get('id') : null;
 
-    if(edit){loadInput(_id)}
-
-/*
------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------
-@// TODO: Buscar únicamente las materias en base al docente
------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------
-	*/
+    if(edit){
+		loadInput(_id)
+	}else{
+		loadSignatures()
+	}
 
 	function loadSignatures() {
-		axios.post(api.materia.search, getHeader()
+		axios.get(api.materia.materia, getHeader()
 		).then(function (response) {
 			if(response.status == 200){
 				signatures = response.data.materias;
@@ -110,12 +103,13 @@ function start(){
 	}
 
 	function loadInput(id){
-        axios.get(api.examen.examen, getHeader())
+        axios.get(api.examen.examen+"/"+id, getHeader())
         .then(function (response){
             if(response.status == 200){
-                data = response.data.examenes;
-				loadSignatures();
-				let examen = data.filter(d => d.id == id)[0];
+				let examen = response.data.examen;
+				let option = createSignatureOption(examen.materia);
+				console.log(option);
+				document.getElementById("examSignatures").appendChild(option);
 				if (examen) {
 	                document.getElementById('examCode').value = examen.identificador;
 	                document.getElementById('examSignatures').value = examen.materia_id;
