@@ -71,7 +71,7 @@ function start(auth) {
 
 	function customizeForDocente() {
 		axios.get(
-			api.profesor.materia,
+			api.materia.materia,
 			getHeader()
 		).then(function (response) {
 			if (response.status == 200 || response.status == 204){

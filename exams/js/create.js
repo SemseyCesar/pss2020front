@@ -111,7 +111,7 @@ function start(){
 	}
 
 	function loadInput(id){
-        axios.get(api.profesor.examen, getHeader())
+        axios.get(api.examen.examen, getHeader())
         .then(function (response){
             if(response.status == 200){
                 data = response.data.examenes;

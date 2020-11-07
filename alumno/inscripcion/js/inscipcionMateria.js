@@ -1,6 +1,35 @@
-function start(){
 
+function table(){
+    var materiasInscripto = []
+
+    let table = new Table('signatureList',['Codigo','Nombre','Departamento',''],
+    ['identificador','nombre','dpto'], null);
+    table.setWidths(['25%','25%','25%']);
+
+    table.setOnDeleteEvent((id)=>{
+        axios.delete(api.materia.materia+"/"+id, getHeader())
+            .then((response) => {if(response.status == 200){
+                    console.log(reponse)
+                }}
+            );
+    })
+
+    table.setOnEditEvent((id) =>{
+    })
+
+    axios.get(api.materia.materia, getHeader())
+    .then((response) => {
+        if(response.status == 200){
+            materiasInscripto = response.data.materias;
+            table.refreshSelected(materiasInscripto);
+            $( ".btn.btn-outline-warning").addClass("d-none");
+        }
+    });
+}
+
+function start(){
     var carreras = [];
+
     let selectCarrera = document.getElementById('selectCarrera');
     axios.get(api.alumno.carrera, getHeader()
         ).then(function (response) {
@@ -18,6 +47,7 @@ function start(){
             }
     });
 
+    table();
 
     function onChangeCarreraSelected(id){
         let carreraSelected = carreras.filter(c => c.id ==id)[0];

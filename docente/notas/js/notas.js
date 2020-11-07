@@ -7,7 +7,7 @@ function start(){
     let btnCambiarNota = document.getElementById('btn-cambiar-nota');
 
     function loadMaterias(){
-        axios.get(api.profesor.materia, getHeader()
+        axios.get(api.materia.materia, getHeader()
             ).then(function (response) {
                 selectMateria.innerHTML="";
                 materias=[];
