@@ -1,17 +1,19 @@
 class Table{
-    constructor(id, cols_name, cols, onAdd){
+    constructor(id, cols_name, cols, onAdd, hideEditButton, hideDeleteButton){
 
         this.id = id;
         this.onAdd = onAdd;
         this.cols_name = cols_name;
         this.cols = cols;
-        
+        this.hideEditButton = hideEditButton;
+        this.hideDeleteButton = hideDeleteButton;
+
         this.table = this.initTable();
         this.thead = this.initTHead(cols_name);
         this.table.appendChild(this.thead);
         this.tbody = this.initTBody(id);
         this.table.appendChild(this.tbody);
-        
+
         document.getElementById(id).appendChild(this.table);
 
     }
@@ -69,8 +71,10 @@ class Table{
             let celda_acciones = document.createElement("td");
             celda_acciones.style.paddingLeft = '3px';
             fila.appendChild(celda_acciones);
-            celda_acciones.appendChild(this.createEditButton(elem['id']));
-            celda_acciones.appendChild(this.createDeleteButton(elem['id']));
+            if (!this.hideEditButton)
+                celda_acciones.appendChild(this.createEditButton(elem['id']));
+            if (!this.hideDeleteButton)
+                celda_acciones.appendChild(this.createDeleteButton(elem['id']));
             this.tbody.appendChild(fila);
         })
     };
