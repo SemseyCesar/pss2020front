@@ -6,7 +6,7 @@ function start(){
 		examCode: new InputValidator('examCode', 'examCodeFeedback',
 			{valueMissing: 'Ingrese un código'}),
 		examDate: new InputValidator('examDate', 'examDateFeedback',
-			{valueMissing: 'Ingrese una fecha'}),
+			{valueMissing: 'Ingrese una fecha', customError: ''}),
 		examTime: new InputValidator('examTime', 'examTimeFeedback',
 			{valueMissing: 'Ingrese un horario'}),
 		examClassroom: new InputValidator('examClassroom', 'examClassroomFeedback',
@@ -58,7 +58,8 @@ function start(){
 			axios.post(api.examen.examen, getDataToSend(), getHeader()
 			).then(function(response) {
 				if (response.status == 200) {
-					refreshInputs();
+					alert("Examen cargado exitosamente");
+					window.history.back();
 				}
 			}).catch(function(error) {
                 if(error.response)
@@ -75,7 +76,8 @@ function start(){
                 getDataToSend() , getHeader()
             ).then(function (response){
                 if(response.status == 200){
-                    window.location.href = "./index.html"
+					alert("Examen modificado exitosamente");
+					window.history.back()
                 }
             }).catch(function (error) {
                 if(error.response)
@@ -131,6 +133,7 @@ function start(){
     }
 
 	function localValidate() {
+		checkDate();
 	    let validValues = Object.values(fields).map(field => field.validate());
 	    let firstNoValid = validValues.findIndex(value => !value);
 	    if (firstNoValid != -1)
@@ -138,17 +141,19 @@ function start(){
 	    return firstNoValid==-1;
 	}
 
-	function refreshInputs() {
-		if (edit) {
-			alert("Datos actualizados correctamente");
+	function checkDate() {
+		if (document.getElementById('examDate').value != "") {
+			let examDateValue = document.getElementById('examDate').value.split("-");
+			let examDate = new Date(parseInt(examDateValue[0]),parseInt(examDateValue[1])-1,parseInt(examDateValue[2]));
+			let today = new Date();
+			today.setHours(0,0,0,0);
+			if (examDate <= today) {
+				fields.examDate.setCustomValidity("La fecha debe ser mayor al dia actual");
+			} else {
+				fields.examDate.setCustomValidity();
+			}
 		} else {
-			document.getElementById('examCode').value = "";
-			document.getElementById('examSignatures').value = ";"
-			document.getElementById('examDate').value = "",
-			document.getElementById('examTime').value = "";
-			document.getElementById('examClassroom').value = "";
-			document.getElementById('examSignatures').setAttribute("disabled", "false");
-			alert("Datos cargados correctamente");
+			fields.examDate.setCustomValidity();
 		}
 	}
 }
