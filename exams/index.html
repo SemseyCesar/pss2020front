@@ -25,32 +25,45 @@
       <!-- Card body -->
       <div class="card-body">
 
-        <div class="row mb-4">
+        <div class="form-row mb-3">
 
-          <!-- Seleccionar el campo de filtrado de búsqueda -->
-          <div class="col" id="selectSection">
-          </div>
+            <div class="col" id="selectCarreraSection" style="display: none;">
+                <label for="selectCarrera" class="col-form-label">Carrera*</label>
+                <select class="custom-select" name="selectCarrera" id="selectCarrera" required>
+                    <option value="">Seleccione una carrera</option>
+                </select>
+                <div class="invalid-feedback" id="selectCarreraFeedback"></div>
+            </div>
 
-          <!-- Texto de filtrado -->
-          <div class="col-md" id="searchValueSection">
-          </div>
+            <div class="col">
+                <label for="selectMateria" class="col-form-label">Materia*</label>
+                <select class="custom-select" name="selectMateria" id="selectMateria" required>
+                    <option value="">Seleccione una materia</option>
+                </select>
+                <div class="invalid-feedback" id="selectMateriaFeedback"></div>
+            </div>
 
-          <!-- Botón de búsqueda -->
-          <div class="col">
-            <button class="btn btn-primary" id="btnBuscar" name="search">
-              <i class="fa fa-search"></i>
-              Buscar
-            </button>
-          </div>
+            <div class="col" id="examCodeSection" style="display: none;">
+                <label for="examCode" class="col-form-label">Código</label>
+                <input type="text" class="form-control" name="examCode" id="examCode">
+                <div class="invalid-feedback" id="selectMateriaFeedback"></div>
+            </div>
 
-          <!-- Botón para generar una nueva carrera -->
-          <div class="col">
-            <a class="btn btn-success" href="./create.html">
-              <i class="fa fa-plus"></i>
-              Agregar Examen
-            </a>
-          </div>
+            <div class="col">
+                <label for="btnBuscar" class="col-form-label w-100" style="visibility: hidden;">Search</label>
+                <button class="btn btn-primary" id="btnBuscar" name="search">
+                    <i class="fa fa-search"></i>
+                    Buscar
+                </button>
+            </div>
 
+            <div class="col" id="addExamSection">
+                <label for="addExam" class="col-form-label w-100" style="visibility: hidden;">Add</label>
+                <a class="btn btn-success" id="addExam" href="./create.html">
+                    <i class="fa fa-plus"></i>
+                    Agregar Examen
+                </a>
+            </div>
         </div>
 
         <!-- Sección para la tabla con los resultados de la búsqueda -->
@@ -69,8 +82,7 @@
   <script src="../js/api.js"></script>
   <script src="../js/cardFooter.js"></script>
   <script src="../js/table.js"></script>
-  <script src="../js/searchBar.js"></script>
-  <script src="../js/select.js"></script>
+  <script src="../js/inputValidator.js"></script>
   <script src="./js/index.js"></script>
 </body>
 </html>
