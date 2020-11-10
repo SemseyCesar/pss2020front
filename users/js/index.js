@@ -5,11 +5,14 @@ function start(){
 		['legajo','DNI','nombre_apellido','type'], null);
 	table.setWidths(['20%','20%','20%','20%']);
 
-	table.setOnDeleteEvent((id)=>{
-        axios.delete(api.user.user+"/"+id, getHeader())
-            .then((response)=>{
-                console.log(response);
-            })
+	table.setOnDeleteEvent((id) => {
+        var opcion = confirm("¿Seguro/a que quiere borrar el usuario?");
+        if (opcion == true) {
+            axios.delete(api.user.user+"/"+id, getHeader())
+                .then((response)=>{
+                    console.log(response);
+                })
+        }
 	})
 
 	table.setOnEditEvent((id) =>{
@@ -18,8 +21,8 @@ function start(){
 
     let searchValue = new SearchBar(
         'searchValueSection',
-        ['text','number','number','text'], 
-        ['Seleccione una opción','Ingrese el LU','Ingrese el DNI','Ingrese el nombre y apellido'],
+        ['text','number','number','text'],
+        ['Seleccione una opción','Ingrese el LU','Ingrese el Documento','Ingrese el nombre y apellido'],
         ['','El LU debe ser un numero','El DNI debe ser un número',''],
         null
     );
@@ -27,7 +30,7 @@ function start(){
     let select = new Select(
         'selectSection',
         ['', 'legajo', 'DNI', 'nombre_apellido'],
-        ['Buscar por...', 'LU', 'DNI', 'Nombre y apellido'],
+        ['Buscar por...', 'LU', 'Documento', 'Nombre y apellido'],
         'Seleccione una opción.',
         searchValue,
         null
