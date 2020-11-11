@@ -1,5 +1,6 @@
 let fields = {};
 var table;
+var careers = [];
 
 // Carga la tabla para admin y docente.
 function initTable() {
@@ -32,28 +33,51 @@ function initTable() {
     });
 }
 
+function initAlumnoTable() {
+	table = new TableExamAlumno('examenList',['Codigo','Materia','Fecha','Hora','Aula',''],
+        ['id','identificador','materia_nombre','fecha','hora','aula'], null, true, true);
+    table.setWidths(['10%','10%','20%','20%','20%','10%']);
+
+    table.setOnRegisterEvent((id) => {
+		console.log("Inscribiendose de " + id);
+    });
+
+    table.setOnUnregisterEvent((id) => {
+		console.log("Desinscribiendose de " + id);
+    });
+}
+
 // Busqueda de carreras para el caso de un usuario tipo alumno.
 function searchCareers() {
-	var carreras = [];
 	axios.get(
 		api.alumno.carrera,
 		getHeader()
     ).then(function (response) {
         if(response.status == 200){
-            carreras = response.data.carreras;
+            careers = response.data.carreras;
+			loadSelect(
+				document.getElementById("selectCarrera"),
+				careers,
+				"Seleccione una carrera"
+			);
         }
     });
-	return carreras;
 }
 
 // Actualiza el drop-down de materias en base a la carrera selecionada (para usuarios tipo alumnos).
-function onSelectCarreraChange(careers) {
+function onSelectCarreraChange() {
 	validate([fields.selectCarreraValidator]);
-	let select = document.getElementById("selectCarrera");
-	if (select.value == "")
-		loadSelect(select, []);
-	else
-		loadSelect(select, careers.filter(c => c.id ==id)[0].materias);
+	let selectCarrera = document.getElementById("selectCarrera");
+	let selectMateria = document.getElementById("selectMateria");
+	if (selectCarrera.value == "")
+		loadSelect(selectMateria, [], "Seleccione una materia");
+	else {
+		loadSelect(
+			selectMateria,
+		 	careers.filter(c => c.id == selectCarrera.value)[0].materias,
+			"Seleccione una materia"
+		);
+	}
 }
 
 // Para buscar las materias para admin y docente.
@@ -63,16 +87,23 @@ function loadSignatures() {
 		getHeader()
 	).then(function (response) {
 		if(response.status == 200){
-			loadSelect(document.getElementById("selectMateria"), response.data.materias);
+			loadSelect(
+				document.getElementById("selectMateria"),
+				response.data.materias,
+				"Seleccione una materia"
+			);
 		}
 	});
 }
 
 // Para cargar un select con nuevos datos.
-function loadSelect(select, data) {
-	var oldOption
-	while (oldOption = document.getElementById(select.getAttribute("id")+"-option"))
-		select.removeChild(oldOption);
+function loadSelect(select, data, defaultOptionText) {
+	var oldOption;
+	select.innerHTML = "";
+	let op = document.createElement("option");
+	op.setAttribute("value", ""),
+	op.appendChild(document.createTextNode(defaultOptionText));
+	select.appendChild(op);
 	data.forEach((d) => {
 		let option = document.createElement("option");
 		option.setAttribute("id", select.getAttribute("id")+"-option-"+d['id']);
@@ -140,14 +171,16 @@ function customizeForStudent() {
 		selectMateriaValidator: new InputValidator("selectMateria", "selectMateriaFeedback",
 			{valueMissing: "Seleccione una materia"})
 	};
-	let selectCarrera = document.getElementById("selectCarreraSection");
-	selectCarrera.style.dislay = 'block';
+	document.getElementById("addExamSection").style.display = 'none';
 
-	let careers = searchCareers();
-	loadSelect(selectCarrera, careers)
+	document.getElementById("selectCarreraSection").style.display = 'block';
+	let selectCarrera = document.getElementById("selectCarrera");
+
+	searchCareers();
+	initAlumnoTable();
 
 	selectCarrera.addEventListener("change", (event) =>
-		onSelectCarreraChange(careers)
+		onSelectCarreraChange()
 	);
 }
 

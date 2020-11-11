@@ -1,8 +1,8 @@
 function start() {
     new NavBar(
         'navId',
-        ['Home', 'Inscripcion carrera', 'Inscripcion materia'],
-        ['', './inscripcion/career.html', './inscripcion/signature.html'],
+        ['Home', 'Inscripcion carrera', 'Inscripcion materia', 'Exámenes'],
+        ['', './inscripcion/career.html', './inscripcion/signature.html', '../exams/index.html'],
         'Alumno',
         'Username'
     )
