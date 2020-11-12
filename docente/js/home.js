@@ -1,8 +1,8 @@
 function start(auth) {
     let n = new NavBar(
         'navId',
-        ['Home', 'Cargar nota', 'Exámenes'],
-        ['', './notas/notas.html', '../exams/index.html'],
+        ['Home', 'Notas', 'Exámenes'],
+        ['', './notas/index.html', '../exams/index.html'],
         'Docente',
         'Username'
     );

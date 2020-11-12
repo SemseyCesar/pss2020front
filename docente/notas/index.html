@@ -39,18 +39,23 @@
 
                     <!-- Seleccionar el campo de filtrado de búsqueda -->
                     <div class="col">
-                        <select class="custom-select" name="selectSignature" id="selectSignature" required></select>
+                        <label for="selectSignature" class="col-form-label">Materia*</label>
+                        <select class="custom-select" name="selectSignature" id="selectSignature" required>
+                            <option value="">Seleccione una materia</option>
+                        </select>
                         <div class="invalid-feedback" id="selectSignatureFeedback"></div>
                     </div>
 
                     <!-- Texto de filtrado -->
-                    <div class="col-md">
+                    <div class="col-md" id="searchLuSection">
+                        <label for="searchLu" class="col-form-label">Filtrar lu</label>
                         <input type="number" class="form-control" name="searchLu" id="searchLu" placeholder="Ingrese el lu">
                         <div class="invalid-feedback" id="searchLuFeedback"></div>
                     </div>
 
                     <!-- Botón de búsqueda -->
                     <div class="col">
+                        <label for="btnBuscar" class="col-form-label w-100" style="visibility: hidden;">Search</label>
                         <button class="btn btn-primary" id="btnBuscar" name="search">
                             <i class="fa fa-search"></i>
                             Buscar
@@ -58,8 +63,9 @@
                     </div>
 
                     <!-- Botón para cargar una nota -->
-                    <div class="col">
-                        <a class="btn btn-success" href="#">
+                    <div class="col" id="addNotaSection" style="display: none;">
+                        <label for="addNota" class="col-form-label w-100" style="visibility: hidden;">Add</label>
+                        <a class="btn btn-success" id="addNota">
                             <i class="fa fa-plus"></i>
                             Cargar Nota
                         </a>
@@ -83,6 +89,7 @@
     <script src="../../js/api.js"></script>
     <script src="../../js/cardFooter.js"></script>
     <script src="../../js/table.js"></script>
+    <script src="../../js/inputValidator.js"></script>
     <script src="./js/index.js"></script>
 </body>
 </html>

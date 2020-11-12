@@ -98,7 +98,6 @@ function loadSignatures() {
 
 // Para cargar un select con nuevos datos.
 function loadSelect(select, data, defaultOptionText) {
-	var oldOption;
 	select.innerHTML = "";
 	let op = document.createElement("option");
 	op.setAttribute("value", ""),
@@ -114,7 +113,12 @@ function loadSelect(select, data, defaultOptionText) {
 	})
 }
 
-// Para validar inputs.
+
+
+
+// ---------------------------------------------------------------------
+// Para el momento de buscar los datos de los exámenes
+
 function validate(validators) {
 	let validValues = Object.values(validators).map(field => field.validate());
     let firstNoValid = validValues.findIndex(value => !value);
@@ -144,10 +148,20 @@ function searchApi() {
 			table.refreshSelected(examRows);
 			document.getElementById("footer").innerHTML = cardFooter(examRows.length);
 		}
+	}).catch(function (error) {
+		if(error.response)
+			console.log("Error: "+ error.response.data.message);
+		else
+			console.log("Error: No se pudo comunicar con el sistema");
 	});
 }
+// ---------------------------------------------------------------------
 
-// Elegir que cargar en base al usuario.
+
+
+
+// ---------------------------------------------------------------------
+// Acomodando los elementos para los diferentes tipos de usuarios
 function customize(auth) {
 	switch (auth) {
 		case 'alumno':
@@ -163,7 +177,6 @@ function customize(auth) {
 	}
 }
 
-// Para alumnos, se agregar el drop-down de carreras.
 function customizeForStudent() {
 	fields = {
 		selectCarreraValidator: new InputValidator("selectCarrera", "selectCarreraFeedback",
@@ -184,7 +197,6 @@ function customizeForStudent() {
 	);
 }
 
-// Para admin y docentes se agrega el input de búsqueda.+
 function defaultCustomize() {
 	fields = {
 		selectMateriaValidator: new InputValidator("selectMateria", "selectMateriaFeedback",
@@ -194,6 +206,11 @@ function defaultCustomize() {
 	initTable();
 	loadSignatures();
 }
+// ---------------------------------------------------------------------
+
+
+
+
 
 function start(auth){
     document.getElementById("selectMateria").addEventListener("change", (event) => {
