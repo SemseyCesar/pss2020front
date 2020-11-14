@@ -57,7 +57,7 @@ function start(){
             }
     });
 
-    axios.get(api.materia.search,getHeader()
+    axios.get(api.materia.materia,getHeader()
         ).then(function (response) {
             if(response.status == 200){
                 response.data.materias.forEach( u => {
