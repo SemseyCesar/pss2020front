@@ -2,7 +2,7 @@ function start(auth) {
     let n = new NavBar(
         'navId',
         ['Home', 'Notas', 'Exámenes'],
-        ['', './notas/index.html', '../exams/index.html'],
+        ['', './notas/notas.html', '../exams/index.html'],
         'Docente',
         'Username'
     );

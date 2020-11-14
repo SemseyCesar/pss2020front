@@ -73,11 +73,9 @@ function loadSelect(select, data, defaultText) {
 
 function search() {
 	if (validate()) {
-		console.log("Buscando");
-		/*
+		console.log("Buscando");	
 		api.get(
-			// Depende del nombre de la dirección que se de
-			api.notas.notas,
+			api.materias.materias,
 			getHeader()
 		).then(function(response) {
 			if ((response.status == 200) || (response.status == 204)) {
@@ -88,7 +86,7 @@ function search() {
 				alert("Error: " + error.response.data.message);
 			else
 				alert("Error al conectar con el sistema");
-		})*/
+		})
 	}
 }
 
