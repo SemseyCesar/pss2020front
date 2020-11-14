@@ -7,15 +7,44 @@ function table(){
     table.setWidths(['25%','25%','25%']);
 
     table.setOnDeleteEvent((id)=>{
-        axios.delete(api.materia.inscripcion+"/"+id, getHeader())
-            .then((response) => {if(response.status == 200){
-                loadMaterias();
-                }}
-            );
+        deleteInscripcion(id)
     })
+
+    function deleteInscripcion(id){
+        axios.delete(api.materia.inscripcion+"/"+id, getHeader())
+        .then((response) => {if(response.status == 200){
+            loadMaterias();
+            }}
+        );
+    }
 
     table.setOnEditEvent((id) =>{
     })
+
+    function displayCard(materiasInscripto){
+        let divCards = document.getElementById('signatureCards');
+        divCards.innerHTML = "";
+        materiasInscripto.forEach( m => {
+            let card =  "<div id='card-" + m.id +"' class='card mt-3'> " +
+                            "<div class='card-header h6'>" + 
+                            m.nombre +
+                            "</div>"+
+                            "<div class='card-body'>"+
+                            "<div class='col-form-label'>" + 
+                            "Cód:" + m.identificador +
+                            "</div>"+
+                            "<div class='col-form-label'>" + 
+                            "Depto:" + m.dpto +
+                            "</div>"+
+                            "</div>"+
+                            "<button class='btn btn-danger' id='btn-card-"+m.id+"'>Dar de baja</button>"
+                         "</div>";
+            divCards.innerHTML += card;
+            let btnDelete = document.getElementById('btn-card-'+m.id);
+            btnDelete.addEventListener('click', () => deleteInscripcion(m.id));
+        })
+    }
+
 
     function loadMaterias(){
         axios.get(api.materia.materia, getHeader())
@@ -23,6 +52,7 @@ function table(){
             if(response.status == 200){
                 materiasInscripto = response.data.materias;
                 table.refreshSelected(materiasInscripto);
+                displayCard(materiasInscripto);
                 $( ".btn.btn-outline-warning").addClass("d-none");
             }
         });

@@ -29,7 +29,7 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header h2">
-                Buscar Notas
+                Mis Notas
             </div>
 
             <!-- Card body -->
@@ -46,50 +46,27 @@
                         <div class="invalid-feedback" id="selectSignatureFeedback"></div>
                     </div>
 
-                    <!-- Texto de filtrado -->
-                    <div class="col-md" id="searchLuSection">
-                        <label for="searchLu" class="col-form-label">Filtrar lu</label>
-                        <input type="number" class="form-control" name="searchLu" id="searchLu" placeholder="Ingrese el lu">
-                        <div class="invalid-feedback" id="searchLuFeedback"></div>
-                    </div>
-
-                    <!-- Botón de búsqueda -->
-                    <div class="col">
-                        <label for="btnBuscar" class="col-form-label w-100" style="visibility: hidden;">Search</label>
-                        <button class="btn btn-primary" id="btnBuscar" name="search">
-                            <i class="fa fa-search"></i>
-                            Buscar
-                        </button>
-                    </div>
-
-                    <!-- Botón para cargar una nota -->
-                    <div class="col" id="addNotaSection" style="display: none;">
-                        <label for="addNota" class="col-form-label w-100" style="visibility: hidden;">Add</label>
-                        <a class="btn btn-success" id="addNota">
-                            <i class="fa fa-plus"></i>
-                            Cargar Nota
-                        </a>
-                    </div>
-
                 </div>
-
-                <!-- Sección para la tabla con los resultados de la búsqueda -->
-                <div class="row" id="notasInfo">
+                
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <label for="selectMateria" class="col-form-label">Nota Cursado</label>
+                        <input class="form-control" name="selectMateria" id="notaCursado" disabled>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="selectAlumno" class="col-form-label">Nota Final</label>
+                        <input class="form-control" name="selectAlumno" id="notaFinal" disabled>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Card footer -->
-            <div class="card-footer text-right">
-                <b id="footer"></b>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../../js/api.js"></script>
-    <script src="../../js/cardFooter.js"></script>
-    <script src="../../js/table.js"></script>
-    <script src="../../js/inputValidator.js"></script>
-    <script src="./js/index.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/cardFooter.js"></script>
+    <script src="../js/table.js"></script>
+    <script src="../js/inputValidator.js"></script>
+    <script src="./js/notas.js"></script>
 </body>
 </html>

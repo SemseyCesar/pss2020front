@@ -95,13 +95,12 @@ function searchApi() {
             table.refreshSelected(examRows);
             hardCodeDelBueno();
         }
-    })
-    // .catch(function (error) {
-    //     if(error.response)
-    //         console.log("Error: "+ error.response.data.message);
-    //     else
-    //         console.log("Error: No se pudo comunicar con el sistema");
-    // });
+    }).catch(function (error) {
+        if(error.response)
+            console.log("Error: "+ error.response.data.message);
+        else
+            console.log("Error: No se pudo comunicar con el sistema");
+    });
 }
 
 function hardCodeDelBueno(){
