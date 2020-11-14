@@ -52,10 +52,14 @@ function start(){
 
 	function searchApi(){
 		if (select.validity() && searchValue.validity()){
-			axios.post(api.carrera.search,
-			{
-				"search": searchValue.getInput(),
-			}, getHeader()
+			let urlSearch = api.carrera.carrera;
+			let field = select.select.value;
+			let value = searchValue.getInput();
+			if(field && value){
+				urlSearch += "?" + field +"="+value;
+			}
+
+			axios.get(urlSearch, getHeader()
 			).then(function (response) {
 				if(response.status == 200){
 					let data = response.data.carreras;

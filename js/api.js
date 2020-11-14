@@ -17,7 +17,6 @@ var api = {
         inscripcion : BASE_URL + "/materia/inscripcion",
     },
     carrera:{
-        search: BASE_URL + "/carrera/search",
         carrera: BASE_URL + "/carrera",
         inscripcion : BASE_URL + "/carrera/inscripcion",
     },

@@ -128,7 +128,22 @@ function validate(validators) {
 }
 
 function searchApi() {
-	axios.get(api.examen.examen, getHeader()
+	let urlSearch = api.examen.examen
+	let first = true;
+	let selectMateria = document.getElementById('selectMateria');
+	let examCode = document.getElementById('examCode');
+	console.log(selectMateria.value)
+	if(selectMateria.value){
+		urlSearch += "?materia=" + selectMateria.value;
+		first = false;
+	}
+	if(examCode.value){
+		urlSearch += first ? "?" : "&";
+		urlSearch += "code=" + examCode.value;
+	}
+	
+
+	axios.get(urlSearch, getHeader()
 	).then(function (response) {
 		if(response.status == 200){
 			let selectMateria = document.getElementById("selectMateria");
@@ -166,6 +181,8 @@ function customize(auth) {
 	switch (auth) {
 		case 'alumno':
 			customizeForStudent();
+			document.getElementById("addExamSection").style.display = 'none';
+			document.getElementById("examCodeSection").style.display = 'none';
 			break;
 		case 'admin':
 			defaultCustomize();
