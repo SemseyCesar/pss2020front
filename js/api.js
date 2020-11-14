@@ -11,7 +11,6 @@ var api = {
         user: BASE_URL + "/user"
     },
     materia:{
-        search: BASE_URL + "/materia/search",
         materia: BASE_URL + "/materia",
         asociar: BASE_URL + "/materia/asociar",
         inscripcion : BASE_URL + "/materia/inscripcion",
