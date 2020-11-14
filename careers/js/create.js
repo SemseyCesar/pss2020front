@@ -57,10 +57,7 @@ function start(){
             }
     });
 
-    axios.post(api.materia.search,
-        {
-            "search": "",
-        },getHeader()
+    axios.get(api.materia.search,getHeader()
         ).then(function (response) {
             if(response.status == 200){
                 response.data.materias.forEach( u => {
