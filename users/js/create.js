@@ -61,10 +61,8 @@ function start(){
                 getHeader()
             ).then(function (response) {
                 if (response.status == 200) {
-                    Object.values(fields).forEach(fieldValidator => {
-                        fieldValidator.getField().value = "";
-                    })
                     alert("Datos cargados correctamente");
+					window.history.back();
                 }
             }).catch(function (error) {
                 if(error.response)
@@ -83,10 +81,8 @@ function start(){
                 getHeader()
             ).then(function (response) {
                 if (response.status == 200) {
-                    Object.values(fields).forEach(fieldValidator => {
-                        fieldValidator.getField().value = "";
-                    })
                     alert("Datos cargados correctamente");
+					window.history.back();
                 }
             }).catch(function (error) {
                 if(error.response)

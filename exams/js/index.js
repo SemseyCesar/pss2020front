@@ -2,8 +2,13 @@ let fields = {};
 var table;
 var careers = [];
 
-// Carga la tabla para admin y docente.
-function initTable() {
+function tableAdmin() {
+	table = new Table('examenList',['Codigo','Materia','Fecha','Hora','Aula',''],
+        ['id','identificador','materia_nombre','fecha','hora','aula'], null, true, true);
+    table.setWidths(['10%','10%','20%','20%','20%','10%']);
+}
+
+function tableDocente() {
 	table = new Table('examenList',['Codigo','Materia','Fecha','Hora','Aula',''],
         ['id','identificador','materia_nombre','fecha','hora','aula'], null);
     table.setWidths(['10%','10%','20%','20%','20%','10%']);
@@ -141,7 +146,7 @@ function searchApi() {
 		urlSearch += first ? "?" : "&";
 		urlSearch += "code=" + examCode.value;
 	}
-	
+
 
 	axios.get(urlSearch, getHeader()
 	).then(function (response) {
@@ -186,9 +191,11 @@ function customize(auth) {
 			break;
 		case 'admin':
 			defaultCustomize();
+			tableAdmin();
 			document.getElementById("addExamSection").style.display = 'none';
 			break;
 		case 'docente':
+			tableDocente();
 			defaultCustomize();
 			break;
 	}
@@ -220,7 +227,6 @@ function defaultCustomize() {
 			{valueMissing: "Seleccione una materia"})
 	}
 	document.getElementById('examCodeSection').style.display = 'block';
-	initTable();
 	loadSignatures();
 }
 // ---------------------------------------------------------------------

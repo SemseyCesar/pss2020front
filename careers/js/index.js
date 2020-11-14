@@ -1,4 +1,4 @@
-  
+
 function start(){
 	var careersRows = [];
 
@@ -6,13 +6,16 @@ function start(){
         ['identificador','nombre','dpto','docente','duracion'], null);
     table.setWidths(['18%','20%','20%','20%','10%']);
 
-    table.setOnDeleteEvent((id)=>{
-		axios.delete(api.carrera.carrera+"/"+id, getHeader())
-			.then(function (response) {
-				if(response.status == 200){
-					searchApi();
-				}
-			});
+    table.setOnDeleteEvent((id)=> {
+        var opcion = confirm("¿Seguro/a que quiere borrar la carrera?");
+        if (opcion == true) {
+    		axios.delete(api.carrera.carrera+"/"+id, getHeader())
+    			.then(function (response) {
+    				if(response.status == 200){
+    					searchApi();
+    				}
+    			});
+        }
     })
 
     table.setOnEditEvent((id) =>{
@@ -21,7 +24,7 @@ function start(){
 
     let searchValue = new SearchBar(
         'searchValueSection',
-        ['text','text','text'], 
+        ['text','text','text'],
         ['Seleccione una opción','Ingrese el Nombre','Ingrese el Código'],
         ['','','',''],
         null

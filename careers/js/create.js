@@ -27,8 +27,11 @@ function start(){
     })
 
     table.setOnDeleteEvent((id)=>{
-        materiasSelected  = materiasSelected.filter(e => e.id != id);
-        table.refreshSelected(materiasSelected);
+        var opcion = confirm("¿Seguro/a que quiere borrar la materia?");
+        if (opcion == true) {
+            materiasSelected  = materiasSelected.filter(e => e.id != id);
+            table.refreshSelected(materiasSelected);
+        }
     })
 
     table.setOnEditEvent((id) =>{
@@ -120,16 +123,6 @@ function start(){
         });
     }
 
-    function refreshInputs(){
-        document.getElementById('careerName').value="";
-        document.getElementById('careerCode').value="";
-        document.getElementById('selectDepartamento').value="";
-        document.getElementById('careerRuntime').value="";
-        materiasSelected = [];
-        table.refreshSelected(materiasSelected);
-        alert("Datos cargados correctamente");
-    }
-
     function getDataToSend(){
         return {
             "nombre": document.getElementById('careerName').value,
@@ -146,8 +139,9 @@ function start(){
             axios.post(api.carrera.carrera,
                 getDataToSend(), getHeader()
             ).then(function (response){
-                if(response.status == 200){
-                    refreshInputs();
+                if(response.status == 200) {
+                    alert("Datos cargados correctamente");
+                    window.history.back();
                 }
             }).catch(function (error) {
                 if(error.response)
@@ -164,7 +158,8 @@ function start(){
                 getDataToSend() , getHeader()
             ).then(function (response){
                 if(response.status == 200){
-                    window.location.href = "./index.html"
+                    alert("Datos cargados correctamente");
+                    window.history.back();
                 }
             }).catch(function (error) {
                 if(error.response)
