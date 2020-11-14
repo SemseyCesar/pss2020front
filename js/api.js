@@ -27,6 +27,7 @@ var api = {
     },
     examen:{
         examen: BASE_URL + "/examen",
+        inscripcion: BASE_URL + "/examen/inscripcion",
     }
 }
 
