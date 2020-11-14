@@ -20,6 +20,7 @@ var api = {
         inscripcion : BASE_URL + "/carrera/inscripcion",
     },
     alumno:{
+        perfil: BASE_URL + "/alumno/perfil",
         carrera: BASE_URL + "/alumno/carrera",
     },
     profesor:{
