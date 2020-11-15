@@ -23,7 +23,7 @@ function errorLogin(error) {
     alert.style.display = "block";
     window.setTimeout(function() {
         alert.style.display = "none";
-    }, 3000);
+    }, 2500);
 }
 
 window.onload = function(){
@@ -36,9 +36,8 @@ window.onload = function(){
         }).then(response => {
             if(response.status == 200){
                 localStorage.setItem('access_token', response.data.access_token);
-                setTimeout(function(){
-                    checkToken(['admin', 'docente', 'alumno'], start);
-                },100)
+                localStorage.setItem('user_name', response.data.user.nombre_apellido);
+                checkToken(['admin', 'docente', 'alumno'], start);
             }
         }).catch(
             (e) => {

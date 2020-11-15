@@ -3,8 +3,9 @@ function start() {
         'navId',
         ['Home', 'Usuarios', 'Carreras', 'Materias', 'Exámenes', 'Notas', 'Asociar Doc-Mat'],
         ['', '../users/index.html', '../careers/index.html', '../signatures/index.html', '../exams/index.html', '../docente/notas/notas.html', '../signatures/asociar.html'],
-        'Admin',
-        'Username'
+        "Admin",
+        localStorage.getItem('user_name'),
+        '../auth/login.html'
     )
 }
 

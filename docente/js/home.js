@@ -4,7 +4,8 @@ function start(auth) {
         ['Home', 'Notas', 'Exámenes'],
         ['', './notas/notas.html', '../exams/index.html'],
         'Docente',
-        'Username'
+        localStorage.getItem('user_name'),
+        '../auth/login.html'
     );
 }
 

@@ -1,19 +1,13 @@
 class NavBar {
-    constructor(navId, texts, refs, rol, username) {
-        this.navId = navId;
-        this.texts = texts;
-        this.refs = refs;
-        this.rol = rol;
-        this.username = username;
-
+    constructor(navId, texts, refs, rol, username, loginPath) {
         let div = document.createElement('div');
         div.setAttribute("class", "collapse navbar-collapse");
 
         div.appendChild(this.initItems(refs, texts));
-        div.appendChild(this.initUserInfo(rol, username));
+        div.appendChild(this.initUserInfo(rol, username, loginPath));
 
         document.getElementById(navId).appendChild(div);
-
+        document.getElementById(navId).setAttribute("class", "navbar navbar-expand-lg navbar-dark bg-dark");
     }
 
     initItems(refs, texts) {
@@ -36,27 +30,45 @@ class NavBar {
         return ul;
     }
 
-    initUserInfo(rol, username) {
-        let ul = document.createElement('ul');
-        ul.setAttribute("class", "navbar-nav ml-auto nav-flex-icons");
+    initUserInfo(rol, username, loginPath) {
+        let items = document.createElement('ul');
+        items.setAttribute("class", "navbar-nav ml-auto nav-flex-icons");
 
-        let li1 = document.createElement('li');
-        li1.setAttribute("class", "nav-item");
-        let a1 = document.createElement('a');
-        a1.setAttribute("class", "nav-link waves-effect waves-light mr-2");
-        a1.innerHTML = rol;
-        li1.appendChild(a1);
+        let userRolSection = document.createElement('li');
+        let userRol = document.createElement('a');
 
-        let user = document.createElement('li');
-        user.setAttribute("class", "nav-item dropdown");
-        let a2 = document.createElement('a');
-        a2.setAttribute("class", "nav-link dropdown-toggle");
-        a2.innerHTML = username;
-        user.appendChild(a2);
+        userRolSection.setAttribute("class", "nav-item");
+        userRolSection.setAttribute("style", "border-right: 1px solid #aaaaaa;");
+        userRolSection.appendChild(userRol);
 
-        ul.appendChild(li1);
-        ul.appendChild(user);
+        userRol.setAttribute("class", "nav-link waves-effect waves-light mr-2");
+        userRol.appendChild(document.createTextNode(rol));
 
-        return ul;
+        let userNameSection = document.createElement('li');
+        let userName = document.createElement("a");
+        let logout = document.createElement("i");
+
+        userNameSection.setAttribute("class", "nav-item");
+        userNameSection.appendChild(userName);
+
+        userName.setAttribute("class", "nav-link waves-effect waves-light ml-2");
+        userName.appendChild(document.createTextNode(username.toUpperCase()));
+        userName.appendChild(logout);
+
+        logout.setAttribute("class", "fa fa-sign-out ml-4");
+        logout.addEventListener("click", (event) => {
+            if (confirm("¿Cerrar sesión?")) {
+                localStorage.removeItem('access_token');
+                localStorage.removeItem('user_name');
+                window.location.href = loginPath;
+            }
+        });
+
+
+
+        items.appendChild(userRolSection);
+        items.appendChild(userNameSection);
+
+        return items;
     }
 }

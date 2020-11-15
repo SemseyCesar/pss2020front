@@ -5,7 +5,8 @@ function start() {
         ['', './inscripcion/career.html', './inscripcion/signature.html', './inscripcion/exam.html'
         , './inscripcion/perfil.html', './notas.html'],
         'Alumno',
-        'Username'
+        localStorage.getItem('user_name'),
+        '../auth/login.html'
     )
 }
 
