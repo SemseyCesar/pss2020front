@@ -55,7 +55,7 @@ function start(){
         }else{
             disableButton()
         }
-        document.getElementById('notaCursado').value = nota_cursado ? nota_cursado : "Sin Calificar";
+        document.getElementById('notaCursado').value = nota_cursado? ((nota_cursado==1)? "Desaprobado" : "Aprobado") : "Sin Calificar";
         document.getElementById('notaFinal').value = nota_final ? nota_final : "Sin Calificar";
     }
 
@@ -88,13 +88,16 @@ function start(){
 
     function openModalEdit(alumno){
         let modal = $('#editModal')
+        let modal_cursado = modal.find('#modal-nota-cursado');
         console.log(alumno.pivot);
-        modal.find('#modal-nota-cursado').val(alumno.pivot.nota_cursado ? alumno.pivot.nota_cursado : "Sin calificar");
-        modal.find('#modal-nota-final').val(alumno.pivot.nota_final ? alumno.pivot.nota_final : "Sin calificar");
+        modal_cursado.val(alumno.pivot.nota_cursado ? ""+alumno.pivot.nota_cursado : "");
+        modal.find('#modal-nota-final').val(alumno.pivot.nota_final ? ""+alumno.pivot.nota_final : "");
+        onNotaCursadoChange(modal_cursado.val());
+        modal_cursado.change((event) => onNotaCursadoChange(modal_cursado.val()))
         modal.modal('show');
         modal.find('#btn-modal-success').click( function (event){
             modal.find('#btn-modal-success').off('click');
-            let nota_cursado = modal.find('#modal-nota-cursado').val();
+            let nota_cursado = modal_cursado.val();
             let nota_final = modal.find('#modal-nota-final').val();
             axios.post(api.profesor.nota, {
                 "materia_id": alumno.pivot.materia_id,
@@ -109,8 +112,18 @@ function start(){
                     modal.modal('hide');
                 }
             });
-
         })
+    }
+
+    function onNotaCursadoChange(value) {
+        let inputFinal = $('#editModal').find('#modal-nota-final');
+        if (value == "2") {
+            inputFinal.removeAttr("disabled");
+        }
+        else {
+            inputFinal.val("");
+            inputFinal.attr("disabled", "");
+        }
     }
 }
 

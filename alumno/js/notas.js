@@ -42,8 +42,8 @@ function selectOnChange(materiaId){
         let notaFinal = materia.pivot.nota_final;
         notaFinalInput.value = notaFinal ? notaFinal : "Sin Calificar";
     }else{
-        notaFinalInput = "Sin Calificar";
-        notaCursadoInput = "Sin Calificar";
+        notaFinalInput.value = "";
+        notaCursadoInput.value = "";
     }
 }
 
