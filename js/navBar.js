@@ -6,8 +6,9 @@ class NavBar {
         div.appendChild(this.initItems(refs, texts));
         div.appendChild(this.initUserInfo(rol, username, loginPath));
 
-        document.getElementById(navId).appendChild(div);
-        document.getElementById(navId).setAttribute("class", "navbar navbar-expand-lg navbar-dark bg-dark");
+        let navBar = document.getElementById(navId);
+        navBar.appendChild(div);
+        navBar.setAttribute("class", "navbar navbar-expand-lg navbar-dark bg-dark");
     }
 
     initItems(refs, texts) {
@@ -34,6 +35,14 @@ class NavBar {
         let items = document.createElement('ul');
         items.setAttribute("class", "navbar-nav ml-auto nav-flex-icons");
 
+        items.appendChild(this.rolSection(rol));
+        items.appendChild(this.nameSection(username));
+        items.appendChild(this.logoutSection(loginPath));
+
+        return items;
+    }
+
+    rolSection(rol) {
         let userRolSection = document.createElement('li');
         let userRol = document.createElement('a');
 
@@ -44,18 +53,35 @@ class NavBar {
         userRol.setAttribute("class", "nav-link waves-effect waves-light mr-2");
         userRol.appendChild(document.createTextNode(rol));
 
+        return userRolSection;
+    }
+
+    nameSection(username) {
         let userNameSection = document.createElement('li');
         let userName = document.createElement("a");
-        let logout = document.createElement("i");
 
         userNameSection.setAttribute("class", "nav-item");
         userNameSection.appendChild(userName);
 
         userName.setAttribute("class", "nav-link waves-effect waves-light ml-2");
         userName.appendChild(document.createTextNode(username.toUpperCase()));
-        userName.appendChild(logout);
 
-        logout.setAttribute("class", "fa fa-sign-out ml-4");
+        return userNameSection;
+    }
+
+    logoutSection(loginPath) {
+        let logoutSection = document.createElement('li');
+        let a = document.createElement('a');
+        let logout = document.createElement("i");
+
+        logoutSection.setAttribute("class", "nav-item");
+        logoutSection.appendChild(a);
+
+        a.setAttribute("class", "nav-link waves-effect waves-light btn ml-2");
+        a.appendChild(logout);
+
+        logout.setAttribute("class", "fa fa-sign-out");
+        logout.setAttribute("style", "font-size: 18px;");
         logout.addEventListener("click", (event) => {
             if (confirm("¿Cerrar sesión?")) {
                 localStorage.removeItem('access_token');
@@ -64,11 +90,6 @@ class NavBar {
             }
         });
 
-
-
-        items.appendChild(userRolSection);
-        items.appendChild(userNameSection);
-
-        return items;
+        return logoutSection;
     }
 }
