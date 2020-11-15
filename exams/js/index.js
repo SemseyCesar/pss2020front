@@ -1,6 +1,5 @@
 let fields = {};
 var table;
-var careers = [];
 
 function tableAdmin() {
 	table = new Table('examenList',['Codigo','Materia','Fecha','Hora','Aula',''],
@@ -38,54 +37,6 @@ function tableDocente() {
     });
 }
 
-function initAlumnoTable() {
-	table = new TableExamAlumno('examenList',['Codigo','Materia','Fecha','Hora','Aula',''],
-        ['id','identificador','materia_nombre','fecha','hora','aula'], null, true, true);
-    table.setWidths(['10%','10%','20%','20%','20%','10%']);
-
-    table.setOnRegisterEvent((id) => {
-		console.log("Inscribiendose de " + id);
-    });
-
-    table.setOnUnregisterEvent((id) => {
-		console.log("Desinscribiendose de " + id);
-    });
-}
-
-// Busqueda de carreras para el caso de un usuario tipo alumno.
-function searchCareers() {
-	axios.get(
-		api.alumno.carrera,
-		getHeader()
-    ).then(function (response) {
-        if(response.status == 200){
-            careers = response.data.carreras;
-			loadSelect(
-				document.getElementById("selectCarrera"),
-				careers,
-				"Seleccione una carrera"
-			);
-        }
-    });
-}
-
-// Actualiza el drop-down de materias en base a la carrera selecionada (para usuarios tipo alumnos).
-function onSelectCarreraChange() {
-	validate([fields.selectCarreraValidator]);
-	let selectCarrera = document.getElementById("selectCarrera");
-	let selectMateria = document.getElementById("selectMateria");
-	if (selectCarrera.value == "")
-		loadSelect(selectMateria, [], "Seleccione una materia");
-	else {
-		loadSelect(
-			selectMateria,
-		 	careers.filter(c => c.id == selectCarrera.value)[0].materias,
-			"Seleccione una materia"
-		);
-	}
-}
-
-// Para buscar las materias para admin y docente.
 function loadSignatures() {
 	axios.get(
 		api.materia.materia,
@@ -117,9 +68,6 @@ function loadSelect(select, data, defaultOptionText) {
 		select.appendChild(option);
 	})
 }
-
-
-
 
 // ---------------------------------------------------------------------
 // Para el momento de buscar los datos de los exámenes
@@ -184,11 +132,6 @@ function searchApi() {
 // Acomodando los elementos para los diferentes tipos de usuarios
 function customize(auth) {
 	switch (auth) {
-		case 'alumno':
-			customizeForStudent();
-			document.getElementById("addExamSection").style.display = 'none';
-			document.getElementById("examCodeSection").style.display = 'none';
-			break;
 		case 'admin':
 			defaultCustomize();
 			tableAdmin();
@@ -201,26 +144,6 @@ function customize(auth) {
 	}
 }
 
-function customizeForStudent() {
-	fields = {
-		selectCarreraValidator: new InputValidator("selectCarrera", "selectCarreraFeedback",
-			{valueMissing: "Seleccione una carrera"}),
-		selectMateriaValidator: new InputValidator("selectMateria", "selectMateriaFeedback",
-			{valueMissing: "Seleccione una materia"})
-	};
-	document.getElementById("addExamSection").style.display = 'none';
-
-	document.getElementById("selectCarreraSection").style.display = 'block';
-	let selectCarrera = document.getElementById("selectCarrera");
-
-	searchCareers();
-	initAlumnoTable();
-
-	selectCarrera.addEventListener("change", (event) =>
-		onSelectCarreraChange()
-	);
-}
-
 function defaultCustomize() {
 	fields = {
 		selectMateriaValidator: new InputValidator("selectMateria", "selectMateriaFeedback",
@@ -229,11 +152,9 @@ function defaultCustomize() {
 	document.getElementById('examCodeSection').style.display = 'block';
 	loadSignatures();
 }
+
 // ---------------------------------------------------------------------
-
-
-
-
+// ---------------------------------------------------------------------
 
 function start(auth){
     document.getElementById("selectMateria").addEventListener("change", (event) => {
@@ -251,5 +172,5 @@ function start(auth){
 
 
 window.onload = function(){
-    checkToken(['admin','docente','alumno'], start);
+    checkToken(['admin','docente'], start);
 }
