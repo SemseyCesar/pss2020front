@@ -1,17 +1,4 @@
-let fields = {
-    username: new InputValidator('username', 'usernameFeedback',
-        {customError: 'Incorrecto'}),
-    password: new InputValidator('password', 'passwordFeedback',
-        {customError: 'Incorrecto'})
-}
-
 function start(auth) {
-    fields.username.setCustomValidity();
-    fields.password.setCustomValidity();
-    Object.values(fields).forEach((item) => {
-        item.validate();
-    });
-
     switch (auth) {
         case 'admin':
             window.location.href = '../admin/home.html';
@@ -25,12 +12,18 @@ function start(auth) {
     }
 }
 
-function errorLogin() {
-    fields.username.setCustomValidity("Nombre de usuario no existente");
-    fields.password.setCustomValidity("Contraseña incorrecta");
-    Object.values(fields).forEach((item) => {
-        item.validate();
-    });
+function errorLogin(error) {
+    let alert = document.getElementById("alertIncorrect");
+    var text;
+    if(error.response)
+        text = "<strong>Usuario o contraseña inválida</strong>";
+    else
+        text = "<strong>Error: </strong> No se pudo comunicar con el sistema";
+    alert.innerHTML = text;
+    alert.style.display = "block";
+    window.setTimeout(function() {
+        alert.style.display = "none";
+    }, 3000);
 }
 
 window.onload = function(){
@@ -49,7 +42,7 @@ window.onload = function(){
             }
         }).catch(
             (e) => {
-                errorLogin();
+                errorLogin(e);
             }
         )
     })
