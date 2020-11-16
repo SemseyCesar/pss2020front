@@ -7,7 +7,9 @@ function table(){
     table.setWidths(['25%','25%','25%']);
 
     table.setOnDeleteEvent((id)=>{
-        deleteInscripcion(id)
+        var confirmacion = confirm("Esta seguro que desea desinscribirse de la materia?");
+        if(confirmacion)
+            deleteInscripcion(id)
     })
 
     function deleteInscripcion(id){

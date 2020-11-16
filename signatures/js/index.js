@@ -6,12 +6,14 @@ function start(){
 	table.setWidths(['25%','25%','25%']);
 
 	table.setOnDeleteEvent((id)=>{
-		axios.delete(api.materia.materia+"/"+id, getHeader())
-			.then(function (response) {
-				if(response.status == 200){
-					searchApi();
-				}
-			});
+		var confirmacion = confirm("Esta seguro que desea eliminar la materia?");
+        if(confirmacion)
+			axios.delete(api.materia.materia+"/"+id, getHeader())
+				.then(function (response) {
+					if(response.status == 200){
+						searchApi();
+					}
+				});
     })
 
     table.setOnEditEvent((id) =>{
