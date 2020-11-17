@@ -2,13 +2,32 @@ class NavBar {
     constructor(navId, texts, refs, rol, username, loginPath) {
         let div = document.createElement('div');
         div.setAttribute("class", "collapse navbar-collapse");
+        div.setAttribute('id', 'sectionNavBar');
 
         div.appendChild(this.initItems(refs, texts));
         div.appendChild(this.initUserInfo(rol, username, loginPath));
 
         let navBar = document.getElementById(navId);
+        navBar.appendChild(this.collapseButton());
         navBar.appendChild(div);
         navBar.setAttribute("class", "navbar navbar-expand-lg navbar-dark");
+    }
+
+    collapseButton() {
+        let button = document.createElement('button');
+        button.setAttribute('class', 'navbar-toggler');
+        button.setAttribute('data-toggle', 'collapse');
+        button.setAttribute('data-target', '#sectionNavBar');
+        button.setAttribute('aria-controls', 'sectionNavBar');
+        button.setAttribute('aria-expanded', 'false');
+        button.setAttribute('aria-label', 'Toggle navigation');
+
+        let span = document.createElement('span');
+        span.setAttribute('class', 'navbar-toggler-icon');
+
+        button.appendChild(span);
+
+        return button;
     }
 
     initItems(refs, texts) {
@@ -47,10 +66,9 @@ class NavBar {
         let userRol = document.createElement('a');
 
         userRolSection.setAttribute("class", "nav-item");
-        userRolSection.setAttribute("style", "border-right: 1px solid #aaaaaa;");
         userRolSection.appendChild(userRol);
 
-        userRol.setAttribute("class", "nav-link waves-effect waves-light mr-2");
+        userRol.setAttribute("class", "nav-link waves-effect waves-light mr-2 text-right");
         userRol.appendChild(document.createTextNode(rol));
 
         return userRolSection;
@@ -63,7 +81,7 @@ class NavBar {
         userNameSection.setAttribute("class", "nav-item");
         userNameSection.appendChild(userName);
 
-        userName.setAttribute("class", "nav-link waves-effect waves-light ml-2");
+        userName.setAttribute("class", "nav-link waves-effect waves-light text-right");
         userName.appendChild(document.createTextNode(username.toUpperCase()));
 
         return userNameSection;
@@ -76,19 +94,20 @@ class NavBar {
 
         logoutSection.setAttribute("class", "nav-item");
         logoutSection.appendChild(a);
-
-        a.setAttribute("class", "nav-link waves-effect waves-light btn ml-2");
-        a.appendChild(logout);
-
-        logout.setAttribute("class", "fa fa-sign-out");
-        logout.setAttribute("style", "font-size: 18px;");
-        logout.addEventListener("click", (event) => {
+        logoutSection.addEventListener("click", (event) => {
             if (confirm("¿Cerrar sesión?")) {
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('user_name');
                 window.location.href = loginPath;
             }
         });
+
+        a.setAttribute("class", "nav-link waves-effect waves-light btn float-right");
+        a.appendChild(logout);
+        a.appendChild(document.createTextNode('Sign-out'));
+
+        logout.setAttribute("class", "fa fa-sign-out");
+        logout.setAttribute("style", "font-size: 18px;");
 
         return logoutSection;
     }
