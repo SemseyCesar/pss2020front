@@ -1,5 +1,4 @@
-
-function table(){
+function table() {
     var materiasInscripto = []
 
     let table = new Table('signatureList',['Codigo','Nombre','Departamento',''],
@@ -28,14 +27,14 @@ function table(){
         divCards.innerHTML = "";
         materiasInscripto.forEach( m => {
             let card =  "<div id='card-" + m.id +"' class='card mt-3'> " +
-                            "<div class='card-header h6'>" + 
+                            "<div class='card-header h6'>" +
                             m.nombre +
                             "</div>"+
                             "<div class='card-body'>"+
-                            "<div class='col-form-label'>" + 
+                            "<div class='col-form-label'>" +
                             "Cód:" + m.identificador +
                             "</div>"+
-                            "<div class='col-form-label'>" + 
+                            "<div class='col-form-label'>" +
                             "Depto:" + m.dpto +
                             "</div>"+
                             "</div>"+
@@ -80,7 +79,18 @@ function table(){
     loadMaterias();
 }
 
-function start(){
+function start(auth){
+    if (auth=='alumno') {
+        new NavBar(
+            'navId',
+            ['Home', 'Inscripcion carrera', 'Inscripcion materia', 'Exámenes','Editar Datos','Mis Notas'],
+            ['../home.html', './career.html', '', './exam.html', './perfil.html', '../notas.html'],
+            'Alumno',
+            localStorage.getItem('user_name'),
+            '../../auth/login.html'
+        )
+    }
+
     var carreras = [];
 
     let selectCarrera = document.getElementById('selectCarrera');
@@ -121,5 +131,5 @@ function start(){
 }
 
 window.onload = function(){
-    checkToken(['admin','docente','alumno'], start);
+    checkToken(['admin','alumno'], start);
 }

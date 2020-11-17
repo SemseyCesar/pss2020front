@@ -1,4 +1,15 @@
-function start() {
+function start(auth) {
+    if (auth=='alumno') {
+        new NavBar(
+            'navId',
+            ['Home', 'Inscripcion carrera', 'Inscripcion materia', 'Exámenes','Editar Datos','Mis Notas'],
+            ['../home.html', '', './signature.html', './exam.html', './perfil.html', '../notas.html'],
+            'Alumno',
+            localStorage.getItem('user_name'),
+            '../../auth/login.html'
+        )
+    }
+
     selectCarrera = new InputValidator('selectCarrera', 'selectCarreraFeedback',
             {valueMissing: 'Elija una carrera'});
 
@@ -53,5 +64,5 @@ function start() {
 }
 
 window.onload = function(){
-    checkToken(['admin','docente','alumno'], start);
+    checkToken(['alumno'], start);
 }

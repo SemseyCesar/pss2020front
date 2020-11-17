@@ -1,4 +1,15 @@
-function start(){
+function start(auth) {
+    if (auth=='admin') {
+        new NavBar(
+            'navId',
+            ['Home', 'Usuarios', 'Carreras', 'Materias', 'Exámenes', 'Notas', 'Asociar Doc-Mat'],
+            ['../admin/home.html', '../users/index.html', './index.html', '../signatures/index.html', '', '../docente/notas/notas.html', '../signatures/asociar.html'],
+            "Admin",
+            localStorage.getItem('user_name'),
+            '../auth/login.html'
+        );
+	}
+
     const searchParams = new URLSearchParams(window.location.search);
     var edit = (searchParams.has('id') && searchParams.get('id')) ? true : false;
     var _id = edit ? searchParams.get('id') : null;

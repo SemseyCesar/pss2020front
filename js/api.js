@@ -55,7 +55,9 @@ function checkToken(roles, start){
         }
     ).catch(
         (e) => {
-            document.body.appendChild(createBody());
+            if (e.response) {
+                document.body.appendChild(createBody());
+            }
         }
     )
 }

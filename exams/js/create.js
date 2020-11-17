@@ -1,4 +1,15 @@
-function start(){
+function start(auth) {
+	if (auth=='docente') {
+		new NavBar(
+			'navId',
+			['Home', 'Notas', 'Exámenes'],
+			['../docente/home.html', '../docente/notas/notas.html', './index.html'],
+			'Docente',
+			localStorage.getItem('user_name'),
+			'../auth/login.html'
+		);
+	}
+
 	var signatures = [];
 	let fields = {
 		examSignatures: new InputValidator('examSignatures', 'examSignatureFeedback',
@@ -159,5 +170,5 @@ function start(){
 }
 
 window.onload = function(){
-    checkToken(['admin','docente'], start);
+    checkToken(['docente'], start);
 }

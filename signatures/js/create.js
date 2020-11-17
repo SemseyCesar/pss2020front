@@ -1,4 +1,14 @@
-function start(){
+function start(auth){
+    if (auth=='admin')
+        new NavBar(
+            'navId',
+            ['Home', 'Usuarios', 'Carreras', 'Materias', 'Exámenes', 'Notas', 'Asociar Doc-Mat'],
+            ['../admin/home.html', '../users/index.html', '../careers/index.html', './index.html', '../exams/index.html', '../docente/notas/notas.html', './asociar.html'],
+            "Admin",
+            localStorage.getItem('user_name'),
+            '../auth/login.html'
+        );
+
     let fields = {
         signatureName: new InputValidator('signatureName', 'signatureNameFeedback',
         {valueMissing: 'Ingrese un nombre'}),
@@ -71,8 +81,6 @@ function start(){
                 else
                 alert("Error: No se pudo comunicar con el sistema")
             });
-        } else {
-            console.log("No valida");
         }
     }
 

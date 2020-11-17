@@ -47,7 +47,19 @@ function selectOnChange(materiaId){
     }
 }
 
-function start() {
+function start(auth) {
+	if (auth=='alumno') {
+	    new NavBar(
+	        'navId',
+	        ['Home', 'Inscripcion carrera', 'Inscripcion materia', 'Exámenes','Editar Datos','Mis Notas'],
+	        ['./home.html', './inscripcion/career.html', './inscripcion/signature.html', './inscripcion/exam.html'
+	        , './inscripcion/perfil.html', ''],
+	        'Alumno',
+	        localStorage.getItem('user_name'),
+	        '../auth/login.html'
+	    )
+	}
+
     loadSignatures();
 	selectMateria.addEventListener('change', (event) => selectOnChange(selectMateria.value));
 }

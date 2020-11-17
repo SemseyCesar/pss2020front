@@ -8,7 +8,7 @@ class NavBar {
 
         let navBar = document.getElementById(navId);
         navBar.appendChild(div);
-        navBar.setAttribute("class", "navbar navbar-expand-lg navbar-dark bg-dark");
+        navBar.setAttribute("class", "navbar navbar-expand-lg navbar-dark");
     }
 
     initItems(refs, texts) {

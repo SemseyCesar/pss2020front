@@ -1,4 +1,24 @@
-function start(){
+function start(auth){
+	if (auth=='admin')
+        new NavBar(
+            'navId',
+            ['Home', 'Usuarios', 'Carreras', 'Materias', 'Exámenes', 'Notas', 'Asociar Doc-Mat'],
+            ['../admin/home.html', '../users/index.html', '../careers/index.html', '', '../exams/index.html', '../docente/notas/notas.html', './asociar.html'],
+            "Admin",
+            localStorage.getItem('user_name'),
+            '../auth/login.html'
+        );
+	else if (auth=='docente') {
+		new NavBar(
+	        'navId',
+	        ['Home', 'Notas', 'Exámenes'],
+	        ['', '../notas/notas.html', '../exams/index.html'],
+	        'Docente',
+	        localStorage.getItem('user_name'),
+	        '../auth/login.html'
+	    );
+	}
+
 	var signaturesRows = [];
 
 	let table = new Table('signatureList',['Codigo','Nombre','Departamento',''],
@@ -22,7 +42,7 @@ function start(){
 
     let searchValue = new SearchBar(
         'searchValueSection',
-        ['text','text','text'], 
+        ['text','text','text'],
         ['Seleccione una opción','Ingrese el Nombre','Ingrese el Código'],
         ['','','',''],
         null

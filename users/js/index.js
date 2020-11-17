@@ -1,4 +1,14 @@
-function start(){
+function start(auth){
+    if (auth=='admin')
+        new NavBar(
+            'navId',
+            ['Home', 'Usuarios', 'Carreras', 'Materias', 'Exámenes', 'Notas', 'Asociar Doc-Mat'],
+            ['../admin/home.html', '', '../careers/index.html', '../signatures/index.html', '../exams/index.html', '../docente/notas/notas.html', '../signatures/asociar.html'],
+            "Admin",
+            localStorage.getItem('user_name'),
+            '../auth/login.html'
+        )
+
     var usersRows = [];
 
 	let table = new Table('usersList',['LU','DNI','Nombre y Apellido','Rol',''],
