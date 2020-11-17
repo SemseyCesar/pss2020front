@@ -38,7 +38,7 @@ function selectOnChange(materiaId){
     let notaCursadoInput = document.getElementById('notaCursado');
     if(materia){
         let notaCursado = materia.pivot.nota_cursado;
-        notaCursadoInput.value = notaCursado ? notaCursado : "Sin Calificar";
+		notaCursadoInput.value = notaCursado? ((notaCursado==1)? "Desaprobado" : "Aprobado") : "Sin Calificar";
         let notaFinal = materia.pivot.nota_final;
         notaFinalInput.value = notaFinal ? notaFinal : "Sin Calificar";
     }else{
