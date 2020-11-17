@@ -157,6 +157,27 @@ function defaultCustomize() {
 // ---------------------------------------------------------------------
 
 function start(auth){
+    if (auth=='admin') {
+        new NavBar(
+            'navId',
+            ['Home', 'Usuarios', 'Carreras', 'Materias', 'Exámenes', 'Notas', 'Asociar Doc-Mat'],
+            ['../admin/home.html', '../users/index.html', '../careers/index.html', '../signatures/index.html', '', '../docente/notas/notas.html', '../signatures/asociar.html'],
+            "Admin",
+            localStorage.getItem('user_name'),
+            '../auth/login.html'
+        );
+	}
+	else if (auth=='docente') {
+		new NavBar(
+			'navId',
+			['Home', 'Notas', 'Exámenes'],
+			['../docente/home.html', '../docente/notas/notas.html', ''],
+			'Docente',
+			localStorage.getItem('user_name'),
+			'../auth/login.html'
+		);
+	}
+
     document.getElementById("selectMateria").addEventListener("change", (event) => {
         validate([fields.selectMateriaValidator]);
     });

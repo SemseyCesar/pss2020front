@@ -1,5 +1,15 @@
+function start(auth) {
+    if (auth=='admin') {
+        new NavBar(
+            'navId',
+            ['Home', 'Usuarios', 'Carreras', 'Materias', 'Exámenes', 'Notas', 'Asociar Doc-Mat'],
+            ['../admin/home.html', '../users/index.html', '', '../signatures/index.html', '', '../docente/notas/notas.html', '../signatures/asociar.html'],
+            "Admin",
+            localStorage.getItem('user_name'),
+            '../auth/login.html'
+        );
+	}
 
-function start(){
 	var careersRows = [];
 
 	let table = new Table('carrerList',['Codigo','Nombre','Departamento','Docente','Duración',''],

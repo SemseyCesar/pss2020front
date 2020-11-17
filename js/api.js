@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 //var BASE_URL = "http://127.0.0.1:8000/api";
+=======
+// var BASE_URL = "http://127.0.0.1:8000/api";
+>>>>>>> Stashed changes
 var BASE_URL = "https://pss2020api.herokuapp.com/api";
 var api = {
     auth:{
@@ -55,7 +59,9 @@ function checkToken(roles, start){
         }
     ).catch(
         (e) => {
-            document.body.appendChild(createBody());
+            if (e.response) {
+                document.body.appendChild(createBody());
+            }
         }
     )
 }

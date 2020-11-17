@@ -1,4 +1,14 @@
-function start(){
+function start(auth) {
+    if (auth=='admin')
+        new NavBar(
+            'navId',
+            ['Home', 'Usuarios', 'Carreras', 'Materias', 'Exámenes', 'Notas', 'Asociar Doc-Mat'],
+            ['../admin/home.html', '../users/index.html', '../careers/index.html', './index.html', '../exams/index.html', '../docente/notas/notas.html', ''],
+            "Admin",
+            localStorage.getItem('user_name'),
+            '../auth/login.html'
+        );
+
     var materias = [];
     var materiaSelected = null;
     let selectMateria = document.getElementById('selectMateria');
@@ -89,5 +99,5 @@ function start(){
 }
 
 window.onload = function(){
-    checkToken(['admin','docente'], start);
+    checkToken(['admin'], start);
 }

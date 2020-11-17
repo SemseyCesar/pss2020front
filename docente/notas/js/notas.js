@@ -1,4 +1,23 @@
-function start(){
+function start(auth) {
+    if (auth=='admin') {
+        new NavBar(
+            'navId',
+            ['Home', 'Usuarios', 'Carreras', 'Materias', 'Exámenes', 'Notas', 'Asociar Doc-Mat'],
+            ['../../admin/home.html', '../../users/index.html', '../../careers/index.html', '../../signatures/index.html', '../../exams/index.html', '', '../../signatures/asociar.html'],
+            "Admin",
+            localStorage.getItem('user_name'),
+            '../../auth/login.html'
+        )
+    } else if (auth=='docente') {
+        new NavBar(
+            'navId',
+            ['Home', 'Notas', 'Exámenes'],
+            ['', '', '../../exams/index.html'],
+            'Docente',
+            localStorage.getItem('user_name'),
+            '../../auth/login.html'
+        );
+    }
 
     var materias = [];
     var alumnos = [];

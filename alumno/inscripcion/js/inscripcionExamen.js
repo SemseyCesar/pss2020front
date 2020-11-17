@@ -3,7 +3,18 @@ var selectCarrera = document.getElementById('selectCarrera');
 var table;
 var fields;
 
-function start(){
+function start(auth){
+    if (auth=='alumno') {
+        new NavBar(
+            'navId',
+            ['Home', 'Inscripcion carrera', 'Inscripcion materia', 'Exámenes','Editar Datos','Mis Notas'],
+            ['../home.html', './career.html', './signature.html', '', './perfil.html', '../notas.html'],
+            'Alumno',
+            localStorage.getItem('user_name'),
+            '../../auth/login.html'
+        )
+    }
+
     fields = {
         selCarrera: new InputValidator("selectCarrera", "selectCarreraFeedback",
             {valueMissing: "Seleccione una carrera"}),
@@ -160,5 +171,5 @@ function hardCodeDelBueno(){
 }
 
 window.onload = function(){
-    checkToken(['admin','docente','alumno'], start);
+    checkToken(['admin','alumno'], start);
 }

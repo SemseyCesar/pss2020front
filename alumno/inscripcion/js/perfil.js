@@ -67,7 +67,17 @@ function loadInput(){
     });
 }
 
-function start(){
+function start(auth){
+    if (auth=='alumno') {
+        new NavBar(
+            'navId',
+            ['Home', 'Inscripcion carrera', 'Inscripcion materia', 'Exámenes','Editar Datos','Mis Notas'],
+            ['../home.html', './career.html', './signature.html', './exam.html', '', '../notas.html'],
+            'Alumno',
+            localStorage.getItem('user_name'),
+            '../../auth/login.html'
+        )
+    }
 
     let btnGuardar = document.getElementById('btnGuardar');
     btnGuardar.addEventListener('click', (event) => {

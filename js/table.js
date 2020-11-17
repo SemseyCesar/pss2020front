@@ -32,7 +32,6 @@ class Table{
 
     initTHead(cols){
         let thead = document.createElement("thead");
-        thead.setAttribute('class','thead-light');
         let tr = document.createElement("tr");
         thead.appendChild(tr);
         cols.forEach( c =>{
@@ -81,7 +80,7 @@ class Table{
 
     createDeleteButton(id){
         let deleteButton = document.createElement("button");
-        deleteButton.setAttribute('class','btn btn-outline-danger ml-1');
+        deleteButton.setAttribute('class','btn btn-danger ml-1');
         let icon = document.createElement('i');
         icon.setAttribute('class','fa fa-trash');
         icon.style.fontSize = "12px";
@@ -94,7 +93,7 @@ class Table{
 
     createEditButton(id){
         let deleteButton = document.createElement("button");
-        deleteButton.setAttribute('class','btn btn-outline-warning');
+        deleteButton.setAttribute('class','btn btn-warning');
         let icon = document.createElement('i');
         icon.setAttribute('class','fa fa-edit');
         icon.style.fontSize = "12px";
