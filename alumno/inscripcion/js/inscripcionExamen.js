@@ -37,7 +37,7 @@ function start(auth){
         axios.get(api.examen.examen + "/" + id, getHeader()
         ).then(function (response) {
             if(response.status == 200){
-                    if (response.data.inscripcion=="SI"){
+                    if (response.data.inscripto=="SI"){
                     axios.delete(api.examen.inscripcion+"/"+id, getHeader())
                     .then((response) => {if(response.status == 200){
                             searchApi();
