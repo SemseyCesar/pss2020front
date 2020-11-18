@@ -34,19 +34,11 @@ function start(auth){
 
     initTable();
     table.setOnDeleteEvent((id) => {
-        axios.get(api.examen.examen + "/" + id, getHeader()
-        ).then(function (response) {
-            if(response.status == 200){
-                    if (response.data.examenes.inscripto=="SI"){
-                    axios.delete(api.examen.inscripcion+"/"+id, getHeader())
-                    .then((response) => {if(response.status == 200){
-                            searchApi();
-                        }}
-                    );
-                    } else {
-                        alert("Error: El usuario no esta inscripto al examen");
-                    }
-            }
+        axios.delete(api.examen.inscripcion+"/"+id, getHeader())
+        .then((response) => {if(response.status == 200){
+                searchApi();
+            }}
+        );
     });
 
     table.setOnEditEvent((id) =>{
