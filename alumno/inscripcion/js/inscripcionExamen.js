@@ -34,12 +34,24 @@ function start(auth){
 
     initTable();
     table.setOnDeleteEvent((id) => {
-        axios.delete(api.examen.inscripcion+"/"+id, getHeader())
+        axios.get(api.examen.examen, getHeader())
         .then((response) => {if(response.status == 200){
-                searchApi();
-            }}
-        );
-    });
+                if(((response.data.examenes.filter(d => d.id == id)[0]).inscripto)=="No"){
+                    alert("Error: No se puede desinscribir de un examen al cual no esta inscripto");
+                } else {
+                    axios.delete(api.examen.inscripcion+"/"+id, getHeader())
+                    .then((response) => {if(response.status == 200){
+                            searchApi();
+                        }}
+                    );
+                }
+            }
+        }
+    )});
+
+
+       
+
 
     table.setOnEditEvent((id) =>{
         axios.post(api.examen.inscripcion,{examen_id: id}, getHeader())
