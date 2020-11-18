@@ -165,17 +165,17 @@ function localValidate() {
 }
 
 function hardCodeDelBueno(){
-    $( ".btn.btn-outline-warning").addClass("btn-outline-success");
-    $( ".btn.btn-outline-warning").removeClass("btn-outline-warning");
-    $( ".btn.btn-outline-success").html("<i class='fa fa-check'></i>");
-    $( ".btn.btn-outline-danger").html("<i class='fa fa-close'></i>");
+    $( ".btn.btn-warning").addClass("btn-success");
+    $( ".btn.btn-warning").removeClass("btn-warning");
+    $( ".btn.btn-success").html("<i class='fa fa-check'></i>");
+    $( ".btn.btn-danger").html("<i class='fa fa-close'></i>");
 
-    $( ".btn.btn-outline-danger").each( (index, element )=>{
+    $( ".btn.btn-danger").each( (index, element )=>{
         if(element.parentElement.parentElement.children[5].innerHTML == "No"){
             element.classList.add("d-none");
         }
     });
-    $( ".btn.btn-outline-success").each( (index, element )=>{
+    $( ".btn.btn-success").each( (index, element )=>{
         if(element.parentElement.parentElement.children[5].innerHTML == "Si"){
             element.classList.add("d-none");
         }
